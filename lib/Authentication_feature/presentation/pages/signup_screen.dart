@@ -119,10 +119,11 @@ class SignUpScreen extends StatelessWidget {
                 color: ColorPalette.grey,
                 thickness: 1,
               )),
-          const Padding(
+           Padding(
             padding: EdgeInsets.symmetric(horizontal: 5.0),
             child: Text(
               strOrSignInWith,
+              style: TextStyle(fontSize: mobileSize.width>768?16:12,),
             ),
           ),
           SizedBox(
