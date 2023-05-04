@@ -120,7 +120,7 @@ class SignUpScreen extends StatelessWidget {
                 thickness: 1,
               )),
            Padding(
-            padding: EdgeInsets.symmetric(horizontal: 5.0),
+            padding: const EdgeInsets.symmetric(horizontal: 1.0),
             child: Text(
               strOrSignInWith,
               style: TextStyle(fontSize: mobileSize.width>768?16:12,),
