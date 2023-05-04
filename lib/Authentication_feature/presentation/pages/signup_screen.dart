@@ -107,33 +107,27 @@ class SignUpScreen extends StatelessWidget {
             ),
           );
   }
-  FittedBox orRow(Size mobileSize) {
-    return FittedBox(
-      fit: BoxFit.scaleDown,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          SizedBox(
-              width: mobileSize.width*0.1,
-              child: Divider(
-                color: ColorPalette.grey,
-                thickness: 1,
-              )),
-           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 1.0),
-            child: Text(
-              strOrSignInWith,
-              style: TextStyle(fontSize: mobileSize.width>768? 16:12,),
-            ),
-          ),
-          SizedBox(
-              width: mobileSize.width*0.1,
-              child: Divider(
-                color: ColorPalette.grey,
-                thickness: 1,
-              )),
-        ],
-      ),
+  Row orRow(Size mobileSize) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        SizedBox(
+            width: mobileSize.width*0.25,
+            child: Divider(
+              color: ColorPalette.grey,
+              thickness: 1,
+            )),
+         Text(
+           strOrSignInWith,
+           style: TextStyle(fontSize: mobileSize.width>768? 16:12,),
+         ),
+        SizedBox(
+            width: mobileSize.width*0.25,
+            child: Divider(
+              color: ColorPalette.grey,
+              thickness: 1,
+            )),
+      ],
     );
   }
   Padding googleAndFacebookAuth(Size mobileSize) {
