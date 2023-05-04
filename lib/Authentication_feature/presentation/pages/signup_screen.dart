@@ -107,34 +107,31 @@ class SignUpScreen extends StatelessWidget {
             ),
           );
   }
-  Padding orRow(Size mobileSize) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 5.0),
-      child: FittedBox(
-        fit: BoxFit.scaleDown,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            SizedBox(
-                width: mobileSize.width*0.25,
-                child: Divider(
-                  color: ColorPalette.grey,
-                  thickness: 1,
-                )),
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 10.0),
-              child: Text(
-                strOrSignInWith,
-              ),
+  FittedBox orRow(Size mobileSize) {
+    return FittedBox(
+      fit: BoxFit.scaleDown,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          SizedBox(
+              width: mobileSize.width*0.25,
+              child: Divider(
+                color: ColorPalette.grey,
+                thickness: 1,
+              )),
+          const Padding(
+            padding: EdgeInsets.symmetric(horizontal: 5.0),
+            child: Text(
+              strOrSignInWith,
             ),
-            SizedBox(
-                width: mobileSize.width*0.25,
-                child: Divider(
-                  color: ColorPalette.grey,
-                  thickness: 1,
-                )),
-          ],
-        ),
+          ),
+          SizedBox(
+              width: mobileSize.width*0.25,
+              child: Divider(
+                color: ColorPalette.grey,
+                thickness: 1,
+              )),
+        ],
       ),
     );
   }
