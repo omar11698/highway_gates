@@ -114,7 +114,7 @@ class SignUpScreen extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           SizedBox(
-              width: mobileSize.width*0.25,
+              width: mobileSize.width*0.1,
               child: Divider(
                 color: ColorPalette.grey,
                 thickness: 1,
@@ -127,7 +127,7 @@ class SignUpScreen extends StatelessWidget {
             ),
           ),
           SizedBox(
-              width: mobileSize.width*0.25,
+              width: mobileSize.width*0.1,
               child: Divider(
                 color: ColorPalette.grey,
                 thickness: 1,
