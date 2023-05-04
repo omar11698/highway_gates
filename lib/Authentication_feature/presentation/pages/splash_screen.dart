@@ -22,7 +22,7 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
   @override
   void initState() {
     super.initState();
-    final storage = FirebaseStorage.instance;
+    // final storage = FirebaseStorage.instance;
 
 
     Future.delayed(

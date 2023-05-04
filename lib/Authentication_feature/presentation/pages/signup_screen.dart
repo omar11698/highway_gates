@@ -91,13 +91,14 @@ class SignUpScreen extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  const Text(strAlreadyHaveAccount),
+                  Text(strAlreadyHaveAccount,style: TextStyle(fontSize: mobileSize.width>768?16:12),),
                   InkWell(
                     onTap: () => Navigator.pushNamed(context, loginRoute),
-                    child: const Text(
+                    child:  Text(
                       " Log In",
                       style: TextStyle(
                         color: Colors.blueAccent,
+                        fontSize: mobileSize.width>768?16:12,
                       ),
                     ),
                   ),
@@ -109,28 +110,31 @@ class SignUpScreen extends StatelessWidget {
   Padding orRow() {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20.0),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          SizedBox(
-              width: 110,
-              child: Divider(
-                color: ColorPalette.grey,
-                thickness: 1,
-              )),
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 10.0),
-            child: Text(
-              strOrSignInWith,
+      child: FittedBox(
+        fit: BoxFit.scaleDown,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            SizedBox(
+                width: 110,
+                child: Divider(
+                  color: ColorPalette.grey,
+                  thickness: 1,
+                )),
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 10.0),
+              child: Text(
+                strOrSignInWith,
+              ),
             ),
-          ),
-          SizedBox(
-              width: 100,
-              child: Divider(
-                color: ColorPalette.grey,
-                thickness: 1,
-              )),
-        ],
+            SizedBox(
+                width: 100,
+                child: Divider(
+                  color: ColorPalette.grey,
+                  thickness: 1,
+                )),
+          ],
+        ),
       ),
     );
   }
