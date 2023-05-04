@@ -38,7 +38,6 @@ class LoginScreen extends StatelessWidget {
               ),
 
               /// logo
-
               logoWidget(mobileSize),
               spaceBetweenWidgets2,
               /// welcome back text
@@ -50,8 +49,9 @@ class LoginScreen extends StatelessWidget {
 
               loginIntoText(),
               spaceBetweenWidgets,
-              ///login and passwords fields
 
+
+              ///login and passwords fields
               loginField(loginTextEditingController),
               spaceBetweenWidgets,
               passwordField(passwordTextEditingController),
@@ -113,11 +113,11 @@ class LoginScreen extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                    GoogleFacebookCard(cardName:strGoogle,icon: googlePngImg, onTap: () {},),
+                   GoogleFacebookCard(cardName:strGoogle,icon: googlePngImg, onTap: () {},),
                     SizedBox(
                     width: mobileSize.height * 0.03,
                   ),
-                    GoogleFacebookCard(cardName: strFacebook,icon: facebookPngImg, onTap: () {},),
+                   GoogleFacebookCard(cardName: strFacebook,icon: facebookPngImg, onTap: () {},),
 
                 ],
               ),
@@ -125,52 +125,60 @@ class LoginScreen extends StatelessWidget {
   }
 
   Padding orRow() {
-    return Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  SizedBox(
-                      width: 100,
-                      child: Divider(
-                        color: ColorPalette.grey,
-                        thickness: 1,
-                      )),
-                  const Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 10.0),
-                    child: Text(
-                      strOrSignInWith,
-                    ),
+
+      return Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                child: FittedBox(
+                  fit: BoxFit.scaleDown,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      SizedBox(
+                          width: 100,
+                          child: Divider(
+                            color: ColorPalette.grey,
+                            thickness: 1,
+                          )),
+                      const Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 10.0),
+                        child: Text(
+                          strOrSignInWith,
+                        ),
+                      ),
+                      SizedBox(
+                          width: 100,
+                          child: Divider(
+                            color: ColorPalette.grey,
+                            thickness: 1,
+                          )),
+                    ],
                   ),
-                  SizedBox(
-                      width: 100,
-                      child: Divider(
-                        color: ColorPalette.grey,
-                        thickness: 1,
-                      )),
-                ],
-              ),
-            );
+                ),
+              );
+
   }
 
   SizedBox firstTimeText(Size mobileSize, BuildContext context) {
     return SizedBox(
               width: mobileSize.width * 0.4,
               child: Center(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    const Text(strFirstTimeHere),
-                    InkWell(
-                      onTap: () => Navigator.pushNamed(context, signUpRoute),
-                      child: const Text(
-                        " Sign up",
-                        style: TextStyle(
-                          color: Colors.blueAccent,
+                child: FittedBox(
+                  fit: BoxFit.scaleDown,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      const Text(strFirstTimeHere),
+                      InkWell(
+                        onTap: () => Navigator.pushNamed(context, signUpRoute),
+                        child: const Text(
+                          " Sign up",
+                          style: TextStyle(
+                            color: Colors.blueAccent,
+                          ),
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             );

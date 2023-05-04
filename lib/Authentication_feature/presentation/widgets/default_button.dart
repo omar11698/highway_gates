@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 class DefaultButton extends StatelessWidget {
   final String label;
   final VoidCallback? onTap;
+
   const DefaultButton({
   super.key,
   required this.mobileSize, required this.label, this.onTap,

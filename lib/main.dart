@@ -1,11 +1,11 @@
-import 'package:animated_splash_screen/animated_splash_screen.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:highway_gates/Authentication_feature/presentation/pages/splash_screen.dart';
 import 'package:highway_gates/Core/constants/text_styles.dart';
-import 'Authentication_feature/presentation/pages/onBoarding_screen/onBoarding_screen.dart';
 import 'Core/router/navigation_router.dart';
+import 'package:firebase_core/firebase_core.dart';
 
-void main() {
+void main() async {
+  await Firebase.initializeApp();
   runApp(const MyApp());
 }
 

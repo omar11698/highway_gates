@@ -10,6 +10,7 @@ class GoogleFacebookCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+      var deviceWidth=MediaQuery.of(context).size.width;
     return Expanded(
         child: InkWell(
           onTap: onTap,
@@ -26,7 +27,7 @@ class GoogleFacebookCard extends StatelessWidget {
                   child: SizedBox(height: 20,child: CircleAvatar(backgroundColor:Colors.white,child: Image.asset(icon,),)),
                 ),
                 const SizedBox(width: 5,),
-                Text(cardName,style: const TextStyle(color: Colors.black,fontSize: 18,fontWeight: FontWeight.w500,),),
+                Text(cardName,style:  TextStyle(color: Colors.black,fontSize: deviceWidth>768? 18 :12,fontWeight: FontWeight.w500,),),
               ],
             ),
           ),

@@ -1,9 +1,11 @@
 import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:highway_gates/Core/constants/svg_images.dart';
-import 'package:highway_gates/Core/router/navigation_router.dart';
+import 'package:firebase_core/firebase_core.dart';
+import '../../../Core/router/navigation_router.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -20,9 +22,14 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
   @override
   void initState() {
     super.initState();
+    final storage = FirebaseStorage.instance;
+
+
     Future.delayed(
         const Duration(seconds: 4),
-            () => Navigator.pushNamed(context, onBoardingRoute));
+
+            () => Navigator.pushNamed(context, onBoardingRoute)
+    );
     animationController=AnimationController(
       vsync: this,
       duration: const Duration(

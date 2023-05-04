@@ -13,7 +13,7 @@ class SignUpScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    var mobileSize=MediaQuery.of(context).size;
+    var mobileSize = MediaQuery.of(context).size;
     var spaceBetweenWidgets=SizedBox(height:mobileSize.height*0.02 ,);
     TextEditingController nameTextEditingController=TextEditingController();
     TextEditingController emailTextEditingController=TextEditingController();
@@ -46,6 +46,7 @@ class SignUpScreen extends StatelessWidget {
            content(nameTextEditingController, spaceBetweenWidgets, emailTextEditingController, passwordsTextEditingController, verifyPasswordEditingController),
             spaceBetweenWidgets,
             spaceBetweenWidgets,
+
             /// sign up button
             DefaultButton(mobileSize: mobileSize, label: "Sign Up"),
             spaceBetweenWidgets,
