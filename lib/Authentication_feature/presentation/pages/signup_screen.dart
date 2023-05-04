@@ -66,7 +66,7 @@ class SignUpScreen extends StatelessWidget {
 
   Padding content(TextEditingController nameTextEditingController, SizedBox spaceBetweenWidgets, TextEditingController emailTextEditingController, TextEditingController passwordsTextEditingController, TextEditingController verifyPasswordEditingController) {
     return Padding(
-           padding: const EdgeInsets.only(left: 15.0,top: 10,right: 15),
+           padding: const EdgeInsets.only(left: 10.0,top: 10,right: 10),
            child: Column(
              mainAxisAlignment: MainAxisAlignment.center,
              crossAxisAlignment: CrossAxisAlignment.center,
@@ -123,7 +123,7 @@ class SignUpScreen extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 1.0),
             child: Text(
               strOrSignInWith,
-              style: TextStyle(fontSize: mobileSize.width>768?16:12,),
+              style: TextStyle(fontSize: mobileSize.width>768? 16:12,),
             ),
           ),
           SizedBox(
