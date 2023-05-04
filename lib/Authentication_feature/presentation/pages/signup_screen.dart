@@ -109,7 +109,7 @@ class SignUpScreen extends StatelessWidget {
   }
   Padding orRow(Size mobileSize) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20.0),
+      padding: const EdgeInsets.symmetric(horizontal: 30.0),
       child: FittedBox(
         fit: BoxFit.scaleDown,
         child: Row(
