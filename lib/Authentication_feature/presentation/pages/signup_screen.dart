@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:highway_gates/Authentication_feature/presentation/widgets/default_button.dart';
 import 'package:highway_gates/Authentication_feature/presentation/widgets/login_textformfield.dart';
@@ -54,7 +55,7 @@ class SignUpScreen extends StatelessWidget {
             alreadyHaveAccount(mobileSize, context),
             spaceBetweenWidgets,
             spaceBetweenWidgets,
-            orRow(mobileSize),
+            orRow(),
            spaceBetweenWidgets,
            googleAndFacebookAuth(mobileSize),
 
@@ -107,29 +108,41 @@ class SignUpScreen extends StatelessWidget {
             ),
           );
   }
-  Row orRow(Size mobileSize) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        SizedBox(
-            width: mobileSize.width*0.25,
-            child: Divider(
-              color: ColorPalette.grey,
-              thickness: 1,
-            )),
-         Text(
-           strOrSignInWith,
-           style: TextStyle(fontSize: mobileSize.width>768? 16:12,),
-         ),
-        SizedBox(
-            width: mobileSize.width*0.25,
-            child: Divider(
-              color: ColorPalette.grey,
-              thickness: 1,
-            )),
-      ],
+
+  Padding orRow() {
+
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20.0),
+      child: FittedBox(
+        fit: BoxFit.scaleDown,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            SizedBox(
+                width: 100,
+                child: Divider(
+                  color: ColorPalette.grey,
+                  thickness: 1,
+                )),
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 10.0),
+              child: Text(
+                strOrSignInWith,
+              ),
+            ),
+            SizedBox(
+                width: 100,
+                child: Divider(
+                  color: ColorPalette.grey,
+                  thickness: 1,
+                )),
+          ],
+        ),
+      ),
     );
+
   }
+
   Padding googleAndFacebookAuth(Size mobileSize) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 15.0),
