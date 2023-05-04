@@ -54,7 +54,7 @@ class SignUpScreen extends StatelessWidget {
             alreadyHaveAccount(mobileSize, context),
             spaceBetweenWidgets,
             spaceBetweenWidgets,
-            orRow(),
+            orRow(mobileSize),
            spaceBetweenWidgets,
            googleAndFacebookAuth(mobileSize),
 
@@ -107,7 +107,7 @@ class SignUpScreen extends StatelessWidget {
             ),
           );
   }
-  Padding orRow() {
+  Padding orRow(Size mobileSize) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20.0),
       child: FittedBox(
@@ -116,7 +116,7 @@ class SignUpScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             SizedBox(
-                width: 110,
+                width: mobileSize.width*0.25,
                 child: Divider(
                   color: ColorPalette.grey,
                   thickness: 1,
@@ -128,7 +128,7 @@ class SignUpScreen extends StatelessWidget {
               ),
             ),
             SizedBox(
-                width: 100,
+                width: mobileSize.width*0.25,
                 child: Divider(
                   color: ColorPalette.grey,
                   thickness: 1,
