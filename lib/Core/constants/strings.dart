@@ -3,7 +3,7 @@ const String strLogIntoText="Log into your account using email \n \t            
 const String strWelcomeBack="Welcome back ";
 const String strGoogle="Google";
 const String strFacebook="Facebook";
-const String strOrSignInWith="Or sign in with ";
+const String strOrSignInWith="or sign in with ";
 const String strFirstTimeHere="First time here?";
 
 ///Sign up Screen

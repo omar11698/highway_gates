@@ -74,7 +74,7 @@ class LoginScreen extends StatelessWidget {
 
               /// Or Row
 
-              orRow(),
+              orRow(mobileSize),
               spaceBetweenWidgets2,
 
               /// google and facebook cards
@@ -124,10 +124,10 @@ class LoginScreen extends StatelessWidget {
             );
   }
 
-  Padding orRow() {
+  Padding orRow(Size mobileSize) {
 
       return Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                padding:  const EdgeInsets.symmetric(horizontal: 20.0),
                 child: FittedBox(
                   fit: BoxFit.scaleDown,
                   child: Row(
@@ -146,7 +146,7 @@ class LoginScreen extends StatelessWidget {
                         ),
                       ),
                       SizedBox(
-                          width: 100,
+                          width:100,
                           child: Divider(
                             color: ColorPalette.grey,
                             thickness: 1,
