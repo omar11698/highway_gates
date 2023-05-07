@@ -122,24 +122,24 @@ class SignUpScreen extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            SizedBox(
-                width: 100,
-                child: Divider(
-                  color: ColorPalette.grey,
-                  thickness: 1,
-                )),
+            // SizedBox(
+            //     width: 100,
+            //     child: Divider(
+            //       color: ColorPalette.grey,
+            //       thickness: 1,
+            //     )),
             const Padding(
               padding: EdgeInsets.symmetric(horizontal: 10.0),
               child: Text(
                 strOrSignInWith,
               ),
             ),
-            SizedBox(
-                width: 100,
-                child: Divider(
-                  color: ColorPalette.grey,
-                  thickness: 1,
-                )),
+            // SizedBox(
+            //     width: 100,
+            //     child: Divider(
+            //       color: ColorPalette.grey,
+            //       thickness: 1,
+            //     )),
           ],
         ),
       ),
