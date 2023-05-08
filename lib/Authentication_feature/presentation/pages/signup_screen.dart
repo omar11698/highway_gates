@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:highway_gates/Authentication_feature/presentation/widgets/default_button.dart';
 import 'package:highway_gates/Authentication_feature/presentation/widgets/login_textformfield.dart';
 import 'package:highway_gates/Core/constants/colors.dart';
@@ -57,7 +58,7 @@ class SignUpScreen extends StatelessWidget {
                 alreadyHaveAccount(mobileSize, context),
                 spaceBetweenWidgets,
                 spaceBetweenWidgets,
-                orRow(),
+                orRow(mobileSize),
                spaceBetweenWidgets,
                googleAndFacebookAuth(mobileSize),
 
@@ -113,33 +114,35 @@ class SignUpScreen extends StatelessWidget {
           );
   }
 
-  Padding orRow() {
+  Padding orRow(Size mobileSize) {
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 10.0),
       child: FittedBox(
-        fit: BoxFit.scaleDown,
+        fit: BoxFit.fitWidth,
+        clipBehavior: Clip.hardEdge,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            // SizedBox(
-            //     width: 100,
-            //     child: Divider(
-            //       color: ColorPalette.grey,
-            //       thickness: 1,
-            //     )),
+            SizedBox(
+                width: mobileSize.width>=360?100:0,
+                child: Divider(
+                  color: ColorPalette.grey,
+                  thickness: 1,
+                )),
             const Padding(
               padding: EdgeInsets.symmetric(horizontal: 10.0),
               child: Text(
                 strOrSignInWith,
               ),
             ),
-            // SizedBox(
-            //     width: 100,
-            //     child: Divider(
-            //       color: ColorPalette.grey,
-            //       thickness: 1,
-            //     )),
+
+            SizedBox(
+                width: mobileSize.width>=360?100:0,
+                child: Divider(
+                  color: ColorPalette.grey,
+                  thickness: 1,
+                )),
           ],
         ),
       ),
