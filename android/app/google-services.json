@@ -1,0 +1,69 @@
+{
+  "project_info": {
+    "project_number": "23433506441",
+    "firebase_url": "https://highway-gates-9b3c0-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "highway-gates-9b3c0",
+    "storage_bucket": "highway-gates-9b3c0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:23433506441:android:fb45e2eb388c70611de058",
+        "android_client_info": {
+          "package_name": "com.highwaygates"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "23433506441-o4ajk6qkh50foun1s8kufuevpenknv4p.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDlkBwhGh5ebiz4KTh2dn2Awm1V0VI4N4o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "23433506441-1v6rdobueqkuulp4g47f3dj0a7cnjice.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:23433506441:android:9f1da22fc39e33441de058",
+        "android_client_info": {
+          "package_name": "com.highwaygates.highway_gates"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "23433506441-o4ajk6qkh50foun1s8kufuevpenknv4p.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDlkBwhGh5ebiz4KTh2dn2Awm1V0VI4N4o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "23433506441-1v6rdobueqkuulp4g47f3dj0a7cnjice.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
