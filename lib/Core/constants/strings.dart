@@ -1,3 +1,7 @@
+const String emptyString = "";
+
+
+
 ///login Screen
 const String strLogIntoText="Log into your account using email \n \t             or social networks. ";
 const String strWelcomeBack="Welcome back ";

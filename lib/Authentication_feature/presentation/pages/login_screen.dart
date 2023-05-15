@@ -208,7 +208,7 @@ class LoginScreen extends StatelessWidget {
 
   LoginTextField passwordField(TextEditingController passwordTextEditingController) => LoginTextField(icon: Icons.lock_open_outlined, labelMessage: "Password", controller: passwordTextEditingController);
 
-  LoginTextField loginField(TextEditingController loginTextEditingController) => LoginTextField(icon: Icons.mail_outline, labelMessage: "email", controller: loginTextEditingController);
+  LoginTextField loginField(TextEditingController loginTextEditingController) => LoginTextField(icon: Icons.mail_outline, labelMessage: "E-mail", controller: loginTextEditingController);
 
   Center logoWidget(Size mobileSize) {
     return Center(

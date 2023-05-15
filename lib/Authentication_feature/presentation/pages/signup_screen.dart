@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:highway_gates/Authentication_feature/presentation/manager/signup_screen_bloc/signup_screen_bloc.dart';
 import 'package:highway_gates/Authentication_feature/presentation/widgets/default_button.dart';
 import 'package:highway_gates/Authentication_feature/presentation/widgets/login_textformfield.dart';
+import 'package:highway_gates/Core/DI/dependency_injection.dart';
 import 'package:highway_gates/Core/constants/colors.dart';
 import 'package:highway_gates/Core/router/navigation_router.dart';
 import '../../../Core/constants/png_images.dart';
@@ -13,20 +16,21 @@ class SignUpScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
-    var mobileSize = MediaQuery.of(context).size;
-    var spaceBetweenWidgets=SizedBox(height:mobileSize.height*0.02 ,);
-    TextEditingController nameTextEditingController=TextEditingController();
-    TextEditingController emailTextEditingController=TextEditingController();
-    TextEditingController passwordsTextEditingController=TextEditingController();
-    TextEditingController verifyPasswordEditingController=TextEditingController();
+    var mobileSize = MediaQuery
+        .of(context)
+        .size;
+    var spaceBetweenWidgets = SizedBox(height: mobileSize.height * 0.02,);
+    TextEditingController nameTextEditingController = TextEditingController();
+    TextEditingController emailTextEditingController = TextEditingController();
+    TextEditingController passwordsTextEditingController = TextEditingController();
+    TextEditingController verifyPasswordEditingController = TextEditingController();
 
     return SafeArea(
       child: Scaffold(
           appBar: AppBar(
             backgroundColor: Colors.white,
             leading: InkWell(
-              onTap: ()=>Navigator.of(context).pop(),
+              onTap: () => Navigator.of(context).pop(),
               child: const Icon(
                 Icons.arrow_back_ios,
                 size: 25,
@@ -36,86 +40,91 @@ class SignUpScreen extends StatelessWidget {
             elevation: 0,
           ),
           backgroundColor: Colors.white,
-          body: Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: SingleChildScrollView(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  const Text(strCreateNewAcc,style: TextStyle(fontWeight: FontWeight.w700,fontSize: 20),),
-                  spaceBetweenWidgets,
-                  const Align(alignment: Alignment.center,child: Text(strSetupYourAccount,style: TextStyle(fontWeight: FontWeight.w500,fontSize: 16,color: Colors.grey),)),
+          body: BlocProvider(
+            create: (context) => SignupScreenBloc(instance())..add(SignupScreenInitialEvent()),
+            child: Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: SingleChildScrollView(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    const Text(strCreateNewAcc, style: TextStyle(fontWeight: FontWeight.w700, fontSize: 20),),
+                    spaceBetweenWidgets,
+                    const Align(alignment: Alignment.center, child: Text(strSetupYourAccount, style: TextStyle(fontWeight: FontWeight.w500, fontSize: 16, color: Colors.grey),)),
 
-               /// content dialog
-               content(nameTextEditingController, spaceBetweenWidgets, emailTextEditingController, passwordsTextEditingController, verifyPasswordEditingController),
-                spaceBetweenWidgets,
-                spaceBetweenWidgets,
+                    /// content dialog
+                    content(nameTextEditingController, spaceBetweenWidgets, emailTextEditingController, passwordsTextEditingController, verifyPasswordEditingController),
+                    spaceBetweenWidgets,
+                    spaceBetweenWidgets,
 
-                /// sign up button
-                DefaultButton(mobileSize: mobileSize, label: "Sign Up"),
-                spaceBetweenWidgets,
+                    /// sign up button
+                    DefaultButton(mobileSize: mobileSize, label: "Sign Up", onTap: () {
+                      BlocProvider.of<SignupScreenBloc>(context).add(UserSignUpBtnClicked());
+                    },),
+                    spaceBetweenWidgets,
 
-                alreadyHaveAccount(mobileSize, context),
-                spaceBetweenWidgets,
-                spaceBetweenWidgets,
-                orRow(mobileSize),
-               spaceBetweenWidgets,
-               googleAndFacebookAuth(mobileSize),
+                    alreadyHaveAccount(mobileSize, context),
+                    spaceBetweenWidgets,
+                    spaceBetweenWidgets,
+                    orRow(mobileSize),
+                    spaceBetweenWidgets,
+                    googleAndFacebookAuth(mobileSize),
 
 
-                ],
+                  ],
+                ),
               ),
             ),
           )),
     );
   }
 
-  Padding content(TextEditingController nameTextEditingController, SizedBox spaceBetweenWidgets, TextEditingController emailTextEditingController, TextEditingController passwordsTextEditingController, TextEditingController verifyPasswordEditingController) {
+  Padding content(TextEditingController nameTextEditingController, SizedBox spaceBetweenWidgets, TextEditingController emailTextEditingController, TextEditingController passwordsTextEditingController,
+      TextEditingController verifyPasswordEditingController) {
     return Padding(
-           padding: const EdgeInsets.only(top: 10,),
-           child: Column(
-             mainAxisAlignment: MainAxisAlignment.center,
-             crossAxisAlignment: CrossAxisAlignment.center,
-             children: [
-             LoginTextField(icon: Icons.person_outline_outlined, labelMessage: "Name", controller: nameTextEditingController),
-             spaceBetweenWidgets,
-             LoginTextField(icon: Icons.email_outlined, labelMessage: "E-mail", controller: emailTextEditingController),
-             spaceBetweenWidgets,
-             LoginTextField(icon: Icons.lock_open_outlined, labelMessage: "Password", controller: passwordsTextEditingController),
-             spaceBetweenWidgets,
-             LoginTextField(icon: Icons.lock_open_outlined, labelMessage: "Verify Password", controller: verifyPasswordEditingController),
+      padding: const EdgeInsets.only(top: 10,),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          LoginTextField(icon: Icons.person_outline_outlined, labelMessage: "Name", controller: nameTextEditingController),
+          spaceBetweenWidgets,
+          LoginTextField(icon: Icons.email_outlined, labelMessage: "E-mail", controller: emailTextEditingController),
+          spaceBetweenWidgets,
+          LoginTextField(icon: Icons.lock_open_outlined, labelMessage: "Password", controller: passwordsTextEditingController),
+          spaceBetweenWidgets,
+          LoginTextField(icon: Icons.lock_open_outlined, labelMessage: "Verify Password", controller: verifyPasswordEditingController),
 
 
-           ],),
-         );
+        ],),
+    );
   }
 
   SizedBox alreadyHaveAccount(Size mobileSize, BuildContext context) {
     return SizedBox(
-            width: mobileSize.width * 0.6,
-            child: Center(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Text(strAlreadyHaveAccount,style: TextStyle(fontSize: mobileSize.width>768?16:12),),
-                  InkWell(
-                    onTap: () => Navigator.pushNamed(context, loginRoute),
-                    child:  Text(
-                      " Log In",
-                      style: TextStyle(
-                        color: Colors.blueAccent,
-                        fontSize: mobileSize.width>768?16:12,
-                      ),
-                    ),
-                  ),
-                ],
+      width: mobileSize.width * 0.6,
+      child: Center(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Text(strAlreadyHaveAccount, style: TextStyle(fontSize: mobileSize.width > 768 ? 16 : 12),),
+            InkWell(
+              onTap: () => Navigator.pushNamed(context, loginRoute),
+              child: Text(
+                " Log In",
+                style: TextStyle(
+                  color: Colors.blueAccent,
+                  fontSize: mobileSize.width > 768 ? 16 : 12,
+                ),
               ),
             ),
-          );
+          ],
+        ),
+      ),
+    );
   }
 
   Padding orRow(Size mobileSize) {
-
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 10.0),
       child: FittedBox(
@@ -125,7 +134,7 @@ class SignUpScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             SizedBox(
-                width: mobileSize.width>=360?100:0,
+                width: mobileSize.width >= 360 ? 100 : 0,
                 child: Divider(
                   color: ColorPalette.grey,
                   thickness: 1,
@@ -138,7 +147,7 @@ class SignUpScreen extends StatelessWidget {
             ),
 
             SizedBox(
-                width: mobileSize.width>=360?100:0,
+                width: mobileSize.width >= 360 ? 100 : 0,
                 child: Divider(
                   color: ColorPalette.grey,
                   thickness: 1,
@@ -147,7 +156,6 @@ class SignUpScreen extends StatelessWidget {
         ),
       ),
     );
-
   }
 
   Padding googleAndFacebookAuth(Size mobileSize) {
@@ -156,11 +164,11 @@ class SignUpScreen extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          GoogleFacebookCard(cardName: "Google",icon: googlePngImg, onTap: () {},),
+          GoogleFacebookCard(cardName: "Google", icon: googlePngImg, onTap: () {},),
           SizedBox(
             width: mobileSize.height * 0.03,
           ),
-          GoogleFacebookCard(cardName: "Facebook",icon: facebookPngImg, onTap: () {},),
+          GoogleFacebookCard(cardName: "Facebook", icon: facebookPngImg, onTap: () {},),
 
         ],
       ),

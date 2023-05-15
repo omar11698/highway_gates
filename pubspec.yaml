@@ -43,6 +43,9 @@ dependencies:
   firebase_core: ^2.11.0
   firebase_storage: ^11.1.2
   flutter_launcher_icons: ^0.13.1
+  dartz: ^0.10.1
+  retrofit: ^4.0.1
+  get_it: ^7.6.0
 
 dev_dependencies:
   flutter_test:

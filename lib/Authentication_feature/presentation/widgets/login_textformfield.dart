@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:highway_gates/Authentication_feature/presentation/manager/signup_screen_bloc/signup_screen_bloc.dart';
 import 'package:highway_gates/Core/constants/colors.dart';
 
 class LoginTextField extends StatelessWidget {
@@ -49,10 +51,32 @@ class LoginTextField extends StatelessWidget {
                 height: 40,
                 child: Padding(
                   padding: const EdgeInsets.all(4.0),
-                  child: TextField(
+                  child: TextFormField(
                     controller: controller,
                     keyboardType: labelMessage!="E-mail" ? TextInputType.visiblePassword :TextInputType.emailAddress,
                     obscureText: labelMessage.contains("Password") ? true : false,
+                    validator:(value){
+                      if (labelMessage=="E-mail"){
+
+                        /// add event userEntered email
+                      BlocProvider.of<SignupScreenBloc>(context).add(UserTypingEmailEvent(email: controller.value.text.toString()));
+
+                      }
+
+                      else if (labelMessage== "Password"){
+                        /// add event userEntered password
+
+                        BlocProvider.of<SignupScreenBloc>(context).add(UserTypingPasswordEvent(password: controller.value.text.toString()));
+
+
+                      }
+                      else if (labelMessage== "Verify Password"){
+
+                        BlocProvider.of<SignupScreenBloc>(context).add(UserTypingVerifyPasswordEvent(verifyPassword: controller.value.text.toString(),));
+
+                      }
+
+                    } ,
                     decoration: InputDecoration(
                       border: InputBorder.none,
                       hintText: labelMessage,
@@ -61,6 +85,7 @@ class LoginTextField extends StatelessWidget {
                         fontWeight: FontWeight.w400,
                       ),
                     ),
+
                   ),
                 ),
               ),

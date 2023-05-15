@@ -1,10 +1,10 @@
 import 'package:highway_gates/Authentication_feature/domain/entities/user.dart';
 
 class UserModel extends User{
-  const UserModel({required super.id, required super.email,required super.messages,required super.password,required super.name});
+  const UserModel({required super.id, required super.email,required super.messages,required super.password,required super.name,required super.phone,required super.creditCardNumber, required super.token, required super.image,});
 
   factory UserModel.fromJson(Map<String, dynamic> json) {
-  return UserModel(id: json['id'],name: json['name'],email: json['email'],password: json['password'],messages: json['messages']);
+  return UserModel(id: json['id'],name: json['name'],email: json['email'],password: json['password'],messages: json['messages'], phone: json['phone'], creditCardNumber: json['creditCardNumber'], token: json['token'], image: json['image']);
 }
   
   Map<String, dynamic> toJson(){
