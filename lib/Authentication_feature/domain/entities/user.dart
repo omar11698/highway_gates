@@ -10,13 +10,14 @@ class User extends Equatable{
   final String? phone;
   final String? creditCardNumber;
   final String? image;
+  final bool? isValidEmail;
+  final bool? isValidPassword;
 
 
-
-  const User({required this.id, required this.email, required this.messages, required this.password, required this.name, required this.token, required this.phone, required this.creditCardNumber,required this.image});
+  const User( {this.id='', required this.email,  this.messages='', required this.password, required this.name, required this.token,  this.phone='',  this.creditCardNumber='', this.image='',required this.isValidEmail,required this.isValidPassword,});
 
   @override
-  List<Object?> get props => [id,email,messages,password,name];
+  List<Object?> get props => [id,email,messages,password,name,token,phone,creditCardNumber,image];
 
   User copyWith({
     String? id,
@@ -28,9 +29,11 @@ class User extends Equatable{
     String? phone,
     String? creditCardNumber,
     String? image,
+    bool? isValidEmail,
+    bool? isValidPassword,
   }){
 
-    return User(id:id??'', email: email??'', messages:messages??'' , password: password??'', name:name??'' , token:token??'' , phone:phone ??'', creditCardNumber:creditCardNumber??'' , image:image??'');
+    return User(id:id??this.id, email: email??this.email, messages:messages??this.messages , password: password??this.password, name:name??this.name , token:token??this.token , phone:phone ??this.phone, creditCardNumber:creditCardNumber??this.creditCardNumber , image:image??this.image, isValidEmail:isValidEmail??this.isValidEmail, isValidPassword:isValidPassword??this.isValidPassword);
   }
 
 

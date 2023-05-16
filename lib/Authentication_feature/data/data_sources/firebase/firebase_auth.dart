@@ -34,6 +34,8 @@ class FirebaseAuthImpl extends FirebaseAuth {
     String? image,
     String? token,
     String? creditCardNumber,
+    bool? isValidPassword,
+    bool? isValidEmail,
   }) async {
     final UserModel userModel = UserModel(
       name: name,
@@ -44,7 +46,7 @@ class FirebaseAuthImpl extends FirebaseAuth {
       image: image,
       creditCardNumber: creditCardNumber,
       messages: messages,
-      password: password,
+      password: password, isValidPassword: isValidPassword, isValidEmail: isValidEmail,
     );
     // await FirebaseFirestore.instance.collection('users').doc(id).set(userModel.toJson());
     await FirebaseFirestore.instance.collection('users').add(userModel.toJson()).then((DocumentReference doc) =>

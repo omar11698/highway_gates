@@ -14,12 +14,11 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   await intiAppModule();
-  BlocOverrides.runZoned(
-        () {
+  Bloc.observer = MyGlobalObserver();
       runApp(const MyApp());
-    },
-    blocObserver: MyGlobalObserver(),
-  );
+
+
+
 }
 
 class MyApp extends StatelessWidget {
@@ -29,12 +28,14 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider<SignupScreenBloc>(create: (_) => SignupScreenBloc(instance())),
+        BlocProvider<SignupScreenBloc>(
+          create: (context) => SignupScreenBloc(instance()),
+        ),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         onGenerateRoute: NavigationRouter.generateRoute,
-        initialRoute: animationRoute,
+        initialRoute: loginRoute,
         title: 'Highway Gates',
         theme: ThemeData(
           primarySwatch: Colors.blue,

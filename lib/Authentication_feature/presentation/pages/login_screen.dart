@@ -206,9 +206,9 @@ class LoginScreen extends StatelessWidget {
             );
   }
 
-  LoginTextField passwordField(TextEditingController passwordTextEditingController) => LoginTextField(icon: Icons.lock_open_outlined, labelMessage: "Password", controller: passwordTextEditingController);
+  LoginTextField passwordField(TextEditingController passwordTextEditingController) => LoginTextField(icon: Icons.lock_open_outlined, labelMessage: "Password", controller: passwordTextEditingController, stateMessage: '',);
 
-  LoginTextField loginField(TextEditingController loginTextEditingController) => LoginTextField(icon: Icons.mail_outline, labelMessage: "E-mail", controller: loginTextEditingController);
+  LoginTextField loginField(TextEditingController loginTextEditingController) => LoginTextField(icon: Icons.mail_outline, labelMessage: "E-mail", controller: loginTextEditingController, stateMessage: '',);
 
   Center logoWidget(Size mobileSize) {
     return Center(

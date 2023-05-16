@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:highway_gates/Authentication_feature/presentation/manager/signup_screen_bloc/signup_screen_bloc.dart';
 import 'package:highway_gates/Authentication_feature/presentation/widgets/default_button.dart';
@@ -10,6 +9,7 @@ import 'package:highway_gates/Core/router/navigation_router.dart';
 import '../../../Core/constants/png_images.dart';
 import '../../../Core/constants/strings.dart';
 import '../widgets/google_facebook_card.dart';
+String snackMessage = "";
 
 class SignUpScreen extends StatelessWidget {
   const SignUpScreen({Key? key}) : super(key: key);
@@ -26,23 +26,24 @@ class SignUpScreen extends StatelessWidget {
     TextEditingController verifyPasswordEditingController = TextEditingController();
 
     return SafeArea(
-      child: Scaffold(
-          appBar: AppBar(
-            backgroundColor: Colors.white,
-            leading: InkWell(
-              onTap: () => Navigator.of(context).pop(),
-              child: const Icon(
-                Icons.arrow_back_ios,
-                size: 25,
-                color: Colors.black,
+      child: BlocProvider(
+        create: (context) => SignupScreenBloc(instance()),
+        child: Scaffold(
+
+            appBar: AppBar(
+              backgroundColor: Colors.white,
+              leading: InkWell(
+                onTap: () => Navigator.of(context).pop(),
+                child: const Icon(
+                  Icons.arrow_back_ios,
+                  size: 25,
+                  color: Colors.black,
+                ),
               ),
+              elevation: 0,
             ),
-            elevation: 0,
-          ),
-          backgroundColor: Colors.white,
-          body: BlocProvider(
-            create: (context) => SignupScreenBloc(instance())..add(SignupScreenInitialEvent()),
-            child: Padding(
+            backgroundColor: Colors.white,
+            body: Padding(
               padding: const EdgeInsets.all(20.0),
               child: SingleChildScrollView(
                 child: Column(
@@ -54,13 +55,50 @@ class SignUpScreen extends StatelessWidget {
 
                     /// content dialog
                     content(nameTextEditingController, spaceBetweenWidgets, emailTextEditingController, passwordsTextEditingController, verifyPasswordEditingController),
+
+
                     spaceBetweenWidgets,
                     spaceBetweenWidgets,
 
                     /// sign up button
-                    DefaultButton(mobileSize: mobileSize, label: "Sign Up", onTap: () {
-                      BlocProvider.of<SignupScreenBloc>(context).add(UserSignUpBtnClicked());
-                    },),
+                    BlocConsumer<SignupScreenBloc, SignupScreenState>(
+                      listener: (context, state) {
+                        if (state is SignedUpScreenSuccessfullySignedUpState){
+                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                            content: Text(state.message, style: const TextStyle(color: Colors.white),),
+                            action: SnackBarAction(
+                              label: 'Undo',
+                              onPressed: () {
+                                // Some code to undo the change.
+                              },
+                            ),
+                          ));
+                        }
+                        else if(state is FailedSignupScreenState) {
+                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                            content: Text(state.message, style: const TextStyle(color: Colors.white),),
+                            action: SnackBarAction(
+                              label: 'Undo',
+                              onPressed: () {
+                                // Some code to undo the change.
+                              },
+                            ),
+                          ));
+
+                        }
+                        else if(state is FailedSignupScreenState) {
+                          snackMessage=state.message;
+                          debugPrint("this is the message $snackMessage");
+
+                        }                      },
+                      builder: (context, state) {
+                        return DefaultButton(mobileSize: mobileSize, label: "Sign Up", onTap: () {
+                          BlocProvider.of<SignupScreenBloc>(context).add(UserSignUpBtnClickedEvent());
+
+
+                        },);
+                      },
+                    ),
                     spaceBetweenWidgets,
 
                     alreadyHaveAccount(mobileSize, context),
@@ -74,29 +112,64 @@ class SignUpScreen extends StatelessWidget {
                   ],
                 ),
               ),
-            ),
-          )),
-    );
+            )
+        ),
+      ),);
   }
+
 
   Padding content(TextEditingController nameTextEditingController, SizedBox spaceBetweenWidgets, TextEditingController emailTextEditingController, TextEditingController passwordsTextEditingController,
       TextEditingController verifyPasswordEditingController) {
+    String nameMessage = "";
+    String emailMessage = "";
+    String passwordMessage = "";
+    String verifyMessage = "";
+
     return Padding(
       padding: const EdgeInsets.only(top: 10,),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          LoginTextField(icon: Icons.person_outline_outlined, labelMessage: "Name", controller: nameTextEditingController),
-          spaceBetweenWidgets,
-          LoginTextField(icon: Icons.email_outlined, labelMessage: "E-mail", controller: emailTextEditingController),
-          spaceBetweenWidgets,
-          LoginTextField(icon: Icons.lock_open_outlined, labelMessage: "Password", controller: passwordsTextEditingController),
-          spaceBetweenWidgets,
-          LoginTextField(icon: Icons.lock_open_outlined, labelMessage: "Verify Password", controller: verifyPasswordEditingController),
+      child: BlocConsumer<SignupScreenBloc, SignupScreenState>(
+        listener: (context, state) {
+          if (state is SignupScreenCheckingEmailState) {
+            emailMessage = state.messages;
+            debugPrint("++++++++++++++++++++++++++++++++++I AM THE MESSAGE:$emailMessage");
+          }
+          else if (state is SignupScreenCheckedEmailState) {
+            emailMessage = state.messages;
+          }
+          else if (state is SignupScreenCheckingPasswordState) {
+            passwordMessage = state.messages;
+          }
+          else if (state is SignupScreenCheckedPasswordState) {
+            passwordMessage = state.messages;
+          }
 
+          else if (state is SignupScreenCheckingNameState) {
+            nameMessage = state.messages;
+          }
+          else if (state is SignupScreenVerifyingPasswordState) {
+            verifyMessage = state.messages;
+          }
+          else {
 
-        ],),
+          }
+        },
+        builder: (context, state) {
+          return Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+
+              LoginTextField(icon: Icons.person_outline_outlined, labelMessage: "Name", controller: nameTextEditingController, stateMessage: nameMessage,),
+              spaceBetweenWidgets,
+              LoginTextField(icon: Icons.email_outlined, labelMessage: "E-mail", controller: emailTextEditingController, stateMessage: emailMessage,),
+              spaceBetweenWidgets,
+              LoginTextField(icon: Icons.lock_open_outlined, labelMessage: "Password", controller: passwordsTextEditingController, stateMessage: passwordMessage,),
+              spaceBetweenWidgets,
+              LoginTextField(icon: Icons.lock_open_outlined, labelMessage: "Verify Password", controller: verifyPasswordEditingController, stateMessage: verifyMessage,),
+
+            ],);
+        },
+      ),
     );
   }
 
