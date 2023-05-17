@@ -6,7 +6,7 @@ class DefaultButton extends StatelessWidget {
 
   const DefaultButton({
   super.key,
-  required this.mobileSize, required this.label, this.onTap,
+  required this.mobileSize, required this.label,required this.onTap,
   });
 
   final Size mobileSize;

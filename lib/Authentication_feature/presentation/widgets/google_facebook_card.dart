@@ -14,7 +14,7 @@ class GoogleFacebookCard extends StatelessWidget {
     return Expanded(
         child: InkWell(
           onTap: onTap,
-          child: Container(
+          child: Ink(
             height: 40,
             decoration: BoxDecoration(
               color: Colors.white,

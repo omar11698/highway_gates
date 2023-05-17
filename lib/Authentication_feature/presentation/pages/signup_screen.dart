@@ -159,13 +159,13 @@ class SignUpScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
 
-              LoginTextField(icon: Icons.person_outline_outlined, labelMessage: "Name", controller: nameTextEditingController, stateMessage: nameMessage,),
+              LoginTextField(icon: Icons.person_outline_outlined, labelMessage: "Name", controller: nameTextEditingController, stateMessage: nameMessage,isLoginScreen: false,),
               spaceBetweenWidgets,
-              LoginTextField(icon: Icons.email_outlined, labelMessage: "E-mail", controller: emailTextEditingController, stateMessage: emailMessage,),
+              LoginTextField(icon: Icons.email_outlined, labelMessage: "E-mail", controller: emailTextEditingController, stateMessage: emailMessage,isLoginScreen: false,),
               spaceBetweenWidgets,
-              LoginTextField(icon: Icons.lock_open_outlined, labelMessage: "Password", controller: passwordsTextEditingController, stateMessage: passwordMessage,),
+              LoginTextField(icon: Icons.lock_open_outlined, labelMessage: "Password", controller: passwordsTextEditingController, stateMessage: passwordMessage,isLoginScreen: false,),
               spaceBetweenWidgets,
-              LoginTextField(icon: Icons.lock_open_outlined, labelMessage: "Verify Password", controller: verifyPasswordEditingController, stateMessage: verifyMessage,),
+              LoginTextField(icon: Icons.lock_open_outlined, labelMessage: "Verify Password", controller: verifyPasswordEditingController, stateMessage: verifyMessage,isLoginScreen: false,),
 
             ],);
         },

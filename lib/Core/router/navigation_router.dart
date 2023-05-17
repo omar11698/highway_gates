@@ -9,6 +9,7 @@ import 'package:highway_gates/Authentication_feature/presentation/pages/splash_s
 import 'package:highway_gates/Authentication_feature/presentation/pages/verification_screen.dart';
 import 'package:highway_gates/main.dart';
 
+import '../../Authentication_feature/presentation/pages/auth_screen.dart';
 import '../../Authentication_feature/presentation/pages/signup_screen.dart';
 import '../DI/dependency_injection.dart';
 
@@ -21,6 +22,7 @@ const String signUpRoute='/signup';
 const String registerRoute='/register';
 const String forgotPasswordRoute='/forgotPassword';
 const String verificationRoute='/verificationRoute';
+const String authRoute='/authenticationRoute';
 
 
 
@@ -37,6 +39,8 @@ class NavigationRouter{
       case onBoardingRoute :
         return MaterialPageRoute(builder: (_) => const OnBoardingScreen());
       case loginRoute :
+        initLoginWithGoogleModule();
+        initLoginModule();
         return MaterialPageRoute(builder: (_) => const LoginScreen());
       case signUpRoute :
         initSignUpModule();
@@ -45,6 +49,9 @@ class NavigationRouter{
         return MaterialPageRoute(builder: (_) => const ForgotPasswordScreen());
       case verificationRoute :
         return MaterialPageRoute(builder: (_) => const VerificationScreen());
+      case authRoute :
+        initLoginModule();
+        return MaterialPageRoute(builder: (_) => const AuthenticationScreen());
       default:
         return MaterialPageRoute(
             builder: (_) => Scaffold(

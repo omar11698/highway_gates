@@ -9,7 +9,7 @@ typedef Future<Unit> CreateOrSignInOrSignOut();
 
 
 class AuthRepositoryImpl extends AuthRepository {
-  final FirebaseAuth firebaseAuth;
+  final FirebaseAuthentication firebaseAuth;
 
   AuthRepositoryImpl({
     required this.firebaseAuth,
@@ -41,9 +41,8 @@ class AuthRepositoryImpl extends AuthRepository {
   }
 
   @override
-  Future<Either<Failure, Unit>> signInWithEmail(String email, String password) {
-    // TODO: implement signInWithEmail
-    throw UnimplementedError();
+  Future<Either<Failure, Unit>> signInWithEmail(String email, String password) async{
+    return await _getMessage(() => firebaseAuth.signInWithEmail(email, password));
   }
 
   @override
@@ -53,9 +52,8 @@ class AuthRepositoryImpl extends AuthRepository {
   }
 
   @override
-  Future<Either<Failure, Unit>> signInWithGoogle() {
-    // TODO: implement signInWithGoogle
-    throw UnimplementedError();
+  Future<Either<Failure, Unit>> signInWithGoogle() async{
+    return await _getMessage(() => firebaseAuth.signInWithGoogle());
   }
 
   @override

@@ -4,6 +4,7 @@ import 'package:highway_gates/Authentication_feature/presentation/manager/signup
 import 'package:highway_gates/Authentication_feature/presentation/pages/signup_screen.dart';
 import 'package:highway_gates/Core/constants/text_styles.dart';
 import 'package:highway_gates/Core/firebase_options.dart';
+import 'Authentication_feature/presentation/manager/login_screen_bloc/login_screen_bloc.dart';
 import 'Core/DI/dependency_injection.dart';
 import 'Core/bloc_observer.dart';
 import 'Core/router/navigation_router.dart';
@@ -15,10 +16,7 @@ Future<void> main() async {
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   await intiAppModule();
   Bloc.observer = MyGlobalObserver();
-      runApp(const MyApp());
-
-
-
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -30,6 +28,9 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider<SignupScreenBloc>(
           create: (context) => SignupScreenBloc(instance()),
+        ),
+        BlocProvider(
+          create: (context) => LoginScreenBloc(loginWithEmailUseCase: instance(), loginWithGoogleUseCase: instance()),
         ),
       ],
       child: MaterialApp(

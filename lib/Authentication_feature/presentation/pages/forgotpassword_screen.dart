@@ -45,7 +45,7 @@ class ForgotPasswordScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     spaceBetweenWidgets,
-                    LoginTextField(icon: Icons.email_outlined, labelMessage: "E-mail", controller: emailTextEditingController, stateMessage: '',),
+                    LoginTextField(icon: Icons.email_outlined, labelMessage: "E-mail", controller: emailTextEditingController, stateMessage: '', isLoginScreen: false,),
 
 
 

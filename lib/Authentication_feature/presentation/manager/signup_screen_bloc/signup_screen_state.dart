@@ -55,7 +55,6 @@ class SignupScreenCheckingPasswordState extends SignupScreenState {
   const SignupScreenCheckingPasswordState({required this.messages, required String password});
 
 }
-
 class SignupScreenVerifyingPasswordState extends SignupScreenState {
   final String messages;
   const SignupScreenVerifyingPasswordState({required this.messages,});

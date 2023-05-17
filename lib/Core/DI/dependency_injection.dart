@@ -3,13 +3,16 @@ import 'package:highway_gates/Authentication_feature/data/data_sources/firebase/
 import 'package:highway_gates/Authentication_feature/data/repositories/AuthRepository_imp.dart';
 import 'package:highway_gates/Authentication_feature/domain/repositories/auth_repository.dart';
 import 'package:highway_gates/Authentication_feature/domain/use_cases/create_user_usecase.dart';
+import 'package:highway_gates/Authentication_feature/domain/use_cases/login_with_email_usecase.dart';
+import 'package:highway_gates/Authentication_feature/domain/use_cases/login_with_google_usecase.dart';
+import 'package:highway_gates/Authentication_feature/presentation/manager/login_screen_bloc/login_screen_bloc.dart';
 import 'package:highway_gates/Authentication_feature/presentation/manager/signup_screen_bloc/signup_screen_bloc.dart';
 
 final instance = GetIt.instance;
 Future<void> intiAppModule()async{
 
 // remote data source
-  instance.registerLazySingleton<FirebaseAuth>(
+  instance.registerLazySingleton<FirebaseAuthentication>(
           () =>FirebaseAuthImpl());
 // repository
 instance.registerLazySingleton<AuthRepository>(() => AuthRepositoryImpl(firebaseAuth: instance()));
@@ -21,6 +24,23 @@ initSignUpModule() {
         .registerFactory<CreateUserUseCase>(() => CreateUserUseCase(authRepository: instance()));
     instance
         .registerFactory<SignupScreenBloc>(() => SignupScreenBloc(instance()));
+  }
+}
+
+initLoginModule() {
+  if (!GetIt.I.isRegistered<LoginWithEmailUseCase>()) {
+    instance
+        .registerFactory<LoginWithEmailUseCase>(() => LoginWithEmailUseCase(authRepository: instance()));
+    instance
+        .registerFactory<LoginScreenBloc>(() => LoginScreenBloc(loginWithEmailUseCase:instance(), loginWithGoogleUseCase: instance()));
+
+  }
+}
+initLoginWithGoogleModule(){
+  if (!GetIt.I.isRegistered<LoginWithGoogleUseCase>()) {
+    instance
+        .registerFactory<LoginWithGoogleUseCase>(() => LoginWithGoogleUseCase(authRepository: instance()));
+
 
   }
 }

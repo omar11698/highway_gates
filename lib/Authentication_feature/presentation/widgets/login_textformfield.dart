@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:highway_gates/Authentication_feature/presentation/manager/login_screen_bloc/login_screen_bloc.dart';
 import 'package:highway_gates/Authentication_feature/presentation/manager/signup_screen_bloc/signup_screen_bloc.dart';
 import 'package:highway_gates/Core/constants/colors.dart';
 
@@ -8,12 +9,13 @@ class LoginTextField extends StatelessWidget {
   final IconData icon;
   final TextEditingController controller;
   final String stateMessage;
+  final bool isLoginScreen;
 
   const LoginTextField({
     Key? key,
     required this.icon,
     required this.labelMessage,
-    required this.controller, required this.stateMessage,
+    required this.controller, required this.stateMessage, required this.isLoginScreen,
   }) : super(key: key);
 
   @override
@@ -58,13 +60,12 @@ class LoginTextField extends StatelessWidget {
                     obscureText: labelMessage.contains("Password") ? true : false,
 
                     onChanged:(value){
-
-                      if (labelMessage=="E-mail"){
-
-                        /// add event userEntered email
-                        BlocProvider.of<SignupScreenBloc>(context).add(UserTypingEmailEvent(email: controller.value.text.toString()));
-
-                      }
+                      /// sign up screen
+                      if(isLoginScreen==false){
+                        if (labelMessage=="E-mail"){
+                          /// add event userEntered email
+                          BlocProvider.of<SignupScreenBloc>(context).add(UserTypingEmailEvent(email: controller.value.text.toString()));
+                        }
 
                       else if (labelMessage== "Name"){
 
@@ -87,7 +88,34 @@ class LoginTextField extends StatelessWidget {
                       }
                       return;
 
-                    } ,
+                    }
+                      /// login screen
+                      else if(isLoginScreen==true){
+                        if (labelMessage=="E-mail"){
+                          /// add event userEntered email
+                          BlocProvider.of<LoginScreenBloc>(context).add(LoginUserTypedEmailEvent(email: controller.value.text.trim().toString()));
+                        }
+
+
+
+                        else if (labelMessage== "Password"){
+
+                          /// add event userEntered password
+                          BlocProvider.of<LoginScreenBloc>(context).add(LoginUserTypedPasswordEvent(password: controller.value.text.toString()));
+
+                        }
+
+
+                      }
+
+
+
+                      }
+
+
+
+
+                    ,
 
                     decoration: InputDecoration(
                       border: InputBorder.none,
