@@ -118,7 +118,6 @@ class LoginScreen extends StatelessWidget {
                 spaceBetweenWidgets2,
 
                 /// google and facebook cards
-
                 googleAndFacebookAuth(mobileSize,context),
 
               ],

@@ -89,4 +89,6 @@ class LoginScreenBloc extends Bloc<LoginScreenEvent, LoginScreenState> {
           (l) => emit(const LoginFailedState(messages: '')),
           (r) => emit(const LoginSuccessState(messages: '')),
     );  }
+
+
 }
