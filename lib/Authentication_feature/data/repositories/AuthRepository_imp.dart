@@ -57,9 +57,8 @@ class AuthRepositoryImpl extends AuthRepository {
   }
 
   @override
-  Future<Either<Failure, Unit>> signOut(String token) {
-    // TODO: implement signOut
-    throw UnimplementedError();
+  Future<Either<Failure, Unit>> signOut() async{
+    return await _getMessage(() => firebaseAuth.signOut());
   }
 
 

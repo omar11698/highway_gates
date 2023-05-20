@@ -2,6 +2,7 @@ import 'package:dartz/dartz.dart';
 
 import '../../../Core/Failures/failures.dart';
 
+/// contract between data and domain layers
 abstract class AuthRepository{
   Future<Either<Failure, Unit>> createUser({
     required String name,
@@ -17,7 +18,7 @@ abstract class AuthRepository{
   Future<Either<Failure, Unit>> signInWithEmail(String email, String password);
   Future<Either<Failure, Unit>> signInWithGoogle();
   Future<Either<Failure, Unit>> signInWithFacebook();
-  Future<Either<Failure, Unit>> signOut(String token);
+  Future<Either<Failure, Unit>> signOut();
 
 
 

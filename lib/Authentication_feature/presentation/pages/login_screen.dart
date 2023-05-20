@@ -144,6 +144,7 @@ class LoginScreen extends StatelessWidget {
         children: [
           GoogleFacebookCard(cardName: strGoogle, icon: googlePngImg, onTap: () {
             ctx.read<LoginScreenBloc>().add(GoogleBtnClickedEvent());
+            Navigator.pushNamed(ctx, authRoute);
           },),
           SizedBox(
             width: mobileSize.height * 0.03,

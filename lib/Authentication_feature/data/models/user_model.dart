@@ -8,10 +8,7 @@ class UserModel extends User{
 }
   
   Map<String, dynamic> toJson(){
-
     return {'id':id,'email':email,'messages':messages,'password':password,'name':name,};
-
-
   }
   
 }

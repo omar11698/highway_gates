@@ -10,14 +10,16 @@ part 'login_screen_event.dart';
 part 'login_screen_state.dart';
 
 class LoginScreenBloc extends Bloc<LoginScreenEvent, LoginScreenState> {
+
   final LoginWithEmailUseCase loginWithEmailUseCase;
   final LoginWithGoogleUseCase loginWithGoogleUseCase;
 
   LoginScreenBloc({required this.loginWithEmailUseCase,required this.loginWithGoogleUseCase}) : super(const LoginScreenInitial(messages: '')) {
     User loggingUser = const User(id: '', email: '', messages: '', password: '', name: '', token: '', phone: '', creditCardNumber: '', image: '', isValidEmail: false, isValidPassword: false);
 
-    on<LoginScreenEvent>((event, emit) {});
 
+
+    on<LoginScreenEvent>((event, emit) {});
     on<LoginBtnClickedEvent>((event, emit) async {
       await handleBtnClickedEvent(event,emit,loggingUser,loginWithEmailUseCase);
     });
@@ -27,10 +29,14 @@ class LoginScreenBloc extends Bloc<LoginScreenEvent, LoginScreenState> {
     on<LoginUserTypedEmailEvent>((event, emit) {
       handleEmailField(event, emit, loggingUser);
     });
-
     on<LoginUserTypedPasswordEvent>((event, emit) {
       handlePasswordField(event, emit, loggingUser);
     });
+
+
+
+
+
   }
 
   void handleEmailField(LoginUserTypedEmailEvent event, Emitter emit, User loggingUser) {
@@ -52,7 +58,6 @@ class LoginScreenBloc extends Bloc<LoginScreenEvent, LoginScreenState> {
       );
     }
   }
-
   void handlePasswordField(LoginUserTypedPasswordEvent event, Emitter<LoginScreenState> emit, User loggingUser) {
     emit(const LoginScreenPasswordState(
       messages: '',
@@ -70,7 +75,6 @@ class LoginScreenBloc extends Bloc<LoginScreenEvent, LoginScreenState> {
       ));
     }
   }
-
   handleBtnClickedEvent(LoginBtnClickedEvent event, Emitter<LoginScreenState> emit, User loggingUser, LoginWithEmailUseCase loginWithEmailUseCase) async{
     loggingUser = loggingUser.copyWith(email: event.email, password: event.password);
     emit(const LoginLoadingState(messages: ''));
@@ -80,7 +84,6 @@ class LoginScreenBloc extends Bloc<LoginScreenEvent, LoginScreenState> {
     );
 
   }
-
   handleGoogleBtnClickedEvent(GoogleBtnClickedEvent event, Emitter<LoginScreenState> emit, User loggingUser, LoginWithEmailUseCase loginWithEmailUseCase) async{
     debugPrint("i have been clicked as a google sign in ");
     loggingUser = loggingUser.copyWith();

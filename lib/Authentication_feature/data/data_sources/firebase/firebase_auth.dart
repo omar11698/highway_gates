@@ -23,7 +23,7 @@ abstract class FirebaseAuthentication {
   Future<Unit> signInWithEmail(String email, String password);
   Future<Unit> signInWithGoogle();
   Future<Unit> signInWithFacebook();
-  Future<Unit> signOut(String token);
+  Future<Unit> signOut();
 }
 
 class FirebaseAuthImpl extends FirebaseAuthentication {
@@ -96,17 +96,20 @@ class FirebaseAuthImpl extends FirebaseAuthentication {
      name: value.user!.displayName!,
      email: value.user!.email!,
      id: value.user!.uid,
-     token: value.credential!.token as String,
+     token: value.credential!.token.toString(),
+     // token: '',
      image: value.user!.photoURL,
      phone: value.user!.phoneNumber, password: '',
      )
      });
-  return Future.value(unit);
+     return Future.value(unit);
   }
 
   @override
-  Future<Unit> signOut(String token) {
-    // TODO: implement signOut
-    throw UnimplementedError();
+  Future<Unit> signOut() async{
+    await FirebaseAuth.instance.signOut();
+    await GoogleSignIn().signIn();
+    // await FacebookAuth.instance.logOut();
+    return Future.value(unit);
   }
 }

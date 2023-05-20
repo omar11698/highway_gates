@@ -9,18 +9,16 @@ abstract class LoginScreenState {
 
 class LoginScreenInitial extends LoginScreenState {
   const LoginScreenInitial({required super.messages});}
-
 class LoginScreenEmailState extends LoginScreenState {
   const LoginScreenEmailState({required super.messages});
 }
-
 class LoginScreenPasswordState extends LoginScreenState {
   const LoginScreenPasswordState({required super.messages});
 }
+
 class LoginFailedState extends LoginScreenState {
   const LoginFailedState({required super.messages});
 }
-
 class LoginSuccessState extends LoginScreenState {
   const LoginSuccessState({required super.messages});
 }

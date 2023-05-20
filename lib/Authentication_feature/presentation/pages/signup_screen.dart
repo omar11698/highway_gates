@@ -55,8 +55,6 @@ class SignUpScreen extends StatelessWidget {
 
                     /// content dialog
                     content(nameTextEditingController, spaceBetweenWidgets, emailTextEditingController, passwordsTextEditingController, verifyPasswordEditingController),
-
-
                     spaceBetweenWidgets,
                     spaceBetweenWidgets,
 
@@ -100,7 +98,6 @@ class SignUpScreen extends StatelessWidget {
                       },
                     ),
                     spaceBetweenWidgets,
-
                     alreadyHaveAccount(mobileSize, context),
                     spaceBetweenWidgets,
                     spaceBetweenWidgets,

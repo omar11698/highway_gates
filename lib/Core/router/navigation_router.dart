@@ -33,7 +33,6 @@ class NavigationRouter{
         return MaterialPageRoute(builder: (_) => const MyHomePage(title: "Highway Gates"));
       case splashRoute:
         return MaterialPageRoute(builder: (_) => const SplashScreen());
-
       case animationRoute :
         return MaterialPageRoute(builder: (_) => const AnimationScreen());
       case onBoardingRoute :
@@ -51,6 +50,8 @@ class NavigationRouter{
         return MaterialPageRoute(builder: (_) => const VerificationScreen());
       case authRoute :
         initLoginModule();
+        initLoginWithGoogleModule();
+        initSignOutModule();
         return MaterialPageRoute(builder: (_) => const AuthenticationScreen());
       default:
         return MaterialPageRoute(

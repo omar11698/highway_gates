@@ -18,7 +18,6 @@ class AuthenticationScreenState extends State<AuthenticationScreen> {
         return const FirstScreen();
       }
         return const LoginScreen();
-
     });
   }
 }
