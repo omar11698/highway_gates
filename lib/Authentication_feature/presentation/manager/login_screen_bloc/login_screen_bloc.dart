@@ -88,10 +88,17 @@ class LoginScreenBloc extends Bloc<LoginScreenEvent, LoginScreenState> {
     debugPrint("i have been clicked as a google sign in ");
     loggingUser = loggingUser.copyWith();
     emit(const LoginLoadingState(messages: ''));
+
+
+
     (await loginWithGoogleUseCase.call()).fold(
           (l) => emit(const LoginFailedState(messages: '')),
           (r) => emit(const LoginSuccessState(messages: '')),
-    );  }
+    );
+
+
+
+  }
 
 
 }

@@ -12,10 +12,8 @@ import '../../../Core/DI/dependency_injection.dart';
 import '../widgets/default_button.dart';
 import '../widgets/google_facebook_card.dart';
 
-
 class LoginScreen extends StatelessWidget {
   const LoginScreen({Key? key}) : super(key: key);
-
 
   @override
   Widget build(BuildContext context) {
@@ -23,10 +21,9 @@ class LoginScreen extends StatelessWidget {
     String passwordMessage = "";
 
     TextEditingController loginTextEditingController = TextEditingController();
-    TextEditingController passwordTextEditingController = TextEditingController();
-    var mobileSize = MediaQuery
-        .of(context)
-        .size;
+    TextEditingController passwordTextEditingController =
+        TextEditingController();
+    var mobileSize = MediaQuery.of(context).size;
     var spaceBetweenWidgets = SizedBox(
       height: mobileSize.height * 0.009,
     );
@@ -35,7 +32,9 @@ class LoginScreen extends StatelessWidget {
     );
 
     return BlocProvider(
-      create: (context) => LoginScreenBloc( loginWithEmailUseCase: instance(),loginWithGoogleUseCase: instance()),
+      create: (context) => LoginScreenBloc(
+          loginWithEmailUseCase: instance(),
+          loginWithGoogleUseCase: instance()),
       child: Scaffold(
         backgroundColor: Colors.white,
         body: Padding(
@@ -62,19 +61,18 @@ class LoginScreen extends StatelessWidget {
                 loginIntoText(),
                 spaceBetweenWidgets,
 
-
                 ///login and passwords fields
                 BlocConsumer<LoginScreenBloc, LoginScreenState>(
                   listener: (context, state) {
-                      if(state is LoginScreenEmailState){
-                        emailMessage=state.messages;
-                      }
-
+                    if (state is LoginScreenEmailState) {
+                      emailMessage = state.messages;
+                    }
                   },
                   builder: (context, state) {
                     return BlocBuilder<LoginScreenBloc, LoginScreenState>(
                       builder: (context, state) {
-                        return loginField(loginTextEditingController, emailMessage);
+                        return loginField(
+                            loginTextEditingController, emailMessage);
                       },
                     );
                   },
@@ -82,10 +80,9 @@ class LoginScreen extends StatelessWidget {
                 spaceBetweenWidgets,
                 BlocConsumer<LoginScreenBloc, LoginScreenState>(
                   listener: (context, state) {
-                    if(state is LoginScreenPasswordState){
-                      passwordMessage=state.messages;
+                    if (state is LoginScreenPasswordState) {
+                      passwordMessage = state.messages;
                     }
-
                   },
                   builder: (context, state) {
                     return BlocBuilder<LoginScreenBloc, LoginScreenState>(
@@ -104,7 +101,12 @@ class LoginScreen extends StatelessWidget {
 
                 /// login Button
 
-                loginButton(mobileSize,context,loginTextEditingController,passwordTextEditingController,),
+                loginButton(
+                  mobileSize,
+                  context,
+                  loginTextEditingController,
+                  passwordTextEditingController,
+                ),
                 spaceBetweenWidgets2,
 
                 /// first time text
@@ -118,8 +120,7 @@ class LoginScreen extends StatelessWidget {
                 spaceBetweenWidgets2,
 
                 /// google and facebook cards
-                googleAndFacebookAuth(mobileSize,context),
-
+                googleAndFacebookAuth(mobileSize, context),
               ],
             ),
           ),
@@ -128,31 +129,42 @@ class LoginScreen extends StatelessWidget {
     );
   }
 
+  Text loginIntoText() => const Text(
+        strLogIntoText,
+        style: TextStyle(
+            fontSize: 16, fontWeight: FontWeight.w300, color: Colors.grey),
+      );
 
-  Text loginIntoText() => const Text(strLogIntoText, style: TextStyle(fontSize: 16, fontWeight: FontWeight.w300, color: Colors.grey),);
-
-  Text welcomeBack() => const Text(strWelcomeBack, style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700),);
-
+  Text welcomeBack() => const Text(
+        strWelcomeBack,
+        style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
+      );
 
   /// extracted widgets
 
-  Padding googleAndFacebookAuth(Size mobileSize,BuildContext ctx) {
+  Padding googleAndFacebookAuth(Size mobileSize, BuildContext ctx) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 15.0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          GoogleFacebookCard(cardName: strGoogle, icon: googlePngImg, onTap: () {
-            ctx.read<LoginScreenBloc>().add(GoogleBtnClickedEvent());
-            Navigator.pushNamed(ctx, authRoute);
-          },),
+          GoogleFacebookCard(
+            cardName: strGoogle,
+            icon: googlePngImg,
+            onTap: () {
+              ctx.read<LoginScreenBloc>().add(GoogleBtnClickedEvent());
+              // ctx.read<LoginScreenBloc>().add(GoogleBtnClickedEvent());
+              Navigator.pushNamed(ctx, authRoute);
+            },
+          ),
           SizedBox(
             width: mobileSize.height * 0.03,
           ),
-          GoogleFacebookCard(cardName: strFacebook, icon: facebookPngImg, onTap: () {
-
-          },),
-
+          GoogleFacebookCard(
+            cardName: strFacebook,
+            icon: facebookPngImg,
+            onTap: () {},
+          ),
         ],
       ),
     );
@@ -216,12 +228,19 @@ class LoginScreen extends StatelessWidget {
     );
   }
 
-  DefaultButton loginButton(Size mobileSize,BuildContext ctx, TextEditingController loginTextEditingController, TextEditingController passwordTextEditingController) {
+  DefaultButton loginButton(
+      Size mobileSize,
+      BuildContext ctx,
+      TextEditingController loginTextEditingController,
+      TextEditingController passwordTextEditingController) {
     return DefaultButton(
       mobileSize: mobileSize,
       label: 'Log in',
-      onTap: (){
-        ctx.read<LoginScreenBloc>().add(LoginBtnClickedEvent(email: loginTextEditingController.value.text.toString().trim(), password:passwordTextEditingController.value.text.toString().trim()));
+      onTap: () {
+        ctx.read<LoginScreenBloc>().add(LoginBtnClickedEvent(
+            email: loginTextEditingController.value.text.toString().trim(),
+            password:
+                passwordTextEditingController.value.text.toString().trim()));
       },
     );
   }
@@ -241,21 +260,28 @@ class LoginScreen extends StatelessWidget {
     );
   }
 
-  LoginTextField passwordField(TextEditingController passwordTextEditingController, String stateMessage) =>
+  LoginTextField passwordField(
+          TextEditingController passwordTextEditingController,
+          String stateMessage) =>
       LoginTextField(
+        // key: GlobalKey<FormState>(),
         icon: Icons.lock_open_outlined,
         labelMessage: "Password",
         controller: passwordTextEditingController,
         stateMessage: stateMessage,
-        isLoginScreen: true,);
+        isLoginScreen: true,
+      );
 
-  LoginTextField loginField(TextEditingController loginTextEditingController, String stateMessage) =>
+  LoginTextField loginField(TextEditingController loginTextEditingController,
+          String stateMessage) =>
       LoginTextField(
+        // key: GlobalKey<FormState>(),
         icon: Icons.mail_outline,
         labelMessage: "E-mail",
         controller: loginTextEditingController,
         stateMessage: stateMessage,
-        isLoginScreen: true,);
+        isLoginScreen: true,
+      );
 
   Center logoWidget(Size mobileSize) {
     return Center(
@@ -267,4 +293,3 @@ class LoginScreen extends StatelessWidget {
     );
   }
 }
-

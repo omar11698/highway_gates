@@ -11,6 +11,7 @@ import 'package:highway_gates/main.dart';
 
 import '../../Authentication_feature/presentation/pages/auth_screen.dart';
 import '../../Authentication_feature/presentation/pages/signup_screen.dart';
+import '../../Traffic_Contraventions_feature/presentation/pages/vechile_id_screen.dart';
 import '../DI/dependency_injection.dart';
 
 const String homeRoute='/';
@@ -23,12 +24,19 @@ const String registerRoute='/register';
 const String forgotPasswordRoute='/forgotPassword';
 const String verificationRoute='/verificationRoute';
 const String authRoute='/authenticationRoute';
+///
+/// traffic contraventions feature routes
+
+const String vehicleIdRoute='/vehicleIdRoute';
+
+
 
 
 
 class NavigationRouter{
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
+
       case homeRoute:
         return MaterialPageRoute(builder: (_) => const MyHomePage(title: "Highway Gates"));
       case splashRoute:
@@ -53,6 +61,13 @@ class NavigationRouter{
         initLoginWithGoogleModule();
         initSignOutModule();
         return MaterialPageRoute(builder: (_) => const AuthenticationScreen());
+
+
+      /// Traffic Contraventions Routes
+    ///
+    ///
+      case vehicleIdRoute:
+        return MaterialPageRoute(builder: (_) => const VehicleIdScreen());
       default:
         return MaterialPageRoute(
             builder: (_) => Scaffold(

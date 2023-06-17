@@ -15,4 +15,9 @@ const String strCreateNewAcc="Create New Account";
 const String strSetupYourAccount="Setup your username and password.\n You can always change it later.";
 const String strAlreadyHaveAccount="Already have an account?";
 
+/// vehicle id  screen
+///
+const String strVehicleId="رقم المركبة  ";
+const String strVehicleIdPlate= "ادخل رقم لوحة المركبة";
+
 

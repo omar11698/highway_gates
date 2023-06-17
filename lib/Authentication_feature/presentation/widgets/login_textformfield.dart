@@ -56,9 +56,13 @@ class LoginTextField extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(horizontal: 4),
                   child: TextFormField(
                     controller: controller,
-                    keyboardType: labelMessage!="E-mail" ? TextInputType.visiblePassword :TextInputType.emailAddress,
+                    // keyboardType: labelMessage!="E-mail" ? TextInputType.visiblePassword :TextInputType.emailAddress,
+                    keyboardType: TextInputType.visiblePassword ,
                     obscureText: labelMessage.contains("Password") ? true : false,
-
+                    onEditingComplete: () {
+                      // This will prevent the data from being lost when the Oppo Secure Keyboard shows up.
+                      FocusScope.of(context).unfocus();
+                    },
                     onChanged:(value){
                       /// sign up screen
                       if(isLoginScreen==false){

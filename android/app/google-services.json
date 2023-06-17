@@ -8,48 +8,20 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:23433506441:android:fb45e2eb388c70611de058",
-        "android_client_info": {
-          "package_name": "com.highwaygates"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "23433506441-o4ajk6qkh50foun1s8kufuevpenknv4p.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyDlkBwhGh5ebiz4KTh2dn2Awm1V0VI4N4o"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "23433506441-1v6rdobueqkuulp4g47f3dj0a7cnjice.apps.googleusercontent.com",
-              "client_type": 3
-            },
-            {
-              "client_id": "23433506441-jn8krrtgeet4dfn1hcko1il2q915ee9q.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "com.highwaygates.highwayGates"
-              }
-            }
-          ]
-        }
-      }
-    },
-    {
-      "client_info": {
         "mobilesdk_app_id": "1:23433506441:android:9f1da22fc39e33441de058",
         "android_client_info": {
           "package_name": "com.highwaygates.highway_gates"
         }
       },
       "oauth_client": [
+        {
+          "client_id": "23433506441-jrhdnp7om27kturvfs05tn1espjhpc75.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.highwaygates.highway_gates",
+            "certificate_hash": "9ba552ccd6345b5cd026789aa21fe795f2bc4428"
+          }
+        },
         {
           "client_id": "23433506441-o4ajk6qkh50foun1s8kufuevpenknv4p.apps.googleusercontent.com",
           "client_type": 3
