@@ -76,6 +76,8 @@ class BillingScreen extends StatelessWidget {
             ),
             const SpaceBetween(),
             InkWell(
+              onTap: (){Navigator.of(context).pushNamed(paymentRoute);},
+
               child: Text(
                 'تجديد الشحن ',
                 style: buildTextStyle(),
