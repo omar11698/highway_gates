@@ -7,10 +7,13 @@ import 'package:highway_gates/Authentication_feature/presentation/pages/onBoardi
 import 'package:highway_gates/Authentication_feature/presentation/pages/animation_screen.dart';
 import 'package:highway_gates/Authentication_feature/presentation/pages/splash_screen.dart';
 import 'package:highway_gates/Authentication_feature/presentation/pages/verification_screen.dart';
+import 'package:highway_gates/Traffic_Contraventions_feature/presentation/pages/payment_screen.dart';
 import 'package:highway_gates/main.dart';
 
 import '../../Authentication_feature/presentation/pages/auth_screen.dart';
 import '../../Authentication_feature/presentation/pages/signup_screen.dart';
+import '../../Traffic_Contraventions_feature/presentation/pages/balance_screen.dart';
+import '../../Traffic_Contraventions_feature/presentation/pages/billing_screen.dart';
 import '../../Traffic_Contraventions_feature/presentation/pages/vechile_id_screen.dart';
 import '../DI/dependency_injection.dart';
 
@@ -28,6 +31,9 @@ const String authRoute='/authenticationRoute';
 /// traffic contraventions feature routes
 
 const String vehicleIdRoute='/vehicleIdRoute';
+const String billingRoute='/billingRoute';
+const String paymentRoute='/paymentRoute';
+const String balanceRoute='/balanceRoute';
 
 
 
@@ -38,7 +44,7 @@ class NavigationRouter{
     switch (settings.name) {
 
       case homeRoute:
-        return MaterialPageRoute(builder: (_) => const MyHomePage(title: "Highway Gates"));
+        return MaterialPageRoute(builder: (_) => const OnBoardingScreen());
       case splashRoute:
         return MaterialPageRoute(builder: (_) => const SplashScreen());
       case animationRoute :
@@ -68,6 +74,12 @@ class NavigationRouter{
     ///
       case vehicleIdRoute:
         return MaterialPageRoute(builder: (_) => const VehicleIdScreen());
+      case billingRoute:
+        return MaterialPageRoute(builder: (_) => const BillingScreen());
+      case paymentRoute:
+        return MaterialPageRoute(builder: (_) => const PaymentScreen());
+      case balanceRoute:
+        return MaterialPageRoute(builder: (_) => const BalanceScreen());
       default:
         return MaterialPageRoute(
             builder: (_) => Scaffold(

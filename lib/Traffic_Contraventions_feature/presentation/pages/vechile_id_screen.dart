@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:highway_gates/Authentication_feature/presentation/widgets/default_button.dart';
 import 'package:highway_gates/Core/constants/strings.dart';
+import 'package:highway_gates/Core/router/navigation_router.dart';
 
 class VehicleIdScreen extends StatelessWidget {
   const VehicleIdScreen({super.key});
@@ -32,7 +33,9 @@ class VehicleIdScreen extends StatelessWidget {
               height: 40,
             ),
             DefaultButton(
-                mobileSize: mobileSize, label: "استعلام", onTap: () {}),
+                mobileSize: mobileSize, label: "استعلام", onTap: () {
+                  Navigator.pushNamed(context, billingRoute);
+            }),
           ],
         ),
       ),

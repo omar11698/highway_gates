@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:highway_gates/Authentication_feature/presentation/pages/first_screen.dart';
 import 'package:highway_gates/Authentication_feature/presentation/pages/login_screen.dart';
 
+import '../../../Traffic_Contraventions_feature/presentation/pages/vechile_id_screen.dart';
+
 class AuthenticationScreen extends StatefulWidget {
   const AuthenticationScreen({Key? key}) : super(key: key);
 
@@ -15,7 +17,7 @@ class AuthenticationScreenState extends State<AuthenticationScreen> {
   Widget build(BuildContext context) {
     return StreamBuilder(stream:FirebaseAuth.instance.authStateChanges() ,builder:(ctx,snapshot){
       if(snapshot.hasData){
-        return const FirstScreen();
+        return const VehicleIdScreen();
       }
         return const LoginScreen();
     });

@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -237,10 +238,12 @@ class LoginScreen extends StatelessWidget {
       mobileSize: mobileSize,
       label: 'Log in',
       onTap: () {
+
         ctx.read<LoginScreenBloc>().add(LoginBtnClickedEvent(
             email: loginTextEditingController.value.text.toString().trim(),
             password:
                 passwordTextEditingController.value.text.toString().trim()));
+        Navigator.pushNamed(ctx, authRoute);
       },
     );
   }

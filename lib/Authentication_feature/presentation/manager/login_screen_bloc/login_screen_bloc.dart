@@ -39,7 +39,7 @@ class LoginScreenBloc extends Bloc<LoginScreenEvent, LoginScreenState> {
 
   }
 
-  void handleEmailField(LoginUserTypedEmailEvent event, Emitter emit, User loggingUser) {
+  handleEmailField(LoginUserTypedEmailEvent event, Emitter emit, User loggingUser) {
     emit(const LoginScreenEmailState(messages: ''));
     debugPrint("This is login user email:${event.email}");
     if (event.email.trim().isNotEmpty && event.email.contains("@yahoo.com") || event.email.contains("@gmail.com")) {
@@ -58,7 +58,7 @@ class LoginScreenBloc extends Bloc<LoginScreenEvent, LoginScreenState> {
       );
     }
   }
-  void handlePasswordField(LoginUserTypedPasswordEvent event, Emitter<LoginScreenState> emit, User loggingUser) {
+  handlePasswordField(LoginUserTypedPasswordEvent event, Emitter<LoginScreenState> emit, User loggingUser) {
     emit(const LoginScreenPasswordState(
       messages: '',
     ));
