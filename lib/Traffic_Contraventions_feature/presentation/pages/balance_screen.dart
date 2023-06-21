@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:highway_gates/Authentication_feature/presentation/widgets/default_button.dart';
+import 'package:highway_gates/Core/router/navigation_router.dart';
 
 class BalanceScreen extends StatelessWidget {
   const BalanceScreen({super.key});
@@ -9,15 +10,14 @@ class BalanceScreen extends StatelessWidget {
     var mobileSize=MediaQuery.of(context).size;
     return  Scaffold(
       appBar: _buildAppBar(context),
-      body:
-      Padding(
+      body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 8.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
             const SizedBox(width: double.infinity,),
             Text("الرصيد المتاح ",textDirection: TextDirection.rtl,style: buildTextStyle(),),
-            SizedBox(height:mobileSize.height/4 ,),
+            SizedBox(height:mobileSize.height/5 ,),
             const Center(
               child: Text('0.0',style: TextStyle(fontSize: 60,fontWeight: FontWeight.bold),),
             ),
@@ -25,7 +25,9 @@ class BalanceScreen extends StatelessWidget {
 
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 48.0),
-              child: DefaultButton(mobileSize: mobileSize, label: "إعادة الشحن ", onTap: (){}),
+              child: DefaultButton(mobileSize: mobileSize, label: "إعادة الشحن ", onTap: (){
+                Navigator.of(context).pushNamed(paymentRoute);
+              }),
             ),
 
 

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:highway_gates/Authentication_feature/presentation/widgets/default_button.dart';
 import 'package:highway_gates/Core/constants/svg_images.dart';
+import 'package:highway_gates/Core/router/navigation_router.dart';
 
 class PaymentScreen extends StatefulWidget {
   const PaymentScreen({super.key});
@@ -14,34 +15,58 @@ class PaymentScreen extends StatefulWidget {
 class _PaymentScreenState extends State<PaymentScreen> {
   @override
   Widget build(BuildContext context) {
-    AutovalidateMode autovalidate = AutovalidateMode.disabled;
+    // AutovalidateMode autovalidate = AutovalidateMode.disabled;
     int selectedDay = 14;
     int selectedMonth = 10;
-    int selectedYear = 1993;
-    var mobileSize=MediaQuery.of(context).size;
-    return  Scaffold(
+    int selectedYear = DateTime.now().year;
+    var mobileSize = MediaQuery.of(context).size;
+    return Scaffold(
       appBar: _buildAppBar(context),
-      body:
-       SingleChildScrollView(
-         child: Padding(
-           padding: const EdgeInsets.symmetric(horizontal: 18.0),
-           child: Column(
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 18.0),
+          child: Column(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-                      const SizedBox(width: double.infinity,),
-                      Container(
-                        margin: const EdgeInsets.only(top: 20,),
-                        height: mobileSize.height/3.5,
-                        width: mobileSize.width,
-                        child: FittedBox(
-                          fit: BoxFit.fill,
-                          child: SvgPicture.asset(
-                            paymentSvgImg,
-                          ),
-                        ),),
-              Align(alignment: Alignment.centerLeft,child: Container(margin: const EdgeInsets.symmetric(vertical: 20,horizontal: 1),child: const TextField(decoration: InputDecoration(hintText: "Card Number",),)),),
-              Align(alignment: Alignment.centerLeft,child: Container(margin: const EdgeInsets.symmetric(vertical: 20,horizontal: 1),child: const Text("Expiration Date",style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),)),),
-
+              const SizedBox(
+                width: double.infinity,
+              ),
+              Container(
+                margin: const EdgeInsets.only(
+                  top: 20,
+                ),
+                height: mobileSize.height / 3.5,
+                width: mobileSize.width,
+                child: FittedBox(
+                  fit: BoxFit.fill,
+                  child: SvgPicture.asset(
+                    paymentSvgImg,
+                  ),
+                ),
+              ),
+              Align(
+                alignment: Alignment.centerLeft,
+                child: Container(
+                    margin:
+                        const EdgeInsets.symmetric(vertical: 20, horizontal: 1),
+                    child: const TextField(
+                      decoration: InputDecoration(
+                        hintText: "Card Number",
+                      ),
+                      keyboardType: TextInputType.number,
+                    )),
+              ),
+              Align(
+                alignment: Alignment.centerLeft,
+                child: Container(
+                    margin:
+                        const EdgeInsets.symmetric(vertical: 20, horizontal: 1),
+                    child: const Text(
+                      "Expiration Date",
+                      style:
+                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    )),
+              ),
               DropdownDatePicker(
                 locale: "en",
                 inputDecoration: InputDecoration(
@@ -54,8 +79,8 @@ class _PaymentScreenState extends State<PaymentScreen> {
                         borderRadius: BorderRadius.circular(10))), // optional
                 isDropdownHideUnderline: true, // optional
                 isFormValidator: true, // optional
-                startYear: 1990, // optional
-                endYear: 2030, // optional
+                startYear: DateTime.now().year, // optional
+                endYear: 2050, // optional
                 width: 10, // optional
                 showDay: false,
                 selectedDay: selectedDay, // optional
@@ -74,30 +99,43 @@ class _PaymentScreenState extends State<PaymentScreen> {
                   print('onChangedYear: $value');
                 },
               ),
-
               Padding(
-                padding: const EdgeInsets.symmetric(vertical: 30.0),
-                child: DefaultButton(mobileSize: mobileSize, label: "Proceed", onTap: onTap),
-              ),
-
-
-
-
-
-
-
-
-
-
+                  padding: const EdgeInsets.symmetric(vertical: 30.0),
+                  child: DefaultButton(
+                      mobileSize: mobileSize,
+                      label: "Proceed",
+                      onTap: () {
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return AlertDialog(
+                              title: const Text('Success'),
+                              icon: const Icon(Icons.done_outline),
+                              content:
+                                  const Text('Your operation was successful.'),
+                              actions: [
+                                DefaultButton(
+                                  mobileSize: mobileSize,
+                                  label: 'Ok',
+                                  onTap: () {
+                                    Navigator.of(context)
+                                        .pushNamed(billingRoute);
+                                  },
+                                ),
+                              ],
+                            );
+                          },
+                        );
+                      })),
             ],
+          ),
+        ),
       ),
-         ),
-       ),
     );
   }
 
-  TextStyle buildTextStyle() =>
-      const TextStyle(color: Colors.blue, fontWeight: FontWeight.w500, fontSize: 30);
+  TextStyle buildTextStyle() => const TextStyle(
+      color: Colors.blue, fontWeight: FontWeight.w500, fontSize: 30);
 
   AppBar _buildAppBar(BuildContext context) {
     return AppBar(
@@ -114,7 +152,19 @@ class _PaymentScreenState extends State<PaymentScreen> {
         backgroundColor: Colors.white);
   }
 
-  void onTap() {
+  void onTap(BuildContext context) {
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      content: const Text(
+        "Payment Successful ",
+        style: TextStyle(color: Colors.white),
+      ),
+      action: SnackBarAction(
+        label: 'Undo',
+        onPressed: () {
+          // Some code to undo the change.
+        },
+      ),
+    ));
   }
 }
 
@@ -128,7 +178,7 @@ class ExpirationDateWidget extends StatefulWidget {
 class _ExpirationDateWidgetState extends State<ExpirationDateWidget> {
   @override
   Widget build(BuildContext context) {
-    return  Row(
+    return Row(
       children: [
         DropdownDatePicker(
           inputDecoration: InputDecoration(
@@ -162,4 +212,3 @@ class _ExpirationDateWidgetState extends State<ExpirationDateWidget> {
     );
   }
 }
-
