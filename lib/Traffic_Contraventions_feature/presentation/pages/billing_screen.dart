@@ -1,6 +1,9 @@
 import 'package:date_time_picker/date_time_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:highway_gates/Core/router/navigation_router.dart';
+
+import '../../../Core/constants/svg_images.dart';
 
 class BillingScreen extends StatelessWidget {
   const BillingScreen({super.key});
@@ -23,7 +26,7 @@ class BillingScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var size = MediaQuery.of(context).size;
+    var mobileSize = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: _buildAppBar(context),
@@ -33,9 +36,20 @@ class BillingScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
             const SizedBox(
-              height: 40,
+              height: 20,
               width: double.infinity,
             ),
+            Container(
+              margin:  EdgeInsets.only(left:25,right: mobileSize.width/4.toInt(),),
+              height: mobileSize.height/3,
+              width: mobileSize.width*0.5,
+              child: FittedBox(
+                fit: BoxFit.fill,
+                child: SvgPicture.asset(
+                  logoSvgImg,
+                ),
+              ),),
+            const SpaceBetween(),
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
@@ -99,7 +113,7 @@ class BillingScreen extends StatelessWidget {
 
 
   TextStyle buildTextStyle() =>
-      const TextStyle(color: Colors.blue, fontWeight: FontWeight.w500, fontSize: 20);
+      const TextStyle(color: Colors.blue, fontWeight: FontWeight.w500, fontSize: 26);
 
   AppBar _buildAppBar(BuildContext context) {
     return AppBar(
