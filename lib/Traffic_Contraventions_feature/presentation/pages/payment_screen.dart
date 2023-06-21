@@ -24,15 +24,15 @@ class _PaymentScreenState extends State<PaymentScreen> {
       body:
        SingleChildScrollView(
          child: Padding(
-           padding: const EdgeInsets.symmetric(horizontal: 8.0),
+           padding: const EdgeInsets.symmetric(horizontal: 18.0),
            child: Column(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
                       const SizedBox(width: double.infinity,),
                       Container(
-                        margin: const EdgeInsets.only(left:25,right: 25,top: 20,),
-                        height: mobileSize.height/4,
-                        width: mobileSize.width*0.9,
+                        margin: const EdgeInsets.only(top: 20,),
+                        height: mobileSize.height/3.5,
+                        width: mobileSize.width,
                         child: FittedBox(
                           fit: BoxFit.fill,
                           child: SvgPicture.asset(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:highway_gates/Authentication_feature/presentation/widgets/default_button.dart';
 
 class BalanceScreen extends StatelessWidget {
   const BalanceScreen({super.key});
@@ -22,7 +23,10 @@ class BalanceScreen extends StatelessWidget {
             ),
             SizedBox(height:mobileSize.height/6 ,),
 
-            Center(child: ElevatedButton(onPressed: (){}, child: const Text("إعادة الشحن "),)),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 48.0),
+              child: DefaultButton(mobileSize: mobileSize, label: "إعادة الشحن ", onTap: (){}),
+            ),
 
 
 
@@ -33,7 +37,7 @@ class BalanceScreen extends StatelessWidget {
 
   }
   TextStyle buildTextStyle() =>
-      const TextStyle(color: Colors.blue, fontWeight: FontWeight.w500, fontSize: 30);
+      const TextStyle(color: Colors.blue, fontWeight: FontWeight.w500, fontSize: 40);
   AppBar _buildAppBar(BuildContext context) {
     return AppBar(
         elevation: 0,
