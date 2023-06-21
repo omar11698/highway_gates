@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:highway_gates/Authentication_feature/presentation/manager/signup_screen_bloc/signup_screen_bloc.dart';
 import 'package:highway_gates/Core/constants/text_styles.dart';
 import 'package:highway_gates/Core/firebase_options.dart';
+import 'package:highway_gates/Traffic_Contraventions_feature/presentation/manager/vehicle_id_bloc/vehicle_id_bloc.dart';
 import 'Authentication_feature/presentation/manager/first_screen_bloc/first_screen_bloc.dart';
 import 'Authentication_feature/presentation/manager/login_screen_bloc/login_screen_bloc.dart';
 import 'Core/DI/dependency_injection.dart';
@@ -18,6 +19,7 @@ Future<void> main() async {
   await intiAppModule();
   Bloc.observer = MyGlobalObserver();
   runApp(const MyApp());
+
 }
 
 class MyApp extends StatelessWidget {
@@ -35,6 +37,9 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => FirstScreenBloc(signOutUseCase: instance()),
+        ),
+        BlocProvider(
+          create: (context) => VehicleIdBloc(),
         ),
       ],
       child: MaterialApp(
