@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:date_time_picker/date_time_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -5,27 +7,19 @@ import 'package:highway_gates/Core/router/navigation_router.dart';
 
 import '../../../Core/constants/svg_images.dart';
 
-class BillingScreen extends StatelessWidget {
+class BillingScreen extends StatefulWidget {
   const BillingScreen({super.key});
 
-  // DateTime _selectedDate = DateTime.now();
-  //
-  // Future<void> _selectDate() async {
-  //   final DateTime? selectedDate = await showDatePicker(
-  //     context: context,
-  //     initialDate: _selectedDate,
-  //     firstDate: DateTime(2023, 8),
-  //     lastDate: DateTime(2101),
-  //   );
-  //   if (selectedDate != null) {
-  //     setState(() {
-  //       _selectedDate = selectedDate;
-  //     });
-  //   }
-  // }
+  @override
+  State<BillingScreen> createState() => _BillingScreenState();
+}
 
+class _BillingScreenState extends State<BillingScreen> {
   @override
   Widget build(BuildContext context) {
+    var listOfNums=[0,50,250,500,0,0,];
+    var randomNumber=listOfNums[Random().nextInt(listOfNums.length)];
+    String? elgharama="$randomNumber";
     var mobileSize = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: Colors.white,
@@ -80,13 +74,19 @@ class BillingScreen extends StatelessWidget {
                               Icons.calendar_month,
                               size: 30,
                             ),
-                            onChanged: (val) => print(val),
+                            onChanged: (val) => setState(() {
+
+                            }),
+
                             validator: (val) {
                               print(val);
+                              setState(() {
+
+                              });
                               return null;
                             },
-                            onSaved: (val) => print(val),
-                          )),
+                            onSaved: (val) => print(val)),
+                          ),
                       const SizedBox(
                         width: 100,
                       ),
@@ -97,10 +97,24 @@ class BillingScreen extends StatelessWidget {
                     ],
                   ),
                   const SpaceBetween(),
-                  InkWell(
-                    child: Text(
-                      'الغرامة ',
-                      style: buildTextStyle(),
+                  Align(
+                    alignment: Alignment.centerRight,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        const Expanded(child: SizedBox(width: 10,)),
+                        Text(
+                          '$elgharama ',
+                          style: buildTextStyle(),
+                        ),
+                        const SizedBox(
+                          width: 100,
+                        ),
+                        Text(
+                          'الغرامة ',
+                          style: buildTextStyle(),
+                        ),
+                      ],
                     ),
                   ),
                   const SpaceBetween(),
@@ -129,7 +143,6 @@ class BillingScreen extends StatelessWidget {
     );
   }
 
-
   TextStyle buildTextStyle() =>
       const TextStyle(color: Color(0xff3172DC), fontWeight: FontWeight.w500, fontSize: 26);
 
@@ -147,8 +160,6 @@ class BillingScreen extends StatelessWidget {
             )),
         backgroundColor: Colors.white);
   }
-
-
 }
 
 class SpaceBetween extends StatelessWidget {
