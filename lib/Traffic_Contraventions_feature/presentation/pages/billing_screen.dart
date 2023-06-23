@@ -15,11 +15,14 @@ class BillingScreen extends StatefulWidget {
 }
 
 class _BillingScreenState extends State<BillingScreen> {
+  bool   isBeforePickDate=true;
+
   @override
   Widget build(BuildContext context) {
+
     var listOfNums=[0,50,250,500,0,0,];
     var randomNumber=listOfNums[Random().nextInt(listOfNums.length)];
-    String? elgharama="$randomNumber";
+    String? elgharama=isBeforePickDate?"0":"$randomNumber";
     var mobileSize = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: Colors.white,
@@ -74,12 +77,20 @@ class _BillingScreenState extends State<BillingScreen> {
                               Icons.calendar_month,
                               size: 30,
                             ),
-                            onChanged: (val) => setState(() {
+                            onChanged: (val) {
+                              isBeforePickDate=!isBeforePickDate;
+                              setState(() {
 
-                            }),
+
+                              });
+
+                            },
+
+
 
                             validator: (val) {
                               print(val);
+                              isBeforePickDate=!isBeforePickDate;
                               setState(() {
 
                               });

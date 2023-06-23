@@ -119,7 +119,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                   label: 'Ok',
                                   onTap: () {
                                     Navigator.of(context)
-                                        .pushNamed(billingRoute);
+                                        .pushReplacementNamed(billingRoute);
                                   },
                                 ),
                               ],
