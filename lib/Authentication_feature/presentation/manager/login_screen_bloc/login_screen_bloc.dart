@@ -79,9 +79,10 @@ class LoginScreenBloc extends Bloc<LoginScreenEvent, LoginScreenState> {
     loggingUser = loggingUser.copyWith(email: event.email, password: event.password);
     emit(const LoginLoadingState(messages: ''));
     (await loginWithEmailUseCase.call(loggingUser)).fold(
-          (l) => emit(const LoginFailedState(messages: '')),
+          (l) => emit( LoginFailedState(messages:l.message)),
           (r) => emit(const LoginSuccessState(messages: '')),
     );
+
 
   }
   handleGoogleBtnClickedEvent(GoogleBtnClickedEvent event, Emitter<LoginScreenState> emit, User loggingUser, LoginWithEmailUseCase loginWithEmailUseCase) async{

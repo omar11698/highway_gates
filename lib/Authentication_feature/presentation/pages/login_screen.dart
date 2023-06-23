@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -13,18 +12,27 @@ import '../../../Core/DI/dependency_injection.dart';
 import '../widgets/default_button.dart';
 import '../widgets/google_facebook_card.dart';
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
 
+  @override
+  State<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     String emailMessage = "";
     String passwordMessage = "";
+    String errorMessage = "";
+
 
     TextEditingController loginTextEditingController = TextEditingController();
     TextEditingController passwordTextEditingController =
-        TextEditingController();
-    var mobileSize = MediaQuery.of(context).size;
+    TextEditingController();
+    var mobileSize = MediaQuery
+        .of(context)
+        .size;
     var spaceBetweenWidgets = SizedBox(
       height: mobileSize.height * 0.009,
     );
@@ -33,9 +41,10 @@ class LoginScreen extends StatelessWidget {
     );
 
     return BlocProvider(
-      create: (context) => LoginScreenBloc(
-          loginWithEmailUseCase: instance(),
-          loginWithGoogleUseCase: instance()),
+      create: (context) =>
+          LoginScreenBloc(
+              loginWithEmailUseCase: instance(),
+              loginWithGoogleUseCase: instance()),
       child: Scaffold(
         backgroundColor: Colors.white,
         body: Padding(
@@ -88,7 +97,8 @@ class LoginScreen extends StatelessWidget {
                   builder: (context, state) {
                     return BlocBuilder<LoginScreenBloc, LoginScreenState>(
                       builder: (context, state) {
-                        return passwordField(passwordTextEditingController, passwordMessage);
+                        return passwordField(passwordTextEditingController,
+                            passwordMessage);
                       },
                     );
                   },
@@ -102,11 +112,63 @@ class LoginScreen extends StatelessWidget {
 
                 /// login Button
 
-                loginButton(
-                  mobileSize,
-                  context,
-                  loginTextEditingController,
-                  passwordTextEditingController,
+                BlocConsumer<LoginScreenBloc, LoginScreenState>(
+                  listener: (context, state) {
+                    errorMessage=state.messages;
+
+                  },
+                  builder: (context, state) {
+                    return BlocBuilder<LoginScreenBloc, LoginScreenState>(
+                      builder: (context, state) {
+                        // return loginButton(
+                        //   mobileSize,
+                        //   context,
+                        //   errorMessage,
+                        //   loginTextEditingController,
+                        //   passwordTextEditingController,
+                        // );
+
+                        return DefaultButton(
+                          mobileSize: mobileSize,
+                          label: 'Log in',
+                          onTap: () {
+                            if(state is LoginFailedState){
+                              showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return AlertDialog(
+                                    title:  const Text("Login Failed!",style: TextStyle(fontSize: 16,fontWeight:FontWeight.w500),),
+                                    icon: const Icon(Icons.lock),
+                                    content:
+                                    Row(children: [const Icon(Icons.close_outlined,color: Colors.red,),const SizedBox(width: 10,),Text(state.messages)],),
+                                    actions: [
+                                      DefaultButton(
+                                        mobileSize: mobileSize,
+                                        label: 'Ok',
+                                        onTap: () {
+                                          Navigator.of(context)
+                                              .pop();
+                                        },
+                                      ),
+                                    ],
+                                  );
+                                },
+                              );
+                            }
+
+                            context.read<LoginScreenBloc>().add(LoginBtnClickedEvent(
+                                email: loginTextEditingController.value.text.toString().trim(),
+                                password: passwordTextEditingController.value.text.toString().trim()));
+
+                            if(state is LoginSuccessState){
+                              Navigator.pushNamed(context, authRoute);
+
+                            }
+                          },
+                        );
+                      },
+                    );
+                  },
                 ),
                 spaceBetweenWidgets2,
 
@@ -130,13 +192,15 @@ class LoginScreen extends StatelessWidget {
     );
   }
 
-  Text loginIntoText() => const Text(
+  Text loginIntoText() =>
+      const Text(
         strLogIntoText,
         style: TextStyle(
             fontSize: 16, fontWeight: FontWeight.w300, color: Colors.grey),
       );
 
-  Text welcomeBack() => const Text(
+  Text welcomeBack() =>
+      const Text(
         strWelcomeBack,
         style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
       );
@@ -229,20 +293,39 @@ class LoginScreen extends StatelessWidget {
     );
   }
 
-  DefaultButton loginButton(
-      Size mobileSize,
+  DefaultButton loginButton(Size mobileSize,
       BuildContext ctx,
+      String message,
       TextEditingController loginTextEditingController,
       TextEditingController passwordTextEditingController) {
     return DefaultButton(
       mobileSize: mobileSize,
       label: 'Log in',
       onTap: () {
-
+        showDialog(
+          context: ctx,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: const Text('Success'),
+              icon: const Icon(Icons.close),
+              content:
+              Text(message),
+              actions: [
+                DefaultButton(
+                  mobileSize: mobileSize,
+                  label: 'Ok',
+                  onTap: () {
+                    // Navigator.of(context)
+                    //     .pop();
+                  },
+                ),
+              ],
+            );
+          },
+        );
         ctx.read<LoginScreenBloc>().add(LoginBtnClickedEvent(
             email: loginTextEditingController.value.text.toString().trim(),
-            password:
-                passwordTextEditingController.value.text.toString().trim()));
+            password: passwordTextEditingController.value.text.toString().trim()));
         Navigator.pushNamed(ctx, authRoute);
       },
     );
@@ -264,8 +347,8 @@ class LoginScreen extends StatelessWidget {
   }
 
   LoginTextField passwordField(
-          TextEditingController passwordTextEditingController,
-          String stateMessage) =>
+      TextEditingController passwordTextEditingController,
+      String stateMessage) =>
       LoginTextField(
         // key: GlobalKey<FormState>(),
         icon: Icons.lock_open_outlined,
@@ -276,7 +359,7 @@ class LoginScreen extends StatelessWidget {
       );
 
   LoginTextField loginField(TextEditingController loginTextEditingController,
-          String stateMessage) =>
+      String stateMessage) =>
       LoginTextField(
         // key: GlobalKey<FormState>(),
         icon: Icons.mail_outline,

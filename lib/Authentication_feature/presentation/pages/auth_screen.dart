@@ -4,6 +4,7 @@ import 'package:highway_gates/Authentication_feature/presentation/pages/first_sc
 import 'package:highway_gates/Authentication_feature/presentation/pages/login_screen.dart';
 
 import '../../../Traffic_Contraventions_feature/presentation/pages/vechile_id_screen.dart';
+import '../widgets/default_button.dart';
 
 class AuthenticationScreen extends StatefulWidget {
   const AuthenticationScreen({Key? key}) : super(key: key);
@@ -20,6 +21,7 @@ class AuthenticationScreenState extends State<AuthenticationScreen> {
         return const VehicleIdScreen();
       }
         return const LoginScreen();
+
     });
   }
 }

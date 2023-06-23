@@ -45,7 +45,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         onGenerateRoute: NavigationRouter.generateRoute,
-        initialRoute: vehicleIdRoute,
+        initialRoute: billingRoute,
         title: 'Highway Gates',
         theme: ThemeData(
           primarySwatch: Colors.blue,

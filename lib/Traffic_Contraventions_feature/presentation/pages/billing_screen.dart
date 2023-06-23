@@ -31,7 +31,7 @@ class BillingScreen extends StatelessWidget {
       backgroundColor: Colors.white,
       appBar: _buildAppBar(context),
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 8.0),
+        padding: const EdgeInsets.symmetric(horizontal: 10.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
@@ -39,72 +39,90 @@ class BillingScreen extends StatelessWidget {
               height: 20,
               width: double.infinity,
             ),
+            Align(
+              alignment: Alignment.center,
+              child: SizedBox(
+                height: mobileSize.height/3,
+                width: mobileSize.width*0.5,
+                child: FittedBox(
+                  fit: BoxFit.fill,
+                  child: SvgPicture.asset(
+                    logoSvgImg,
+                  ),
+                ),),
+            ),
+            const SpaceBetween(),
+            const SpaceBetween(),
+            const SpaceBetween(),
             Container(
-              margin:  EdgeInsets.only(left:25,right: mobileSize.width/4.toInt(),),
-              height: mobileSize.height/3,
-              width: mobileSize.width*0.5,
-              child: FittedBox(
-                fit: BoxFit.fill,
-                child: SvgPicture.asset(
-                  logoSvgImg,
-                ),
-              ),),
-            const SpaceBetween(),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                SizedBox(
-                    width: 165,
-                    height: 50,
-                    child: DateTimePicker(
-                      initialValue: '',
-                      firstDate: DateTime(2000),
-                      lastDate: DateTime(2100),
-                      dateLabelText: 'Date',
-                      icon: const Icon(
-                        Icons.calendar_month,
-                        size: 30,
+              height: mobileSize.height/2.2,
+              padding: EdgeInsets.all(10),
+              decoration: BoxDecoration(border: Border.all(color:Color(0xff304D82),width: 2),borderRadius: BorderRadius.circular(8)),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  const SizedBox(
+                    height: 30,
+                    width: double.infinity,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      SizedBox(
+                          width: 165,
+                          height: 50,
+                          child: DateTimePicker(
+                            initialValue: '',
+                            firstDate: DateTime(2000),
+                            lastDate: DateTime(2100),
+                            dateLabelText: 'Date',
+                            icon: const Icon(
+                              Icons.calendar_month,
+                              size: 30,
+                            ),
+                            onChanged: (val) => print(val),
+                            validator: (val) {
+                              print(val);
+                              return null;
+                            },
+                            onSaved: (val) => print(val),
+                          )),
+                      const SizedBox(
+                        width: 100,
                       ),
-                      onChanged: (val) => print(val),
-                      validator: (val) {
-                        print(val);
-                        return null;
-                      },
-                      onSaved: (val) => print(val),
-                    )),
-                const SizedBox(
-                  width: 30,
-                ),
-                Text(
-                  'التاريخ ',
-                  style: buildTextStyle(),
-                ),
-              ],
-            ),
-            const SpaceBetween(),
-            InkWell(
-              child: Text(
-                'الغرامة ',
-                style: buildTextStyle(),
-              ),
-            ),
-            const SpaceBetween(),
-            InkWell(
-              onTap: (){Navigator.of(context).pushNamed(paymentRoute);},
+                      Text(
+                        'التاريخ ',
+                        style: buildTextStyle(),
+                      ),
+                    ],
+                  ),
+                  const SpaceBetween(),
+                  InkWell(
+                    child: Text(
+                      'الغرامة ',
+                      style: buildTextStyle(),
+                    ),
+                  ),
+                  const SpaceBetween(),
+                  InkWell(
+                    onTap: (){Navigator.of(context).pushNamed(balanceRoute);},
+                    child: Text(
+                      'الرصيد المتاح ',
+                      style: buildTextStyle(),
+                    ),
+                  ),
+                  const SpaceBetween(),
+                  InkWell(
+                    onTap: (){Navigator.of(context).pushNamed(paymentRoute);},
 
-              child: Text(
-                'تجديد الشحن ',
-                style: buildTextStyle(),
+                    child: Text(
+                      'تجديد الشحن ',
+                      style: buildTextStyle(),
+                    ),
+                  ),
+                ],
               ),
-            ),
-            const SpaceBetween(),
-            InkWell(
-              onTap: (){Navigator.of(context).pushNamed(balanceRoute);},
-              child: Text(
-                'الرصيد المتاح ',
-                style: buildTextStyle(),
-              ),
-            ),
+            )
           ],
         ),
       ),
@@ -113,7 +131,7 @@ class BillingScreen extends StatelessWidget {
 
 
   TextStyle buildTextStyle() =>
-      const TextStyle(color: Colors.blue, fontWeight: FontWeight.w500, fontSize: 26);
+      const TextStyle(color: Color(0xff3172DC), fontWeight: FontWeight.w500, fontSize: 26);
 
   AppBar _buildAppBar(BuildContext context) {
     return AppBar(

@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:highway_gates/Authentication_feature/data/data_sources/firebase/firebase_auth.dart';
 import 'package:highway_gates/Authentication_feature/domain/repositories/auth_repository.dart';
 import 'package:highway_gates/Core/Failures/failures.dart';
@@ -42,7 +43,7 @@ class AuthRepositoryImpl extends AuthRepository {
 
   @override
   Future<Either<Failure, Unit>> signInWithEmail(String email, String password) async{
-    return await _getMessage(() => firebaseAuth.signInWithEmail(email, password));
+    return await _getMessage(() async => await firebaseAuth.signInWithEmail(email, password));
   }
 
   @override
@@ -53,23 +54,23 @@ class AuthRepositoryImpl extends AuthRepository {
 
   @override
   Future<Either<Failure, Unit>> signInWithGoogle() async{
-    return await _getMessage(() => firebaseAuth.signInWithGoogle());
+    return await _getMessage(() async=> await firebaseAuth.signInWithGoogle());
   }
 
   @override
   Future<Either<Failure, Unit>> signOut() async{
-    return await _getMessage(() => firebaseAuth.signOut());
+    return await _getMessage(()async => await firebaseAuth.signOut());
   }
 
 
   Future<Either<Failure, Unit>> _getMessage(
-      CreateOrSignInOrSignOut createOrSignInOrSignOut
+      CreateOrSignInOrSignOut createOrSignInOrSignOut,
       ) async {
       try {
         await createOrSignInOrSignOut();
         return const Right(unit);
-      } on Failure {
-        return Left(MyFirebaseException());
+      } on FirebaseAuthException catch(e){
+        return Left(MyFirebaseException(message:e.message??"null message"));
       }
     }
   }

@@ -55,7 +55,7 @@ class FirebaseAuthImpl extends FirebaseAuthentication {
     // await FirebaseFirestore.instance.collection('users').doc(id).set(userModel.toJson());
     // await FirebaseFirestore.instance.collection('users').add(userModel.toJson()).then((DocumentReference doc) =>
     //     print('DocumentSnapshot added with ID: ${doc.id}'));
-    FirebaseAuth.instance.createUserWithEmailAndPassword(email: userModel.email, password: userModel.password);
+    await FirebaseAuth.instance.createUserWithEmailAndPassword(email: userModel.email, password: userModel.password);
     return Future.value(unit);
   }
 
@@ -108,7 +108,7 @@ class FirebaseAuthImpl extends FirebaseAuthentication {
   @override
   Future<Unit> signOut() async{
     await FirebaseAuth.instance.signOut();
-    await GoogleSignIn().signIn();
+    await GoogleSignIn().signOut();
     // await FacebookAuth.instance.logOut();
     return Future.value(unit);
   }
