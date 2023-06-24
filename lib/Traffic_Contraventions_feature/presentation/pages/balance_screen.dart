@@ -30,7 +30,12 @@ class BalanceScreen extends StatelessWidget {
                 Navigator.of(context).pushNamed(paymentRoute);
               }),
             ),
-
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 48.0,vertical: 20),
+              child: DefaultButton(mobileSize: mobileSize, label: "دفع الغرامة ", onTap: (){
+                Navigator.of(context).pushReplacementNamed(billingRoute);
+              }),
+            ),
 
 
           ],
