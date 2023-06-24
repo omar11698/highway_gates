@@ -21,7 +21,7 @@ class _BillingScreenState extends State<BillingScreen> {
   @override
   Widget build(BuildContext context) {
 
-    var listOfNums=[0,50,250,500,0,0,];
+    var listOfNums=[0,50,250,500,0,];
     var randomNumber=listOfNums[Random().nextInt(listOfNums.length)];
     String? elgharama=isBeforePickDate?"0":"$randomNumber";
     var mobileSize = MediaQuery.of(context).size;

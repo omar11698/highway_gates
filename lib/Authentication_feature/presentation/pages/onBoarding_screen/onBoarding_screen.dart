@@ -36,7 +36,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
         actions: [
           TextButton(
               onPressed: () {
-
+                  Navigator.pushReplacementNamed(context, loginRoute);
               },
               child: const Text(
                 "تخطي",
