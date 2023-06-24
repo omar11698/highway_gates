@@ -79,7 +79,7 @@ class NavigationRouter{
       case paymentRoute:
         return MaterialPageRoute(builder: (_) => const PaymentScreen());
       case balanceRoute:
-        return MaterialPageRoute(builder: (_) => const BalanceScreen());
+        return MaterialPageRoute(builder: (_) => const BalanceScreen(balance: "0.0 ",));
       default:
         return MaterialPageRoute(
             builder: (_) => Scaffold(

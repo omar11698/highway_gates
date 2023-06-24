@@ -4,6 +4,8 @@ import 'package:flutter_svg/svg.dart';
 import 'package:highway_gates/Authentication_feature/presentation/widgets/default_button.dart';
 import 'package:highway_gates/Core/constants/svg_images.dart';
 import 'package:highway_gates/Core/router/navigation_router.dart';
+import 'package:highway_gates/Traffic_Contraventions_feature/presentation/pages/balance_screen.dart';
+import 'package:highway_gates/Traffic_Contraventions_feature/presentation/pages/billing_screen.dart';
 
 class PaymentScreen extends StatefulWidget {
   const PaymentScreen({super.key});
@@ -15,6 +17,7 @@ class PaymentScreen extends StatefulWidget {
 class _PaymentScreenState extends State<PaymentScreen> {
   @override
   Widget build(BuildContext context) {
+    TextEditingController raseedController = TextEditingController();
     // AutovalidateMode autovalidate = AutovalidateMode.disabled;
     int selectedDay = 14;
     int selectedMonth = 10;
@@ -47,8 +50,8 @@ class _PaymentScreenState extends State<PaymentScreen> {
               Align(
                 alignment: Alignment.centerLeft,
                 child: Container(
-                    margin:
-                        const EdgeInsets.symmetric(vertical: 20, horizontal: 1),
+                    margin: const EdgeInsets.symmetric(
+                        vertical: 20, horizontal: 10),
                     child: const TextField(
                       decoration: InputDecoration(
                         hintText: "Card Number",
@@ -59,8 +62,22 @@ class _PaymentScreenState extends State<PaymentScreen> {
               Align(
                 alignment: Alignment.centerLeft,
                 child: Container(
-                    margin:
-                        const EdgeInsets.symmetric(vertical: 20, horizontal: 1),
+                  margin:
+                      const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
+                  child: TextField(
+                    controller: raseedController,
+                    decoration: const InputDecoration(
+                      hintText: "Amount of money in Egp",
+                    ),
+                    keyboardType: TextInputType.number,
+                  ),
+                ),
+              ),
+              Align(
+                alignment: Alignment.centerLeft,
+                child: Container(
+                    margin: const EdgeInsets.symmetric(
+                        vertical: 20, horizontal: 10),
                     child: const Text(
                       "Expiration Date",
                       style:
@@ -118,8 +135,12 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                   mobileSize: mobileSize,
                                   label: 'Ok',
                                   onTap: () {
-                                    Navigator.of(context)
-                                        .pushReplacementNamed(billingRoute);
+                                    debugPrint("**********************${raseedController.text.toString()}");
+                                    Navigator.push(context, MaterialPageRoute(builder: (BuildContext buildContext){
+                                      return BalanceScreen(balance: raseedController.text.toString());
+                                    }));
+                                    // Navigator.of(context)
+                                    //     .pushReplacementNamed(billingRoute,);
                                   },
                                 ),
                               ],

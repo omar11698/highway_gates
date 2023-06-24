@@ -65,39 +65,41 @@ class _BillingScreenState extends State<BillingScreen> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                      SizedBox(
-                          width: 165,
-                          height: 50,
-                          child: DateTimePicker(
-                            initialValue: '',
-                            firstDate: DateTime(2000),
-                            lastDate: DateTime(2100),
-                            dateLabelText: 'Date',
-                            icon: const Icon(
-                              Icons.calendar_month,
-                              size: 30,
+                      Expanded(
+                        child: SizedBox(
+                            width: 165,
+                            height: 50,
+                            child: DateTimePicker(
+                              initialValue: '',
+                              firstDate: DateTime(2000),
+                              lastDate: DateTime(2100),
+                              dateLabelText: 'Date',
+                              icon: const Icon(
+                                Icons.calendar_month,
+                                size: 30,
+                              ),
+                              onChanged: (val) {
+                                isBeforePickDate=!isBeforePickDate;
+                                setState(() {
+
+
+                                });
+
+                              },
+
+
+
+                              validator: (val) {
+                                print(val);
+                                isBeforePickDate=!isBeforePickDate;
+                                setState(() {
+
+                                });
+                                return null;
+                              },
+                              onSaved: (val) => print(val)),
                             ),
-                            onChanged: (val) {
-                              isBeforePickDate=!isBeforePickDate;
-                              setState(() {
-
-
-                              });
-
-                            },
-
-
-
-                            validator: (val) {
-                              print(val);
-                              isBeforePickDate=!isBeforePickDate;
-                              setState(() {
-
-                              });
-                              return null;
-                            },
-                            onSaved: (val) => print(val)),
-                          ),
+                      ),
                       const SizedBox(
                         width: 100,
                       ),

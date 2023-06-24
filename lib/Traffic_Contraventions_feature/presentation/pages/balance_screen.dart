@@ -3,7 +3,8 @@ import 'package:highway_gates/Authentication_feature/presentation/widgets/defaul
 import 'package:highway_gates/Core/router/navigation_router.dart';
 
 class BalanceScreen extends StatelessWidget {
-  const BalanceScreen({super.key});
+  final String balance;
+  const BalanceScreen({super.key, required this.balance});
 
   @override
   Widget build(BuildContext context) {
@@ -18,8 +19,8 @@ class BalanceScreen extends StatelessWidget {
             const SizedBox(width: double.infinity,),
             Text("الرصيد المتاح ",textDirection: TextDirection.rtl,style: buildTextStyle(),),
             SizedBox(height:mobileSize.height/5 ,),
-            const Center(
-              child: Text('0.0',style: TextStyle(fontSize: 60,fontWeight: FontWeight.bold),),
+             Center(
+              child: Text('$balance ',style: TextStyle(fontSize: 60,fontWeight: FontWeight.bold),),
             ),
             SizedBox(height:mobileSize.height/6 ,),
 
@@ -45,7 +46,7 @@ class BalanceScreen extends StatelessWidget {
         elevation: 0,
         leading: InkWell(
             onTap: () {
-              Navigator.of(context).pop();
+              Navigator.of(context).pushReplacementNamed(billingRoute);
             },
             child: const Icon(
               Icons.arrow_back,
