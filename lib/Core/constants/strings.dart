@@ -16,13 +16,15 @@ const String strSetupYourAccount="Setup your username and password.\n You can al
 const String strAlreadyHaveAccount="Already have an account?";
 
 /// vehicle id  screen
-const String strVehicleId="رقم المركبة  ";
+const String strVehicleId="أدخل البيانات";
 const String strVehicleIdPlate= "ادخل رقم لوحة المركبة";
+const String strNationalId="ادخل رقم البطاقة";
+
 
 /// billing Screen
 const String strHistory="التاريخ";
-const String strContravention='الغرامة ';
+const String strContravention='الغرامة';
 const String strAvailableBalance="الرصيد المتاح";
-const String strCheckOut='تجديد الشحن ';
+const String strCheckOut='تجديد الشحن';
 
 

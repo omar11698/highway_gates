@@ -1,6 +1,8 @@
+import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:highway_gates/Authentication_feature/presentation/manager/signup_screen_bloc/signup_screen_bloc.dart';
+import 'package:highway_gates/Core/MultiBlocProvidersList/MultiBlocProvidersList.dart';
 import 'package:highway_gates/Core/constants/text_styles.dart';
 import 'package:highway_gates/Core/firebase_options.dart';
 import 'package:highway_gates/Traffic_Contraventions_feature/presentation/manager/vehicle_id_bloc/vehicle_id_bloc.dart';
@@ -23,33 +25,23 @@ Future<void> main() async {
 }
 
 class MyApp extends StatelessWidget {
+
   const MyApp({super.key});
+
 
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
-      providers: [
-        BlocProvider<SignupScreenBloc>(
-          create: (context) => SignupScreenBloc(instance()),
-        ),
-        BlocProvider(
-          create: (context) => LoginScreenBloc(loginWithEmailUseCase: instance(), loginWithGoogleUseCase: instance()),
-        ),
-        BlocProvider(
-          create: (context) => FirstScreenBloc(signOutUseCase: instance()),
-        ),
-        BlocProvider(
-          create: (context) => VehicleIdBloc(),
-        ),
-      ],
+      providers: MultiBlocProvidersList.blocProvidersList(context),
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         onGenerateRoute: NavigationRouter.generateRoute,
-        initialRoute: animationRoute,
+        initialRoute: vehicleIdRoute,
         title: 'Highway Gates',
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
+
       ),
     );
   }

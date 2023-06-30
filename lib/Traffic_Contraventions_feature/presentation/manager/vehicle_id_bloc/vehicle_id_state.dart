@@ -6,8 +6,9 @@ abstract class VehicleIdState {}
 class VehicleIdInitial extends VehicleIdState {}
 class VehicleIdSuccess extends VehicleIdState {
   final String message;
+  final String vehicleId,nationalId;
 
-  VehicleIdSuccess({required this.message});
+  VehicleIdSuccess({required this.message,required this.vehicleId,required this.nationalId,});
 
 }
 class VehicleIdFailed extends VehicleIdState {

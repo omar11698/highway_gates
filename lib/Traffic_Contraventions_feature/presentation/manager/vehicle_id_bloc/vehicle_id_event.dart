@@ -4,6 +4,7 @@ part of 'vehicle_id_bloc.dart';
 abstract class VehicleIdEvent {}
 class VehicleIdSearchEvent extends VehicleIdEvent{
   final String vehicleId;
+  final String nationalId;
 
-  VehicleIdSearchEvent({required this.vehicleId});
+  VehicleIdSearchEvent({required this.vehicleId,required this.nationalId});
 }

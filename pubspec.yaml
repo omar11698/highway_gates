@@ -50,6 +50,8 @@ dependencies:
   google_sign_in: ^6.1.0
   date_time_picker: ^2.1.0
   datepicker_dropdown: ^0.0.7+5
+  camera: ^0.10.5+2
+  scan: ^1.6.0
 
 dev_dependencies:
   flutter_test:
