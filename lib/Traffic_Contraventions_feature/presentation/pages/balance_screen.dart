@@ -30,36 +30,36 @@ class BalanceScreen extends StatelessWidget {
                 Navigator.of(context).pushNamed(paymentRoute);
               }),
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 48.0,vertical: 20),
-              child: DefaultButton(mobileSize: mobileSize, label: "دفع الغرامة ", onTap: (){
-
-                showDialog(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return AlertDialog(
-                      title: const Text('Success'),
-                      icon: const Icon(Icons.done_outline),
-                      content:
-                      const Text('Your operation was successful.'),
-                      actions: [
-                        DefaultButton(
-                          mobileSize: mobileSize,
-                          label: 'Ok',
-                          onTap: () {
-                            Navigator.of(context)
-                                .pushReplacementNamed(billingRoute,);
-                          },
-                        ),
-                      ],
-                    );
-                  },
-                );
-
-
-                // Navigator.of(context).pushReplacementNamed(billingRoute);
-              }),
-            ),
+            // Padding(
+            //   padding: const EdgeInsets.symmetric(horizontal: 48.0,vertical: 20),
+            //   child: DefaultButton(mobileSize: mobileSize, label: "دفع الغرامة ", onTap: (){
+            //
+            //     showDialog(
+            //       context: context,
+            //       builder: (BuildContext context) {
+            //         return AlertDialog(
+            //           title: const Text('Success'),
+            //           icon: const Icon(Icons.done_outline),
+            //           content:
+            //           const Text('Your operation was successful.'),
+            //           actions: [
+            //             DefaultButton(
+            //               mobileSize: mobileSize,
+            //               label: 'Ok',
+            //               onTap: () {
+            //                 Navigator.of(context)
+            //                     .pushReplacementNamed(billingRoute,);
+            //               },
+            //             ),
+            //           ],
+            //         );
+            //       },
+            //     );
+            //
+            //
+            //     // Navigator.of(context).pushReplacementNamed(billingRoute);
+            //   }),
+            // ),
 
 
           ],

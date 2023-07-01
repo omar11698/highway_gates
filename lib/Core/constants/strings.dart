@@ -17,14 +17,14 @@ const String strAlreadyHaveAccount="Already have an account?";
 
 /// vehicle id  screen
 const String strVehicleId="أدخل البيانات";
-const String strVehicleIdPlate= "ادخل رقم لوحة المركبة";
-const String strNationalId="ادخل رقم البطاقة";
+const String strVehicleIdPlate= " رقم لوحة المركبة";
+const String strNationalId=" الرقم القومي";
 
 
 /// billing Screen
 const String strHistory="التاريخ";
 const String strContravention='الغرامة';
 const String strAvailableBalance="الرصيد المتاح";
-const String strCheckOut='تجديد الشحن';
+const String strCheckOut='إعادة شحن';
 
 

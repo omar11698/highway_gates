@@ -1,9 +1,11 @@
 import 'package:datepicker_dropdown/datepicker_dropdown.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:highway_gates/Authentication_feature/presentation/widgets/default_button.dart';
 import 'package:highway_gates/Core/constants/svg_images.dart';
 import 'package:highway_gates/Core/router/navigation_router.dart';
+import 'package:highway_gates/Traffic_Contraventions_feature/presentation/manager/balance_bloc/balance_bloc.dart';
 import 'package:highway_gates/Traffic_Contraventions_feature/presentation/pages/balance_screen.dart';
 import 'package:highway_gates/Traffic_Contraventions_feature/presentation/pages/billing_screen.dart';
 
@@ -136,9 +138,11 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                   label: 'Ok',
                                   onTap: () {
                                     debugPrint("**********************${raseedController.text.toString()}");
-                                    Navigator.push(context, MaterialPageRoute(builder: (BuildContext buildContext){
-                                      return BalanceScreen(balance: raseedController.text.toString());
-                                    }));
+                                    context.read<BalanceBloc>().add(PayWithBalanceEvent(balance: raseedController.text.toString(),));
+                                    Navigator.pushReplacementNamed(context, billingRoute);
+                                    // Navigator.push(context, MaterialPageRoute(builder: (BuildContext buildContext){
+                                    //   return BalanceScreen(balance: raseedController.text.toString());
+                                    // }));
                                     // Navigator.of(context)
                                     //     .pushReplacementNamed(billingRoute,);
                                   },

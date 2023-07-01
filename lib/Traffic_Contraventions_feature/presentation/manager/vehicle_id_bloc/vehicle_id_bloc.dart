@@ -13,21 +13,7 @@ class VehicleIdBloc extends Bloc<VehicleIdEvent, VehicleIdState> {
 
     on<VehicleIdSearchEvent>(
         (event, emit) async {
-          // if(state is VehicleIdInitial){
-          //   emit(VehicleIdSuccess(message: "success",nationalId: event.nationalId,vehicleId: event.vehicleId));
-          // }
-          // else if (state is VehicleIdSuccess ){
-          //   emit(VehicleIdFailed(message: "failed"));
-          //
-          // }
-          print(" The event has been kicked ya omar ");
-          if(event.vehicleId.isNotEmpty){
-            emit(VehicleIdSuccess(message: "success",nationalId: event.nationalId,vehicleId: event.vehicleId));
-          }else{
-            emit(VehicleIdFailed(message: "failed"));
-          }
-
-          // return handleVehicleIdSearchEvent(event, emit);
+          return handleVehicleIdSearchEvent(event, emit);
         } );
   }
 

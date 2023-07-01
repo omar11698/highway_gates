@@ -5,23 +5,37 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:highway_gates/Core/router/navigation_router.dart';
+import 'package:highway_gates/Traffic_Contraventions_feature/presentation/manager/balance_bloc/balance_bloc.dart';
+import 'package:highway_gates/Traffic_Contraventions_feature/presentation/manager/balance_bloc/balance_bloc.dart';
 import 'package:highway_gates/Traffic_Contraventions_feature/presentation/manager/vehicle_id_bloc/vehicle_id_bloc.dart';
 
+import '../../../Authentication_feature/presentation/widgets/default_button.dart';
 import '../../../Core/constants/strings.dart';
 import '../../../Core/constants/svg_images.dart';
 
-class BillingScreen extends StatelessWidget {
-  const BillingScreen({super.key});
+class BillingScreen extends StatefulWidget {
+   const BillingScreen({super.key});
 
+  @override
+  State<BillingScreen> createState() => _BillingScreenState();
+}
+
+class _BillingScreenState extends State<BillingScreen> {
   // bool   isBeforePickDate=true;
+  var ghrama = 100;
+  var avBalance = 0;
 
   @override
   Widget build(BuildContext context) {
+
     //
     // var listOfNums=[0,50,250,500,0,];
     // var randomNumber=listOfNums[Random().nextInt(listOfNums.length)];
     // String? elgharama=isBeforePickDate?"0":"$randomNumber";
-    var mobileSize = MediaQuery.of(context).size;
+    var mobileSize = MediaQuery
+        .of(context)
+        .size;
+
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -53,11 +67,11 @@ class BillingScreen extends StatelessWidget {
               const SpaceBetween(),
               const SpaceBetween(),
               Container(
-                height: mobileSize.height / 2.2,
+                height: mobileSize.height / 1.9,
                 padding: const EdgeInsets.all(10),
                 decoration: BoxDecoration(
                     border:
-                        Border.all(color: const Color(0xff304D82), width: 2),
+                    Border.all(color: const Color(0xff304D82), width: 2),
                     borderRadius: BorderRadius.circular(8)),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.end,
@@ -115,18 +129,19 @@ class BillingScreen extends StatelessWidget {
                     // ),
                     BlocBuilder<VehicleIdBloc, VehicleIdState>(
                       builder: (BuildContext context, state) {
-
                         if (state is VehicleIdSuccess) {
                           return Column(
                             children: [
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.end,
                                 children: [
-                                  Text(state.vehicleId,style: buildTextStyle(),),
-                                  const SizedBox(
-                                    width: 12,
+                                  Text(
+                                    state.vehicleId,
+                                    style: buildTextStyle(),
                                   ),
-
+                                  const SizedBox(
+                                    width: 35,
+                                  ),
                                   Text(
                                     'مرحبا بك يا',
                                     style: buildTextStyle(),
@@ -137,15 +152,19 @@ class BillingScreen extends StatelessWidget {
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.end,
                                 children: [
-
-                                  Text(state.nationalId,style: buildTextStyle(),),
+                                  Text(
+                                    state.nationalId,
+                                    style: buildTextStyle(),
+                                  ),
                                   const Expanded(
                                     child: SizedBox(
                                       width: 100,
                                     ),
                                   ),
-                                  Text('الرقم القومي',style: buildTextStyle(),),
-
+                                  Text(
+                                    'الرقم القومي',
+                                    style: buildTextStyle(),
+                                  ),
                                 ],
                               ),
                             ],
@@ -164,19 +183,20 @@ class BillingScreen extends StatelessWidget {
                     Align(
                       alignment: Alignment.centerRight,
                       child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.end,
                         children: [
-                          const Expanded(
-                              child: SizedBox(
-                            width: 10,
-                          )),
-                          Text(
-                            // '$elgharama ',
-                            '0',
-                            style: buildTextStyle(),
-                          ),
                           const SizedBox(
-                            width: 100,
+                            width: 10,
+                          ),
+
+                          Text(
+                                // '$elgharama ',
+                                "$ghrama",
+                                style: buildTextStyle(),
+                              ),
+
+                          const SizedBox(
+                            width: 80,
                           ),
                           Text(
                             strContravention,
@@ -186,23 +206,117 @@ class BillingScreen extends StatelessWidget {
                       ),
                     ),
                     const SpaceBetween(),
-                    InkWell(
-                      onTap: () {
-                        Navigator.of(context).pushNamed(balanceRoute);
-                      },
-                      child: Text(
-                        strAvailableBalance,
-                        style: buildTextStyle(),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        // InkWell(
+                        //   onTap: () {
+                        //     Navigator.of(context).pushNamed(paymentRoute);
+                        //   },
+                        //   child: const Text(
+                        //     strCheckOut,
+                        //     style: TextStyle(
+                        //         // Color(0xff3172DC)
+                        //         color: Color(0xff3172DC),
+                        //
+                        //         fontWeight: FontWeight.w300,
+                        //         fontSize: 18,
+                        //     ),
+                        //   ),
+                        // ),
+                        const Expanded(child: SizedBox(width: 85,)),
+                        BlocBuilder<BalanceBloc, BalanceState>(
+                          builder: (context, state) {
+                            if (state is BalanceCalculationSuccess) {
+                               avBalance=int.parse(state.balance);
+                              return Text("${avBalance}",
+                                style: buildTextStyle(),
+                              );
+                            }
+                            return Text(
+                              "0",
+                              style: buildTextStyle(),
+                            );
+                          },
+                        ),
+                        const SizedBox(
+                          width: 17,
+                        ),
+                        InkWell(
+                          onTap: () {
+                            // Navigator.of(context).pushNamed(balanceRoute);
+                          },
+                          child: Text(
+                            strAvailableBalance,
+                            style: buildTextStyle(),
+                          ),
+                        ),
+
+                      ],
+                    ),
+                    const SizedBox(height: 5,),
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: InkWell(
+                        onTap: () {
+                          Navigator.of(context).pushNamed(paymentRoute);
+                        },
+                        child: const Text(
+                          strCheckOut,
+                          style: TextStyle(
+                            // Color(0xff3172DC)
+                            color: Color(0xff3172DC),
+
+                            fontWeight: FontWeight.w300,
+                            fontSize: 18,
+                          ),
+                        ),
                       ),
                     ),
-                    const SpaceBetween(),
-                    InkWell(
-                      onTap: () {
-                        Navigator.of(context).pushNamed(paymentRoute);
-                      },
-                      child: Text(
-                        strCheckOut,
-                        style: buildTextStyle(),
+
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 48.0, vertical: 30),
+                        child: DefaultButton(
+                            mobileSize: mobileSize,
+                            label: "دفع الغرامة",
+                            onTap: () {
+                              showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return AlertDialog(
+                                    title: const Text('Success'),
+                                    icon: const Icon(Icons.done_outline),
+                                    content: const Text(
+                                        'Your operation was successful.'),
+                                    actions: [
+                                      DefaultButton(
+                                        mobileSize: mobileSize,
+                                        label: 'Ok',
+                                        onTap: () {
+                                          Navigator.of(context).pop();
+                                          var calculatedBalance=avBalance-ghrama;
+                                          if(calculatedBalance>=0) {
+                                            context.read<BalanceBloc>().add(
+                                                PayWithBalanceEvent(
+                                                    balance: calculatedBalance
+                                                        .toString(),));
+                                          }
+                                          ghrama=0;
+                                          setState(() {
+
+                                          });
+
+                                        },
+                                      ),
+                                    ],
+                                  );
+                                },
+                              );
+
+                              // Navigator.of(context).pushReplacementNamed(billingRoute);
+                            }),
                       ),
                     ),
                   ],
@@ -215,8 +329,9 @@ class BillingScreen extends StatelessWidget {
     );
   }
 
-  TextStyle buildTextStyle() => const TextStyle(
-      color: Color(0xff3172DC), fontWeight: FontWeight.w500, fontSize: 26);
+  TextStyle buildTextStyle() =>
+      const TextStyle(
+          color: Color(0xff3172DC), fontWeight: FontWeight.w500, fontSize: 26);
 
   AppBar _buildAppBar(BuildContext context) {
     return AppBar(

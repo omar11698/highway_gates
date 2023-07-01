@@ -95,6 +95,7 @@ class _VehicleIdScreenState extends State<VehicleIdScreen> {
                      const SpaceBetween(),
                       TextFormField(
                         keyboardType: TextInputType.number,
+                        maxLength: 14,
                         validator: (value){
                           if(value==null||value.isEmpty||value.trim().isEmpty||value.length<14){
                             return "  أدخل الرقم القومي مكون من ١٤ رقم"  ;
