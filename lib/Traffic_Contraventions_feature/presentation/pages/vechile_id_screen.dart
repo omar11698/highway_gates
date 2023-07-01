@@ -1,5 +1,6 @@
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:highway_gates/Authentication_feature/presentation/widgets/default_button.dart';
 import 'package:highway_gates/Core/constants/strings.dart';
@@ -34,51 +35,91 @@ class _VehicleIdScreenState extends State<VehicleIdScreen> {
       child: Scaffold(
         backgroundColor: Colors.white,
         appBar: buildAppBar(context),
-        body: Form(
-          key: _formKey,
-          child: SingleChildScrollView(
-            keyboardDismissBehavior:ScrollViewKeyboardDismissBehavior.manual ,
-            child: Padding(
-              padding: const EdgeInsets.all(15.0),
-              child: SizedBox(
-                // height: mobileSize.height,
-                height: contentHeight,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    const VehicleIdTitle(),
-                    const SizedBox(
-                      height: 40,
-                    ),
-                    TextFormField(
-                      onTap:(){
-                        setState(() {
-                          contentHeight=MediaQuery.of(context).size.height -
-                              MediaQuery.of(context).viewInsets.bottom;
-                        });
+        body: SingleChildScrollView(
+          keyboardDismissBehavior:ScrollViewKeyboardDismissBehavior.manual ,
+          child: Padding(
+            padding: const EdgeInsets.all(15.0),
+            child: Form(
+              key: _formKey,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  const VehicleIdTitle(),
+                  const SizedBox(
+                    height: 40,
+                  ),
+                  TextFormField(
+                    inputFormatters: [SpaceFormatter()],
+                    maxLength: 16,
 
-                      } ,
-                     validator: (value){
-                       if(value==null||value.isEmpty||value.trim().isEmpty){
-                         return "أدخل رقم المركبة"  ;
-                       }
-                       return null;
-                     },
+                    onTap:(){
+                      setState(() {
+                        contentHeight=MediaQuery.of(context).size.height -
+                            MediaQuery.of(context).viewInsets.bottom;
+                      });
+
+                    } ,
+                   validator: (value){
+                     if(value==null||value.isEmpty||value.trim().isEmpty){
+                       return "أدخل رقم المركبة"  ;
+                     }
+                     return null;
+                   },
+                    onChanged: (value){
+                      _formKey.currentState!.validate();
+                      _formKey.currentState!.save();
+                    },
+                    onSaved: (value){
+                      vehicleId=value!;
+                    },
+
+                   decoration: const InputDecoration(
+                     // border: InputBorder.none,
+                     // enabledBorder: InputBorder.none,
+
+                     hintText: strVehicleIdPlate,
+                     counterText: ""
+                     // label: Text(strVehicleIdPlate),
+
+                   ),
+
+                   style: const TextStyle(
+                     fontSize: 30,
+                     decoration: TextDecoration.none,
+                     decorationColor: Colors.transparent,
+
+                   ),
+                   textDirection: TextDirection.rtl,
+                   autofocus: true,
+                   textAlign: TextAlign.right,
+                   ),
+                   const SpaceBetween(),
+                   const SpaceBetween(),
+                    TextFormField(
+                      keyboardType: TextInputType.number,
+                      maxLength: 14,
+                      validator: (value){
+                        if(value==null||value.isEmpty||value.trim().isEmpty||value.length<14){
+                          return "  أدخل الرقم القومي مكون من ١٤ رقم"  ;
+                        }
+                        return null;
+                      },
                       onChanged: (value){
-                        _formKey.currentState!.validate();
-                        _formKey.currentState!.save();
+                          _formKey.currentState!.validate();
+                          _formKey.currentState!.save();
+
                       },
                       onSaved: (value){
-                        vehicleId=value!;
-                      },
+                        nationalId=value!;
+
+                      }
+                      ,
 
                      decoration: const InputDecoration(
                        // border: InputBorder.none,
                        // enabledBorder: InputBorder.none,
-                       hintText: strVehicleIdPlate,
-                       // label: Text(strVehicleIdPlate),
-
+                       hintText: strNationalId,
                      ),
 
                      style: const TextStyle(
@@ -86,86 +127,43 @@ class _VehicleIdScreenState extends State<VehicleIdScreen> {
                        decoration: TextDecoration.none,
                        decorationColor: Colors.transparent,
 
+
                      ),
                      textDirection: TextDirection.rtl,
                      autofocus: true,
                      textAlign: TextAlign.right,
-                     ),
-                     const SpaceBetween(),
-                     const SpaceBetween(),
-                      TextFormField(
-                        keyboardType: TextInputType.number,
-                        maxLength: 14,
-                        validator: (value){
-                          if(value==null||value.isEmpty||value.trim().isEmpty||value.length<14){
-                            return "  أدخل الرقم القومي مكون من ١٤ رقم"  ;
-                          }
-                          return null;
-                        },
-                        onChanged: (value){
-                            _formKey.currentState!.validate();
-                            _formKey.currentState!.save();
+                   ),
 
-                        },
-                        onSaved: (value){
-                          nationalId=value!;
+                  // const SizedBox(
+                  //   height: 40,
+                  // ),
+                  // const SizedBox(
+                  //   height: 100,
+                  //   width: 100,
+                  //   child: Icon(Icons.camera,size: 40,),
+                  // ),
+                  //
+                  //
+                  const SizedBox(
+                    height: 20,
+                  ),
 
+
+                  DefaultButton(
+                      mobileSize: mobileSize, label: "استعلام", onTap: () {
+                    FocusScope.of(context).unfocus();
+                    if(_formKey.currentState!.validate()){
+                          _formKey.currentState!.save();
+                          debugPrint(nationalId);
+                          debugPrint(vehicleId);
+                          context.read<VehicleIdBloc>().add(VehicleIdSearchEvent(vehicleId: vehicleId,nationalId: nationalId));
+                          Navigator.pushNamed(context, billingRoute);
                         }
-                        ,
-
-                       decoration: const InputDecoration(
-                         // border: InputBorder.none,
-                         // enabledBorder: InputBorder.none,
-                         hintText: strNationalId,
-                       ),
-
-                       style: const TextStyle(
-                         fontSize: 30,
-                         decoration: TextDecoration.none,
-                         decorationColor: Colors.transparent,
 
 
-                       ),
-                       textDirection: TextDirection.rtl,
-                       autofocus: true,
-                       textAlign: TextAlign.right,
-                     ),
+                  }),
+                ],
 
-                    // const SizedBox(
-                    //   height: 40,
-                    // ),
-                    // const SizedBox(
-                    //   height: 100,
-                    //   width: 100,
-                    //   child: Icon(Icons.camera,size: 40,),
-                    // ),
-                    //
-                    //
-                    // const SizedBox(
-                    //   height: 40,
-                    // ),
-
-
-
-
-
-
-                    DefaultButton(
-                        mobileSize: mobileSize, label: "استعلام", onTap: () {
-                      FocusScope.of(context).unfocus();
-                      if(_formKey.currentState!.validate()){
-                            _formKey.currentState!.save();
-                            debugPrint(nationalId);
-                            debugPrint(vehicleId);
-                            context.read<VehicleIdBloc>().add(VehicleIdSearchEvent(vehicleId: vehicleId,nationalId: nationalId));
-                            Navigator.pushNamed(context, billingRoute);
-                          }
-
-
-                    }),
-                  ],
-
-                ),
               ),
             ),
           ),
@@ -230,4 +228,32 @@ class RaqamLohetElMarkaba extends StatelessWidget {
       ),
     );
   }
+}
+
+
+
+
+class SpaceFormatter extends TextInputFormatter {
+  @override
+  TextEditingValue formatEditUpdate(TextEditingValue oldValue, TextEditingValue newValue) {
+    // Add a space after every 1 letter.
+
+    String text = newValue.text;
+    int index = 0;
+    String newText = "";
+    while (index < newValue.text.length) {
+      if(text[index]!=" "){
+        newText += text[index];
+        debugPrint("${newText}");
+
+        if (index % 1 == 0) {
+          newText+=" ";
+        }
+      }
+      index++;
+    }
+    return TextEditingValue(text: newText);
+  }
+
+
 }

@@ -17,6 +17,8 @@ class PaymentScreen extends StatefulWidget {
 }
 
 class _PaymentScreenState extends State<PaymentScreen> {
+  final _formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     TextEditingController raseedController = TextEditingController();
@@ -30,129 +32,157 @@ class _PaymentScreenState extends State<PaymentScreen> {
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 18.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: [
-              const SizedBox(
-                width: double.infinity,
-              ),
-              Container(
-                margin: const EdgeInsets.only(
-                  top: 20,
+          child: Form(
+            key: _formKey,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                const SizedBox(
+                  width: double.infinity,
                 ),
-                height: mobileSize.height / 3.5,
-                width: mobileSize.width,
-                child: FittedBox(
-                  fit: BoxFit.fill,
-                  child: SvgPicture.asset(
-                    paymentSvgImg,
+                Container(
+                  margin: const EdgeInsets.only(
+                    top: 20,
+                  ),
+                  height: mobileSize.height / 3.5,
+                  width: mobileSize.width,
+                  child: FittedBox(
+                    fit: BoxFit.fill,
+                    child: SvgPicture.asset(
+                      paymentSvgImg,
+                    ),
                   ),
                 ),
-              ),
-              Align(
-                alignment: Alignment.centerLeft,
-                child: Container(
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: Container(
+                      margin: const EdgeInsets.symmetric(
+                          vertical: 20, horizontal: 10),
+                      child: TextFormField(
+                        maxLength: 20,
+                        onChanged: (value) {},
+                        onSaved: (value) {},
+                        validator: (value) {
+                          if (value.toString().length < 14) {
+                            return "أدخل رقم فيزا صحيح";
+                          }
+                          return null;
+                        },
+                        decoration: const InputDecoration(
+                          hintText: "Card Number",
+                          counterText: ""
+                        ),
+                        keyboardType: TextInputType.number,
+                      )),
+                ),
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: Container(
                     margin: const EdgeInsets.symmetric(
                         vertical: 20, horizontal: 10),
-                    child: const TextField(
-                      decoration: InputDecoration(
-                        hintText: "Card Number",
+                    child: TextFormField(
+                      onChanged: (value) {},
+                      onSaved: (value) {},
+                      validator: (value) {
+                        return null;
+                      },
+                      controller: raseedController,
+                      decoration: const InputDecoration(
+                        hintText: "Amount of money in Egp",
                       ),
                       keyboardType: TextInputType.number,
-                    )),
-              ),
-              Align(
-                alignment: Alignment.centerLeft,
-                child: Container(
-                  margin:
-                      const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
-                  child: TextField(
-                    controller: raseedController,
-                    decoration: const InputDecoration(
-                      hintText: "Amount of money in Egp",
                     ),
-                    keyboardType: TextInputType.number,
                   ),
                 ),
-              ),
-              Align(
-                alignment: Alignment.centerLeft,
-                child: Container(
-                    margin: const EdgeInsets.symmetric(
-                        vertical: 20, horizontal: 10),
-                    child: const Text(
-                      "Expiration Date",
-                      style:
-                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                    )),
-              ),
-              DropdownDatePicker(
-                locale: "en",
-                inputDecoration: InputDecoration(
-                    enabledBorder: const OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.grey, width: 1.0),
-                    ),
-                    helperText: '',
-                    contentPadding: const EdgeInsets.all(8),
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10))), // optional
-                isDropdownHideUnderline: true, // optional
-                isFormValidator: true, // optional
-                startYear: DateTime.now().year, // optional
-                endYear: 2050, // optional
-                width: 10, // optional
-                showDay: false,
-                selectedDay: selectedDay, // optional
-                selectedMonth: selectedMonth, // optional
-                selectedYear: selectedYear, // optional
-                onChangedDay: (value) {
-                  selectedDay = int.parse(value!);
-                  print('onChangedDay: $value');
-                },
-                onChangedMonth: (value) {
-                  selectedMonth = int.parse(value!);
-                  print('onChangedMonth: $value');
-                },
-                onChangedYear: (value) {
-                  selectedYear = int.parse(value!);
-                  print('onChangedYear: $value');
-                },
-              ),
-              Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 30.0),
-                  child: DefaultButton(
-                      mobileSize: mobileSize,
-                      label: "Proceed",
-                      onTap: () {
-                        showDialog(
-                          context: context,
-                          builder: (BuildContext context) {
-                            return AlertDialog(
-                              title: const Text('Success'),
-                              icon: const Icon(Icons.done_outline),
-                              content:
-                                  const Text('Your operation was successful.'),
-                              actions: [
-                                DefaultButton(
-                                  mobileSize: mobileSize,
-                                  label: 'Ok',
-                                  onTap: () {
-                                    debugPrint("**********************${raseedController.text.toString()}");
-                                    context.read<BalanceBloc>().add(PayWithBalanceEvent(balance: raseedController.text.toString(),));
-                                    Navigator.pushReplacementNamed(context, billingRoute);
-                                    // Navigator.push(context, MaterialPageRoute(builder: (BuildContext buildContext){
-                                    //   return BalanceScreen(balance: raseedController.text.toString());
-                                    // }));
-                                    // Navigator.of(context)
-                                    //     .pushReplacementNamed(billingRoute,);
-                                  },
-                                ),
-                              ],
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: Container(
+                      margin: const EdgeInsets.symmetric(
+                          vertical: 20, horizontal: 10),
+                      child: const Text(
+                        "Expiration Date",
+                        style: TextStyle(
+                            fontSize: 20, fontWeight: FontWeight.bold),
+                      )),
+                ),
+                DropdownDatePicker(
+                  locale: "en",
+                  inputDecoration: InputDecoration(
+                      enabledBorder: const OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.grey, width: 1.0),
+                      ),
+                      helperText: '',
+                      contentPadding: const EdgeInsets.all(8),
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10))), // optional
+                  isDropdownHideUnderline: true, // optional
+                  isFormValidator: true, // optional
+                  startYear: DateTime.now().year, // optional
+                  endYear: 2050, // optional
+                  width: 10, // optional
+                  showDay: false,
+                  selectedDay: selectedDay, // optional
+                  selectedMonth: selectedMonth, // optional
+                  selectedYear: selectedYear, // optional
+                  onChangedDay: (value) {
+                    selectedDay = int.parse(value!);
+                    print('onChangedDay: $value');
+                  },
+                  onChangedMonth: (value) {
+                    selectedMonth = int.parse(value!);
+                    print('onChangedMonth: $value');
+                  },
+                  onChangedYear: (value) {
+                    selectedYear = int.parse(value!);
+                    print('onChangedYear: $value');
+                  },
+                ),
+                Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 30.0),
+                    child: DefaultButton(
+                        mobileSize: mobileSize,
+                        label: "Proceed",
+                        onTap: () {
+                          if (_formKey.currentState!.validate()) {
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return AlertDialog(
+                                  title: const Text('Success'),
+                                  icon: const Icon(Icons.done_outline),
+                                  content: const Text(
+                                      'Your operation was successful.'),
+                                  actions: [
+                                    DefaultButton(
+                                      mobileSize: mobileSize,
+                                      label: 'Ok',
+                                      onTap: () {
+                                        debugPrint(
+                                            "**********************${raseedController.text.toString()}");
+                                        context
+                                            .read<BalanceBloc>()
+                                            .add(PayWithBalanceEvent(
+                                              balance: raseedController.text
+                                                  .toString(),
+                                            ));
+                                        Navigator.pushReplacementNamed(
+                                            context, billingRoute);
+
+                                        // Navigator.push(context, MaterialPageRoute(builder: (BuildContext buildContext){
+                                        //   return BalanceScreen(balance: raseedController.text.toString());
+                                        // }));
+                                        // Navigator.of(context)
+                                        //     .pushReplacementNamed(billingRoute,);
+                                      },
+                                    ),
+                                  ],
+                                );
+                              },
                             );
-                          },
-                        );
-                      })),
-            ],
+                          }
+                        })),
+              ],
+            ),
           ),
         ),
       ),

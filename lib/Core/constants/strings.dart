@@ -25,6 +25,6 @@ const String strNationalId=" الرقم القومي";
 const String strHistory="التاريخ";
 const String strContravention='الغرامة';
 const String strAvailableBalance="الرصيد المتاح";
-const String strCheckOut='إعادة شحن';
+const String strCheckOut='إعادة الشحن';
 
 

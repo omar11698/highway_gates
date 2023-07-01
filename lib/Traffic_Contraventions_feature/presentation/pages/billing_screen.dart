@@ -53,8 +53,8 @@ class _BillingScreenState extends State<BillingScreen> {
               Align(
                 alignment: Alignment.center,
                 child: SizedBox(
-                  height: mobileSize.height / 3,
-                  width: mobileSize.width * 0.5,
+                  height: mobileSize.height / 4,
+                  width: mobileSize.width * 0.4,
                   child: FittedBox(
                     fit: BoxFit.fill,
                     child: SvgPicture.asset(
@@ -137,10 +137,11 @@ class _BillingScreenState extends State<BillingScreen> {
                                 children: [
                                   Text(
                                     state.vehicleId,
-                                    style: buildTextStyle(),
+                                    style: const TextStyle(
+                                        color: Color(0xff3172DC), fontWeight: FontWeight.w700, fontSize: 26),
                                   ),
                                   const SizedBox(
-                                    width: 35,
+                                    width: 25,
                                   ),
                                   Text(
                                     'مرحبا بك يا',
@@ -264,11 +265,12 @@ class _BillingScreenState extends State<BillingScreen> {
                         child: const Text(
                           strCheckOut,
                           style: TextStyle(
+                            decoration: TextDecoration.underline,
                             // Color(0xff3172DC)
                             color: Color(0xff3172DC),
 
-                            fontWeight: FontWeight.w300,
-                            fontSize: 18,
+                            fontWeight: FontWeight.w600,
+                            fontSize: 20,
                           ),
                         ),
                       ),
@@ -277,43 +279,115 @@ class _BillingScreenState extends State<BillingScreen> {
                     Expanded(
                       child: Padding(
                         padding: const EdgeInsets.symmetric(
-                            horizontal: 48.0, vertical: 30),
+                            horizontal: 120.0, vertical: 25),
                         child: DefaultButton(
                             mobileSize: mobileSize,
                             label: "دفع الغرامة",
                             onTap: () {
-                              showDialog(
-                                context: context,
-                                builder: (BuildContext context) {
-                                  return AlertDialog(
-                                    title: const Text('Success'),
-                                    icon: const Icon(Icons.done_outline),
-                                    content: const Text(
-                                        'Your operation was successful.'),
-                                    actions: [
-                                      DefaultButton(
-                                        mobileSize: mobileSize,
-                                        label: 'Ok',
-                                        onTap: () {
-                                          Navigator.of(context).pop();
-                                          var calculatedBalance=avBalance-ghrama;
-                                          if(calculatedBalance>=0) {
-                                            context.read<BalanceBloc>().add(
-                                                PayWithBalanceEvent(
+                              if(avBalance==0){
+                                showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return AlertDialog(
+                                      title: const Text('Failed'),
+                                      icon: const Icon(Icons.sms_failed_rounded),
+                                      content: const Text(
+                                          'الرجاء إعادة الشحن!'),
+                                      actions: [
+                                        DefaultButton(
+                                          mobileSize: mobileSize,
+                                          label: 'Ok',
+                                          onTap: () {
+                                            Navigator.of(context).pop();
+                                            // var calculatedBalance=avBalance-ghrama;
+                                            // if(calculatedBalance>=0) {
+                                            //   context.read<BalanceBloc>().add(
+                                            //       PayWithBalanceEvent(
+                                            //         balance: calculatedBalance
+                                            //             .toString(),));
+                                            // }
+                                            // ghrama=0;
+                                            // setState(() {
+                                            //
+                                            // });
+
+                                          },
+                                        ),
+                                      ],
+                                    );
+                                  },
+                                );
+                              }
+                              else if(avBalance!=0&&ghrama!=0){
+                                showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return AlertDialog(
+                                      title: const Text('Success'),
+                                      icon: const Icon(Icons.done_outline),
+                                      content: const Text(
+                                          'Your operation was successful.'),
+                                      actions: [
+                                        DefaultButton(
+                                          mobileSize: mobileSize,
+                                          label: 'Ok',
+                                          onTap: () {
+                                            Navigator.of(context).pop();
+                                            var calculatedBalance=avBalance-ghrama;
+                                            if(calculatedBalance>=0) {
+                                              context.read<BalanceBloc>().add(
+                                                  PayWithBalanceEvent(
                                                     balance: calculatedBalance
                                                         .toString(),));
-                                          }
-                                          ghrama=0;
-                                          setState(() {
+                                            }
+                                            ghrama=0;
+                                            setState(() {
 
-                                          });
+                                            });
 
-                                        },
-                                      ),
-                                    ],
-                                  );
-                                },
-                              );
+                                          },
+                                        ),
+                                      ],
+                                    );
+                                  },
+                                );
+                              }
+                              else if( ghrama==0){
+                                showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return AlertDialog(
+                                      title: const Text('!لا توجد غرامة'),
+                                      icon: const Icon(Icons.notification_important_rounded),
+                                      content: const Text(
+                                          'للرجوع اضغط الزر'),
+                                      contentPadding: const EdgeInsets.only(left: 100,top: 20,bottom: 20),
+                                      actions: [
+                                        DefaultButton(
+                                          mobileSize: mobileSize,
+                                          label: 'Ok',
+                                          onTap: () {
+                                            Navigator.of(context).pop();
+                                            var calculatedBalance=avBalance-ghrama;
+                                            if(calculatedBalance>=0) {
+                                              context.read<BalanceBloc>().add(
+                                                  PayWithBalanceEvent(
+                                                    balance: calculatedBalance
+                                                        .toString(),));
+                                            }
+                                            ghrama=0;
+                                            setState(() {
+
+                                            });
+
+                                          },
+                                        ),
+                                      ],
+                                    );
+                                  },
+                                );
+                              }
+
 
                               // Navigator.of(context).pushReplacementNamed(billingRoute);
                             }),
@@ -357,7 +431,7 @@ class SpaceBetween extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const SizedBox(
-      height: 10,
+      height: 15,
     );
   }
 }
