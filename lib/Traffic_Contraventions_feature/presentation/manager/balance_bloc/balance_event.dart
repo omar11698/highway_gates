@@ -7,5 +7,10 @@ class PayWithBalanceEvent extends BalanceEvent{
   PayWithBalanceEvent({required this.balance});
 
 }
+class AddCurrentBalanceAndPayWithBalanceEvent extends BalanceEvent{
+  final String balance;
+  AddCurrentBalanceAndPayWithBalanceEvent({required this.balance});
+
+}
 
 

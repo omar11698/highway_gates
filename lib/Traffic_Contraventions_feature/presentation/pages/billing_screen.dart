@@ -230,14 +230,14 @@ class _BillingScreenState extends State<BillingScreen> {
                         BlocBuilder<BalanceBloc, BalanceState>(
                           builder: (context, state) {
                             if (state is BalanceCalculationSuccess) {
-                              if(avBalance<ghrama){
-                                oldBalance=avBalance;
-                              }
-                              // setState(() {
-                              //
-                              // });
-                              // avBalance = int.parse(state.balance);
-                              avBalance= int.parse(state.balance)+oldBalance;
+                              // if(avBalance<ghrama){
+                              //   oldBalance=avBalance;
+                              // }
+                              // // setState(() {
+                              // //
+                              // // });
+                              avBalance = int.parse(state.balance);
+                              // avBalance= int.parse(state.balance)+oldBalance;
                               return Text(
                                 "$avBalance",
                                 style: buildTextStyle(),
@@ -270,6 +270,7 @@ class _BillingScreenState extends State<BillingScreen> {
                       alignment: Alignment.centerLeft,
                       child: InkWell(
                         onTap: () {
+                          context.read<BalanceBloc>().add(AddCurrentBalanceAndPayWithBalanceEvent(balance:avBalance.toString()));
                           Navigator.of(context).pushNamed(paymentRoute);
                         },
                         child: const Text(

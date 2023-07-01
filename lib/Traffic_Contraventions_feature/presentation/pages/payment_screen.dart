@@ -69,9 +69,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                           return null;
                         },
                         decoration: const InputDecoration(
-                          hintText: "Card Number",
-                          counterText: ""
-                        ),
+                            hintText: "Card Number", counterText: ""),
                         keyboardType: TextInputType.number,
                       )),
                 ),
@@ -153,26 +151,58 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                   content: const Text(
                                       'Your operation was successful.'),
                                   actions: [
-                                    DefaultButton(
-                                      mobileSize: mobileSize,
-                                      label: 'Ok',
-                                      onTap: () {
-                                        debugPrint(
-                                            "**********************${raseedController.text.toString()}");
-                                        context
-                                            .read<BalanceBloc>()
-                                            .add(PayWithBalanceEvent(
-                                              balance: raseedController.text
-                                                  .toString(),
-                                            ));
-                                        Navigator.pushReplacementNamed(
-                                            context, billingRoute);
+                                    BlocBuilder<BalanceBloc, BalanceState>(
+                                      builder: (context, state) {
+                                        if(state is BalanceCalculationSuccess){
 
-                                        // Navigator.push(context, MaterialPageRoute(builder: (BuildContext buildContext){
-                                        //   return BalanceScreen(balance: raseedController.text.toString());
-                                        // }));
-                                        // Navigator.of(context)
-                                        //     .pushReplacementNamed(billingRoute,);
+                                        return DefaultButton(
+                                          mobileSize: mobileSize,
+                                          label: 'Ok',
+                                          onTap: () {
+                                            debugPrint(
+                                                "**********************${raseedController.text.toString()}");
+                                           int newBalance=int.parse(state.balance)+int.parse( raseedController.text
+                                               .toString());
+                                            context
+                                                .read<BalanceBloc>()
+                                                .add(PayWithBalanceEvent(
+                                                  balance: newBalance.toString(),
+                                                ));
+                                            Navigator.pushReplacementNamed(
+                                                context, billingRoute);
+
+                                            // Navigator.push(context, MaterialPageRoute(builder: (BuildContext buildContext){
+                                            //   return BalanceScreen(balance: raseedController.text.toString());
+                                            // }));
+                                            // Navigator.of(context)
+                                            //     .pushReplacementNamed(billingRoute,);
+                                          },
+                                        );
+                                        }
+                                        return  DefaultButton(
+                                          mobileSize: mobileSize,
+                                          label: 'Ok',
+                                          onTap: () {
+                                            debugPrint(
+                                                "**********************${raseedController.text.toString()}");
+
+                                            int newBalance=int.parse( raseedController.text
+                                                .toString());
+                                            context
+                                                .read<BalanceBloc>()
+                                                .add(PayWithBalanceEvent(
+                                              balance: newBalance.toString(),
+                                            ));
+                                            Navigator.pushReplacementNamed(
+                                                context, billingRoute);
+
+                                            // Navigator.push(context, MaterialPageRoute(builder: (BuildContext buildContext){
+                                            //   return BalanceScreen(balance: raseedController.text.toString());
+                                            // }));
+                                            // Navigator.of(context)
+                                            //     .pushReplacementNamed(billingRoute,);
+                                          },
+                                        );;
                                       },
                                     ),
                                   ],

@@ -13,7 +13,24 @@ class BalanceBloc extends Bloc<BalanceEvent, BalanceState> {
         handlePayWithBalanceEvent(event,emit);
     });
 
+    on<AddCurrentBalanceAndPayWithBalanceEvent>((event, emit) {
+      handleAddCurrentBalanceAndPayWithBalanceEvent(event,emit);
+    });
+
   }
+}
+
+void handleAddCurrentBalanceAndPayWithBalanceEvent(AddCurrentBalanceAndPayWithBalanceEvent event, Emitter<BalanceState> emit) {
+emit(CalculatingBalance());
+if(int.parse(event.balance)>=0){
+  emit(BalanceCalculationSuccess(balance:event.balance,));
+}
+
+else{
+  emit(BalanceCalculationFailed());
+
+}
+
 }
 
 void handlePayWithBalanceEvent(PayWithBalanceEvent event, Emitter<BalanceState> emit) {
