@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:highway_gates/Authentication_feature/data/data_sources/firebase/firebase_auth.dart';
 import 'package:highway_gates/Authentication_feature/domain/repositories/auth_repository.dart';
 import 'package:highway_gates/Core/Failures/failures.dart';
@@ -53,8 +54,14 @@ class AuthRepositoryImpl extends AuthRepository {
   }
 
   @override
-  Future<Either<Failure, Unit>> signInWithGoogle() async{
-    return await _getMessage(() async=> await firebaseAuth.signInWithGoogle());
+  Future< Either<Failure,Future<GoogleSignInAccount>?> > signInWithGoogle() async{
+    try {
+
+      return  Right(firebaseAuth.signInWithGoogle());
+    } on FirebaseAuthException catch(e){
+      return Left(MyFirebaseException(message:e.message??"null message"));
+    }
+    // return await _getMessage(() async=> await firebaseAuth.signInWithGoogle());
   }
 
   @override

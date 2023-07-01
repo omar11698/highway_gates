@@ -6,7 +6,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:highway_gates/Core/router/navigation_router.dart';
 import 'package:highway_gates/Traffic_Contraventions_feature/presentation/manager/balance_bloc/balance_bloc.dart';
-import 'package:highway_gates/Traffic_Contraventions_feature/presentation/manager/balance_bloc/balance_bloc.dart';
 import 'package:highway_gates/Traffic_Contraventions_feature/presentation/manager/vehicle_id_bloc/vehicle_id_bloc.dart';
 
 import '../../../Authentication_feature/presentation/widgets/default_button.dart';
@@ -14,7 +13,7 @@ import '../../../Core/constants/strings.dart';
 import '../../../Core/constants/svg_images.dart';
 
 class BillingScreen extends StatefulWidget {
-   const BillingScreen({super.key});
+  const BillingScreen({super.key});
 
   @override
   State<BillingScreen> createState() => _BillingScreenState();
@@ -22,20 +21,17 @@ class BillingScreen extends StatefulWidget {
 
 class _BillingScreenState extends State<BillingScreen> {
   // bool   isBeforePickDate=true;
-  var ghrama = 100;
-  var avBalance = 0;
+  var ghrama = 400;
+  var avBalance =0;
+  var oldBalance=0;
 
   @override
   Widget build(BuildContext context) {
-
     //
     // var listOfNums=[0,50,250,500,0,];
     // var randomNumber=listOfNums[Random().nextInt(listOfNums.length)];
     // String? elgharama=isBeforePickDate?"0":"$randomNumber";
-    var mobileSize = MediaQuery
-        .of(context)
-        .size;
-
+    var mobileSize = MediaQuery.of(context).size;
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -71,7 +67,7 @@ class _BillingScreenState extends State<BillingScreen> {
                 padding: const EdgeInsets.all(10),
                 decoration: BoxDecoration(
                     border:
-                    Border.all(color: const Color(0xff304D82), width: 2),
+                        Border.all(color: const Color(0xff304D82), width: 2),
                     borderRadius: BorderRadius.circular(8)),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.end,
@@ -138,7 +134,9 @@ class _BillingScreenState extends State<BillingScreen> {
                                   Text(
                                     state.vehicleId,
                                     style: const TextStyle(
-                                        color: Color(0xff3172DC), fontWeight: FontWeight.w700, fontSize: 26),
+                                        color: Color(0xff3172DC),
+                                        fontWeight: FontWeight.w700,
+                                        fontSize: 26),
                                   ),
                                   const SizedBox(
                                     width: 25,
@@ -153,15 +151,17 @@ class _BillingScreenState extends State<BillingScreen> {
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.end,
                                 children: [
-                                  Text(
-                                    state.nationalId,
-                                    style: buildTextStyle(),
-                                  ),
-                                  const Expanded(
-                                    child: SizedBox(
-                                      width: 100,
+                                  Expanded(
+                                    child: Text(
+                                      state.nationalId,
+                                      style: buildTextStyle(),
                                     ),
                                   ),
+                                  // const Expanded(
+                                  //   child: SizedBox(
+                                  //     width: 100,
+                                  //   ),
+                                  // ),
                                   Text(
                                     'الرقم القومي',
                                     style: buildTextStyle(),
@@ -189,13 +189,11 @@ class _BillingScreenState extends State<BillingScreen> {
                           const SizedBox(
                             width: 10,
                           ),
-
                           Text(
-                                // '$elgharama ',
-                                "$ghrama",
-                                style: buildTextStyle(),
-                              ),
-
+                            // '$elgharama ',
+                            "$ghrama",
+                            style: buildTextStyle(),
+                          ),
                           const SizedBox(
                             width: 80,
                           ),
@@ -225,12 +223,23 @@ class _BillingScreenState extends State<BillingScreen> {
                         //     ),
                         //   ),
                         // ),
-                        const Expanded(child: SizedBox(width: 85,)),
+                        const Expanded(
+                            child: SizedBox(
+                          width: 85,
+                        )),
                         BlocBuilder<BalanceBloc, BalanceState>(
                           builder: (context, state) {
                             if (state is BalanceCalculationSuccess) {
-                               avBalance=int.parse(state.balance);
-                              return Text("${avBalance}",
+                              if(avBalance<ghrama){
+                                oldBalance=avBalance;
+                              }
+                              // setState(() {
+                              //
+                              // });
+                              // avBalance = int.parse(state.balance);
+                              avBalance= int.parse(state.balance)+oldBalance;
+                              return Text(
+                                "$avBalance",
                                 style: buildTextStyle(),
                               );
                             }
@@ -252,10 +261,11 @@ class _BillingScreenState extends State<BillingScreen> {
                             style: buildTextStyle(),
                           ),
                         ),
-
                       ],
                     ),
-                    const SizedBox(height: 5,),
+                    const SizedBox(
+                      height: 5,
+                    ),
                     Align(
                       alignment: Alignment.centerLeft,
                       child: InkWell(
@@ -284,15 +294,16 @@ class _BillingScreenState extends State<BillingScreen> {
                             mobileSize: mobileSize,
                             label: "دفع الغرامة",
                             onTap: () {
-                              if(avBalance==0){
+                              if (avBalance == 0||avBalance<ghrama) {
                                 showDialog(
                                   context: context,
                                   builder: (BuildContext context) {
                                     return AlertDialog(
                                       title: const Text('Failed'),
-                                      icon: const Icon(Icons.sms_failed_rounded),
-                                      content: const Text(
-                                          'الرجاء إعادة الشحن!'),
+                                      icon:
+                                          const Icon(Icons.sms_failed_rounded),
+                                      content:
+                                          const Text('الرجاء إعادة الشحن!'),
                                       actions: [
                                         DefaultButton(
                                           mobileSize: mobileSize,
@@ -310,15 +321,13 @@ class _BillingScreenState extends State<BillingScreen> {
                                             // setState(() {
                                             //
                                             // });
-
                                           },
                                         ),
                                       ],
                                     );
                                   },
                                 );
-                              }
-                              else if(avBalance!=0&&ghrama!=0){
+                              } else if (avBalance != 0 && ghrama != 0&&avBalance>=ghrama) {
                                 showDialog(
                                   context: context,
                                   builder: (BuildContext context) {
@@ -333,53 +342,53 @@ class _BillingScreenState extends State<BillingScreen> {
                                           label: 'Ok',
                                           onTap: () {
                                             Navigator.of(context).pop();
-                                            var calculatedBalance=avBalance-ghrama;
-                                            if(calculatedBalance>=0) {
-                                              context.read<BalanceBloc>().add(
-                                                  PayWithBalanceEvent(
+                                            var calculatedBalance =
+                                                avBalance - ghrama;
+                                            if (calculatedBalance >= 0) {
+                                              context
+                                                  .read<BalanceBloc>()
+                                                  .add(PayWithBalanceEvent(
                                                     balance: calculatedBalance
-                                                        .toString(),));
+                                                        .toString(),
+                                                  ));
                                             }
-                                            ghrama=0;
-                                            setState(() {
-
-                                            });
-
+                                            ghrama = 0;
+                                            setState(() {});
                                           },
                                         ),
                                       ],
                                     );
                                   },
                                 );
-                              }
-                              else if( ghrama==0){
+                              } else if (ghrama == 0) {
                                 showDialog(
                                   context: context,
                                   builder: (BuildContext context) {
                                     return AlertDialog(
                                       title: const Text('!لا توجد غرامة'),
-                                      icon: const Icon(Icons.notification_important_rounded),
-                                      content: const Text(
-                                          'للرجوع اضغط الزر'),
-                                      contentPadding: const EdgeInsets.only(left: 100,top: 20,bottom: 20),
+                                      icon: const Icon(
+                                          Icons.notification_important_rounded),
+                                      content: const Text('للرجوع اضغط الزر'),
+                                      contentPadding: const EdgeInsets.only(
+                                          left: 100, top: 20, bottom: 20),
                                       actions: [
                                         DefaultButton(
                                           mobileSize: mobileSize,
                                           label: 'Ok',
                                           onTap: () {
                                             Navigator.of(context).pop();
-                                            var calculatedBalance=avBalance-ghrama;
-                                            if(calculatedBalance>=0) {
-                                              context.read<BalanceBloc>().add(
-                                                  PayWithBalanceEvent(
+                                            var calculatedBalance =
+                                                avBalance - ghrama;
+                                            if (calculatedBalance >= 0) {
+                                              context
+                                                  .read<BalanceBloc>()
+                                                  .add(PayWithBalanceEvent(
                                                     balance: calculatedBalance
-                                                        .toString(),));
+                                                        .toString(),
+                                                  ));
                                             }
-                                            ghrama=0;
-                                            setState(() {
-
-                                            });
-
+                                            ghrama = 0;
+                                            setState(() {});
                                           },
                                         ),
                                       ],
@@ -387,7 +396,6 @@ class _BillingScreenState extends State<BillingScreen> {
                                   },
                                 );
                               }
-
 
                               // Navigator.of(context).pushReplacementNamed(billingRoute);
                             }),
@@ -403,9 +411,8 @@ class _BillingScreenState extends State<BillingScreen> {
     );
   }
 
-  TextStyle buildTextStyle() =>
-      const TextStyle(
-          color: Color(0xff3172DC), fontWeight: FontWeight.w500, fontSize: 26);
+  TextStyle buildTextStyle() => const TextStyle(
+      color: Color(0xff3172DC), fontWeight: FontWeight.w500, fontSize: 26);
 
   AppBar _buildAppBar(BuildContext context) {
     return AppBar(

@@ -161,6 +161,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 password: passwordTextEditingController.value.text.toString().trim()));
 
                             if(state is LoginSuccessState){
+                              Future.delayed(Duration(seconds: 2));
                               Navigator.pushNamed(context, authRoute);
 
                             }
@@ -216,10 +217,11 @@ class _LoginScreenState extends State<LoginScreen> {
           GoogleFacebookCard(
             cardName: strGoogle,
             icon: googlePngImg,
-            onTap: () {
+            onTap: () async{
               ctx.read<LoginScreenBloc>().add(GoogleBtnClickedEvent());
               // ctx.read<LoginScreenBloc>().add(GoogleBtnClickedEvent());
-              Navigator.pushNamed(ctx, authRoute);
+              // await Future.delayed(Duration(seconds: 4));
+              Navigator.pushNamed(ctx, googleAuthRoute);
             },
           ),
           SizedBox(

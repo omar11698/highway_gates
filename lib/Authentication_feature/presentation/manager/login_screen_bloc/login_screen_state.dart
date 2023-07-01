@@ -19,8 +19,14 @@ class LoginScreenPasswordState extends LoginScreenState {
 class LoginFailedState extends LoginScreenState {
   const LoginFailedState({required super.messages});
 }
+class LoginGoogleAccSuccessState extends LoginScreenState {
+  final Future<GoogleSignInAccount>? googleAccount;
+  const LoginGoogleAccSuccessState({required this.googleAccount}) : super(messages: '');
+}
+
+
 class LoginSuccessState extends LoginScreenState {
-  const LoginSuccessState({required super.messages});
+  const LoginSuccessState( {required super.messages});
 }
 class LoginLoadingState extends LoginScreenState {
   const LoginLoadingState({required super.messages});

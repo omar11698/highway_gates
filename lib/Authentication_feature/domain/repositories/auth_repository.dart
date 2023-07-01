@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 import '../../../Core/Failures/failures.dart';
 
@@ -16,7 +17,7 @@ abstract class AuthRepository{
     String? creditCardNumber,
   });
   Future<Either<Failure, Unit>> signInWithEmail(String email, String password);
-  Future<Either<Failure, Unit>> signInWithGoogle();
+  Future< Either<Failure, Future<GoogleSignInAccount>?> > signInWithGoogle();
   Future<Either<Failure, Unit>> signInWithFacebook();
   Future<Either<Failure, Unit>> signOut();
 

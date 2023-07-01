@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:highway_gates/Authentication_feature/domain/use_cases/login_with_email_usecase.dart';
 import 'package:meta/meta.dart';
 
@@ -24,7 +25,7 @@ class LoginScreenBloc extends Bloc<LoginScreenEvent, LoginScreenState> {
       await handleBtnClickedEvent(event,emit,loggingUser,loginWithEmailUseCase);
     });
     on<GoogleBtnClickedEvent>((event, emit) async {
-      await handleGoogleBtnClickedEvent(event,emit,loggingUser,loginWithEmailUseCase);
+      await handleGoogleBtnClickedEvent(event,emit,loggingUser,loginWithGoogleUseCase);
     });
     on<LoginUserTypedEmailEvent>((event, emit) {
       handleEmailField(event, emit, loggingUser);
@@ -80,12 +81,12 @@ class LoginScreenBloc extends Bloc<LoginScreenEvent, LoginScreenState> {
     emit(const LoginLoadingState(messages: ''));
     (await loginWithEmailUseCase.call(loggingUser)).fold(
           (l) => emit( LoginFailedState(messages:l.message)),
-          (r) => emit(const LoginSuccessState(messages: '')),
+          (r) => emit( const LoginSuccessState(messages: '')),
     );
 
 
   }
-  handleGoogleBtnClickedEvent(GoogleBtnClickedEvent event, Emitter<LoginScreenState> emit, User loggingUser, LoginWithEmailUseCase loginWithEmailUseCase) async{
+  handleGoogleBtnClickedEvent(GoogleBtnClickedEvent event, Emitter<LoginScreenState> emit, User loggingUser, LoginWithGoogleUseCase loginWithGoogleUseCase) async{
     debugPrint("i have been clicked as a google sign in ");
     loggingUser = loggingUser.copyWith();
     emit(const LoginLoadingState(messages: ''));
@@ -94,7 +95,7 @@ class LoginScreenBloc extends Bloc<LoginScreenEvent, LoginScreenState> {
 
     (await loginWithGoogleUseCase.call()).fold(
           (l) => emit(const LoginFailedState(messages: '')),
-          (r) => emit(const LoginSuccessState(messages: '')),
+          (r) => emit( LoginGoogleAccSuccessState(googleAccount:r)),
     );
 
 

@@ -21,7 +21,7 @@ abstract class FirebaseAuthentication {
   }
   ) ;
   Future<Unit> signInWithEmail(String email, String password);
-  Future<Unit> signInWithGoogle();
+  Future<GoogleSignInAccount>? signInWithGoogle();
   Future<Unit> signInWithFacebook();
   Future<Unit> signOut();
 }
@@ -78,7 +78,7 @@ class FirebaseAuthImpl extends FirebaseAuthentication {
   }
 
   @override
-  Future<Unit> signInWithGoogle() async{
+  Future<GoogleSignInAccount>? signInWithGoogle() async{
     final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
 
     // Obtain the auth details from the request
@@ -102,7 +102,7 @@ class FirebaseAuthImpl extends FirebaseAuthentication {
      phone: value.user!.phoneNumber, password: '',
      )
      });
-     return Future.value(unit);
+     return Future.value(googleUser);
   }
 
   @override

@@ -27,6 +27,7 @@ const String registerRoute='/register';
 const String forgotPasswordRoute='/forgotPassword';
 const String verificationRoute='/verificationRoute';
 const String authRoute='/authenticationRoute';
+const String googleAuthRoute='/googleAuthRoute';
 ///
 /// traffic contraventions feature routes
 
@@ -63,6 +64,12 @@ class NavigationRouter{
       case verificationRoute :
         return MaterialPageRoute(builder: (_) => const VerificationScreen());
       case authRoute :
+        initLoginModule();
+        initLoginWithGoogleModule();
+        initSignOutModule();
+        return MaterialPageRoute(builder: (_) => const AuthenticationScreen());
+
+      case googleAuthRoute :
         initLoginModule();
         initLoginWithGoogleModule();
         initSignOutModule();

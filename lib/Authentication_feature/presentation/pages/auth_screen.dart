@@ -1,5 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:highway_gates/Authentication_feature/presentation/manager/login_screen_bloc/login_screen_bloc.dart';
+import 'package:highway_gates/Authentication_feature/presentation/manager/login_screen_bloc/login_screen_bloc.dart';
 import 'package:highway_gates/Authentication_feature/presentation/pages/first_screen.dart';
 import 'package:highway_gates/Authentication_feature/presentation/pages/login_screen.dart';
 
@@ -16,12 +20,41 @@ class AuthenticationScreen extends StatefulWidget {
 class AuthenticationScreenState extends State<AuthenticationScreen> {
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder(stream:FirebaseAuth.instance.authStateChanges() ,builder:(ctx,snapshot){
-      if(snapshot.hasData){
-        return const VehicleIdScreen();
-      }
-        return const LoginScreen();
+    return StreamBuilder(stream: FirebaseAuth.instance.authStateChanges(),
+        builder: (ctx, snapshot) {
+          if (snapshot.hasData) {
+            return const VehicleIdScreen();
+          }
+          return const LoginScreen();
+        });
+  }
+}
 
-    });
+
+class GoogleAuthScreen extends StatelessWidget {
+  const GoogleAuthScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<LoginScreenBloc, LoginScreenState>(
+      builder: (context, state) {
+        if(state is LoginGoogleAccSuccessState){
+          return FutureBuilder<GoogleSignInAccount>(
+            future:  state.googleAccount,
+            builder: (BuildContext context,
+                AsyncSnapshot<GoogleSignInAccount> snapshot) {
+              if (snapshot.hasData) {
+                return Text(snapshot.data.toString());
+              } else if (snapshot.hasError) {
+                return Text(snapshot.error.toString());
+              } else {
+                return const CircularProgressIndicator();
+              }
+            },
+          );
+        }
+        return Text("Error");
+      },
+    );
   }
 }
