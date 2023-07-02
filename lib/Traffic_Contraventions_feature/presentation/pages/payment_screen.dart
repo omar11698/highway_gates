@@ -168,9 +168,12 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                                 .add(PayWithBalanceEvent(
                                                   balance: newBalance.toString(),
                                                 ));
-                                            Navigator.pushReplacementNamed(
+                                            // Navigator.pushReplacementNamed(
+                                            //     context, billingRoute);
+                                            Navigator.pop(
                                                 context, billingRoute);
-
+                                            Navigator.pop(
+                                                context, billingRoute);
                                             // Navigator.push(context, MaterialPageRoute(builder: (BuildContext buildContext){
                                             //   return BalanceScreen(balance: raseedController.text.toString());
                                             // }));

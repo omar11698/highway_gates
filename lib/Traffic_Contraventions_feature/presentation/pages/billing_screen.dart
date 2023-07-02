@@ -230,14 +230,7 @@ class _BillingScreenState extends State<BillingScreen> {
                         BlocBuilder<BalanceBloc, BalanceState>(
                           builder: (context, state) {
                             if (state is BalanceCalculationSuccess) {
-                              // if(avBalance<ghrama){
-                              //   oldBalance=avBalance;
-                              // }
-                              // // setState(() {
-                              // //
-                              // // });
                               avBalance = int.parse(state.balance);
-                              // avBalance= int.parse(state.balance)+oldBalance;
                               return Text(
                                 "$avBalance",
                                 style: buildTextStyle(),
