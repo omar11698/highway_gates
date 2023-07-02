@@ -2,6 +2,8 @@ import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:highway_gates/Authentication_feature/presentation/manager/first_screen_bloc/first_screen_bloc.dart';
+import 'package:highway_gates/Authentication_feature/presentation/manager/login_screen_bloc/login_screen_bloc.dart';
 import 'package:highway_gates/Authentication_feature/presentation/widgets/default_button.dart';
 import 'package:highway_gates/Core/constants/strings.dart';
 import 'package:highway_gates/Core/router/navigation_router.dart';
@@ -177,6 +179,7 @@ class _VehicleIdScreenState extends State<VehicleIdScreen> {
           elevation: 0,
           leading: InkWell(
               onTap: () {
+                context.read<FirstScreenBloc>().add(SignOutBtnClickedEvent());
                 Navigator.of(context).pushNamed(loginRoute);
               },
               child: const Icon(

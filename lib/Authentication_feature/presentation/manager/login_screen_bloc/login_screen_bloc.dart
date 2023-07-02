@@ -11,46 +11,59 @@ part 'login_screen_event.dart';
 part 'login_screen_state.dart';
 
 class LoginScreenBloc extends Bloc<LoginScreenEvent, LoginScreenState> {
-
   final LoginWithEmailUseCase loginWithEmailUseCase;
   final LoginWithGoogleUseCase loginWithGoogleUseCase;
 
-  LoginScreenBloc({required this.loginWithEmailUseCase,required this.loginWithGoogleUseCase}) : super(const LoginScreenInitial(messages: '')) {
-    User loggingUser = const User(id: '', email: '', messages: '', password: '', name: '', token: '', phone: '', creditCardNumber: '', image: '', isValidEmail: false, isValidPassword: false);
-
-
+  LoginScreenBloc(
+      {required this.loginWithEmailUseCase,
+      required this.loginWithGoogleUseCase})
+      : super(const LoginScreenInitial(messages: '')) {
+    User loggingUser = const User(
+        id: '',
+        email: '',
+        messages: '',
+        password: '',
+        name: '',
+        token: '',
+        phone: '',
+        creditCardNumber: '',
+        image: '',
+        isValidEmail: false,
+        isValidPassword: false);
 
     on<LoginScreenEvent>((event, emit) {});
     on<LoginBtnClickedEvent>((event, emit) async {
-      await handleBtnClickedEvent(event,emit,loggingUser,loginWithEmailUseCase);
+      await handleBtnClickedEvent(
+          event, emit, loggingUser, loginWithEmailUseCase);
     });
     on<GoogleBtnClickedEvent>((event, emit) async {
-      await handleGoogleBtnClickedEvent(event,emit,loggingUser,loginWithGoogleUseCase);
+      await handleGoogleBtnClickedEvent(event, emit, loginWithGoogleUseCase);
     });
-    on<LoginUserTypedEmailEvent>((event, emit) {
-      handleEmailField(event, emit, loggingUser);
+    on<LoginUserTypedEmailEvent>((event, emit) async {
+      await handleEmailField(event, emit, loggingUser);
     });
-    on<LoginUserTypedPasswordEvent>((event, emit) {
-      handlePasswordField(event, emit, loggingUser);
+    on<LoginUserTypedPasswordEvent>((event, emit) async {
+      await handlePasswordField(event, emit, loggingUser);
     });
-
-
-
-
-
   }
 
-  handleEmailField(LoginUserTypedEmailEvent event, Emitter emit, User loggingUser) {
+  handleEmailField(
+      LoginUserTypedEmailEvent event, Emitter emit, User loggingUser) {
     emit(const LoginScreenEmailState(messages: ''));
     debugPrint("This is login user email:${event.email}");
-    if (event.email.trim().isNotEmpty && event.email.contains("@yahoo.com") || event.email.contains("@gmail.com")) {
+    if (event.email.trim().isNotEmpty && event.email.contains("@yahoo.com") ||
+        event.email.contains("@gmail.com")) {
       debugPrint("the email is valid and we are ok with it ");
-      loggingUser = loggingUser.copyWith(email: event.email, isValidEmail: true);
-      debugPrint("*******this is the validation email ${loggingUser.isValidEmail}");
+      loggingUser =
+          loggingUser.copyWith(email: event.email, isValidEmail: true);
+      debugPrint(
+          "*******this is the validation email ${loggingUser.isValidEmail}");
       emit(const LoginScreenEmailState(
         messages: emptyString,
       ));
-    } else if (event.email.isEmpty || !event.email.contains("@yahoo.com") || !event.email.contains("@gmail.com")) {
+    } else if (event.email.isEmpty ||
+        !event.email.contains("@yahoo.com") ||
+        !event.email.contains("@gmail.com")) {
       loggingUser = loggingUser.copyWith(isValidEmail: false);
       emit(
         const LoginScreenEmailState(
@@ -59,7 +72,9 @@ class LoginScreenBloc extends Bloc<LoginScreenEvent, LoginScreenState> {
       );
     }
   }
-  handlePasswordField(LoginUserTypedPasswordEvent event, Emitter<LoginScreenState> emit, User loggingUser) {
+
+  handlePasswordField(LoginUserTypedPasswordEvent event,
+      Emitter<LoginScreenState> emit, User loggingUser) {
     emit(const LoginScreenPasswordState(
       messages: '',
     ));
@@ -76,31 +91,34 @@ class LoginScreenBloc extends Bloc<LoginScreenEvent, LoginScreenState> {
       ));
     }
   }
-  handleBtnClickedEvent(LoginBtnClickedEvent event, Emitter<LoginScreenState> emit, User loggingUser, LoginWithEmailUseCase loginWithEmailUseCase) async{
-    loggingUser = loggingUser.copyWith(email: event.email, password: event.password);
+
+  handleBtnClickedEvent(
+      LoginBtnClickedEvent event,
+      Emitter<LoginScreenState> emit,
+      User loggingUser,
+      LoginWithEmailUseCase loginWithEmailUseCase) async {
+    loggingUser =
+        loggingUser.copyWith(email: event.email, password: event.password);
     emit(const LoginLoadingState(messages: ''));
     (await loginWithEmailUseCase.call(loggingUser)).fold(
-          (l) => emit( LoginFailedState(messages:l.message)),
-          (r) => emit( const LoginSuccessState(messages: '')),
+      (l) => emit(LoginFailedState(messages: l.message)),
+      (r) => emit(const LoginSuccessState(messages: '')),
     );
-
-
-  }
-  handleGoogleBtnClickedEvent(GoogleBtnClickedEvent event, Emitter<LoginScreenState> emit, User loggingUser, LoginWithGoogleUseCase loginWithGoogleUseCase) async{
-    debugPrint("i have been clicked as a google sign in ");
-    loggingUser = loggingUser.copyWith();
-    emit(const LoginLoadingState(messages: ''));
-
-
-
-    (await loginWithGoogleUseCase.call()).fold(
-          (l) => emit(const LoginFailedState(messages: '')),
-          (r) => emit( LoginGoogleAccSuccessState(googleAccount:r)),
-    );
-
-
-
   }
 
+  handleGoogleBtnClickedEvent(
+      GoogleBtnClickedEvent event,
+      Emitter<LoginScreenState> emit,
+      LoginWithGoogleUseCase loginWithGoogleUseCase) async {
+      debugPrint("i have been clicked as a google sign in ");
 
+      emit(const LoginLoadingState(messages: ''));
+
+      (await loginWithGoogleUseCase.call()).fold(
+
+        (l) => emit(const LoginFailedState(messages: '')),
+        (r) => emit(LoginGoogleAccSuccessState(googleAccount: r)),
+
+      );
+  }
 }

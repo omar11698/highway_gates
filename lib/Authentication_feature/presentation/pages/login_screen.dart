@@ -131,7 +131,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         return DefaultButton(
                           mobileSize: mobileSize,
                           label: 'Log in',
-                          onTap: () {
+                          onTap: ()  {
                             if(state is LoginFailedState){
                               showDialog(
                                 context: context,
@@ -139,8 +139,13 @@ class _LoginScreenState extends State<LoginScreen> {
                                   return AlertDialog(
                                     title:  const Text("Login Failed!",style: TextStyle(fontSize: 16,fontWeight:FontWeight.w500),),
                                     icon: const Icon(Icons.lock),
+                                    // contentPadding: EdgeInsets.symmetric(horizontal: 100),
+                                    // contentPadding: EdgeInsets.all(5),
                                     content:
-                                    Row(children: [const Icon(Icons.close_outlined,color: Colors.red,),const SizedBox(width: 10,),Text(state.messages)],),
+                                    Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Row(children: [const Icon(Icons.close_outlined,color: Colors.red,),const SizedBox(width: 10,),Expanded(child: Text(state.messages))],),
+                                    ),
                                     actions: [
                                       DefaultButton(
                                         mobileSize: mobileSize,
@@ -161,7 +166,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 password: passwordTextEditingController.value.text.toString().trim()));
 
                             if(state is LoginSuccessState){
-                              Future.delayed(Duration(seconds: 2));
+                              // Future.delayed(Duration(seconds: 2));
                               Navigator.pushNamed(context, authRoute);
 
                             }
@@ -215,14 +220,13 @@ class _LoginScreenState extends State<LoginScreen> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           GoogleFacebookCard(
-            cardName: strGoogle,
-            icon: googlePngImg,
-            onTap: () async{
-              ctx.read<LoginScreenBloc>().add(GoogleBtnClickedEvent());
-              // ctx.read<LoginScreenBloc>().add(GoogleBtnClickedEvent());
-              // await Future.delayed(Duration(seconds: 4));
+          cardName: strGoogle,
+          icon: googlePngImg,
+          onTap: () async{
+            ctx.read<LoginScreenBloc>().add(GoogleBtnClickedEvent());
               Navigator.pushNamed(ctx, googleAuthRoute);
-            },
+
+          },
           ),
           SizedBox(
             width: mobileSize.height * 0.03,

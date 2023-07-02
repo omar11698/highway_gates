@@ -14,15 +14,15 @@ class FirstScreenBloc extends Bloc<FirstScreenEvent, FirstScreenState> {
     on<FirstScreenEvent>((event, emit) {
       // TODO: implement event handler
     });
-    on<SignOutBtnClickedEvent>((event, emit) {
-      handleUserSignedOutEvent(event,emit);
+    on<SignOutBtnClickedEvent>((event, emit) async{
+     await handleUserSignedOutEvent(event,emit);
     });
 
 
 
   }
 
-  void handleUserSignedOutEvent(SignOutBtnClickedEvent event, Emitter<FirstScreenState> emit)async {
+   handleUserSignedOutEvent(SignOutBtnClickedEvent event, Emitter<FirstScreenState> emit)async {
     emit(FirstScreenSignOutLoadingState());
     (await signOutUseCase.call()).fold(
           (l) => emit( FirstScreenSignOutFailedState()),

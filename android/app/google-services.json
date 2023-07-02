@@ -15,11 +15,11 @@
       },
       "oauth_client": [
         {
-          "client_id": "23433506441-jrhdnp7om27kturvfs05tn1espjhpc75.apps.googleusercontent.com",
+          "client_id": "23433506441-6mjs6e5ovc693c4dl3b4l0ui7vbmc7p3.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.highwaygates.highway_gates",
-            "certificate_hash": "9ba552ccd6345b5cd026789aa21fe795f2bc4428"
+            "certificate_hash": "effa310a25d5b589d7ffa3945679e0033d8cbb3e"
           }
         },
         {

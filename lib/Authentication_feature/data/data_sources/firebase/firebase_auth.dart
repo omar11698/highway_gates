@@ -91,17 +91,17 @@ class FirebaseAuthImpl extends FirebaseAuthentication {
     );
 
     // Once signed in, return the UserCredential
-     await FirebaseAuth.instance.signInWithCredential(credential).then((value) => {
-     createUser(
-     name: value.user!.displayName!,
-     email: value.user!.email!,
-     id: value.user!.uid,
-     token: value.credential!.token.toString(),
-     // token: '',
-     image: value.user!.photoURL,
-     phone: value.user!.phoneNumber, password: '',
-     )
-     });
+    //  await FirebaseAuth.instance.signInWithCredential(credential).then((value) => {
+    //  createUser(
+    //  name: value.user!.displayName!,
+    //  email: value.user!.email!,
+    //  id: value.user!.uid,
+    //  token: value.credential!.token.toString(),
+    //  // token: '',
+    //  image: value.user!.photoURL,
+    //  phone: value.user!.phoneNumber, password: '',
+    //  )
+    //  });
      return Future.value(googleUser);
   }
 

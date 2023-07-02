@@ -88,12 +88,24 @@ flutter {
 }
 
 dependencies {
-    implementation platform('com.google.firebase:firebase-bom:32.0.0')
+    implementation(platform("com.google.firebase:firebase-bom:32.1.1"))
     implementation 'com.google.firebase:firebase-auth'
+    // Also add the dependency for the Google Play services library and specify its version
+    implementation("com.google.android.gms:play-services-auth:20.6.0")
+    
     implementation 'com.google.firebase:firebase-analytics-ktx'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'com.google.gms:google-services:4.3.10'
 
+
+    // Import the BoM for the Firebase platform
+
+    // Add the dependency for the Firebase Authentication library
+    // When using the BoM, you don't specify versions in Firebase library dependencies
+    implementation("com.google.firebase:firebase-auth")
+
+    // Also add the dependency for the Google Play services library and specify its version
+    implementation("com.google.android.gms:play-services-auth:20.6.0")
     def multidex_version = "2.0.1"
     implementation "androidx.multidex:multidex:$multidex_version"
 

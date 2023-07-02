@@ -73,7 +73,7 @@ class NavigationRouter{
         initLoginModule();
         initLoginWithGoogleModule();
         initSignOutModule();
-        return MaterialPageRoute(builder: (_) => const AuthenticationScreen());
+        return MaterialPageRoute(builder: (_) => const GoogleAuthScreen());
 
 
       /// Traffic Contraventions Routes
