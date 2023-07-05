@@ -44,7 +44,7 @@ class _LoginScreenState extends State<LoginScreen> {
       create: (context) =>
           LoginScreenBloc(
               loginWithEmailUseCase: instance(),
-              loginWithGoogleUseCase: instance()),
+              loginWithGoogleUseCase: instance(), loginWithFaceBookUseCase: instance()),
       child: Scaffold(
         backgroundColor: Colors.white,
         body: Padding(
@@ -234,7 +234,11 @@ class _LoginScreenState extends State<LoginScreen> {
           GoogleFacebookCard(
             cardName: strFacebook,
             icon: facebookPngImg,
-            onTap: () {},
+            onTap: () async {
+              ctx.read<LoginScreenBloc>().add(FacebookBtnClickedEvent());
+              Navigator.pushNamed(ctx, authRoute);
+
+            },
           ),
         ],
       ),

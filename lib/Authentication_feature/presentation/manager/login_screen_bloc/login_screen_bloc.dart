@@ -6,6 +6,7 @@ import 'package:meta/meta.dart';
 
 import '../../../../Core/constants/strings.dart';
 import '../../../domain/entities/user.dart';
+import '../../../domain/use_cases/login_with_facebook_usecase.dart';
 import '../../../domain/use_cases/login_with_google_usecase.dart';
 part 'login_screen_event.dart';
 part 'login_screen_state.dart';
@@ -13,9 +14,11 @@ part 'login_screen_state.dart';
 class LoginScreenBloc extends Bloc<LoginScreenEvent, LoginScreenState> {
   final LoginWithEmailUseCase loginWithEmailUseCase;
   final LoginWithGoogleUseCase loginWithGoogleUseCase;
+  final LoginWithFaceBookUseCase loginWithFaceBookUseCase;
 
   LoginScreenBloc(
       {required this.loginWithEmailUseCase,
+      required this.loginWithFaceBookUseCase,
       required this.loginWithGoogleUseCase})
       : super(const LoginScreenInitial(messages: '')) {
     User loggingUser = const User(
@@ -44,6 +47,10 @@ class LoginScreenBloc extends Bloc<LoginScreenEvent, LoginScreenState> {
     });
     on<LoginUserTypedPasswordEvent>((event, emit) async {
       await handlePasswordField(event, emit, loggingUser);
+    });
+    on<FacebookBtnClickedEvent>((event, emit) async {
+      await handleFacebookBtnClickedEvent(
+          event, emit, loginWithFaceBookUseCase);
     });
   }
 
@@ -110,15 +117,31 @@ class LoginScreenBloc extends Bloc<LoginScreenEvent, LoginScreenState> {
       GoogleBtnClickedEvent event,
       Emitter<LoginScreenState> emit,
       LoginWithGoogleUseCase loginWithGoogleUseCase) async {
-      debugPrint("i have been clicked as a google sign in ");
+    debugPrint("i have been clicked as a google sign in ");
 
-      emit(const LoginLoadingState(messages: ''));
+    emit(const LoginLoadingState(messages: ''));
 
-      (await loginWithGoogleUseCase.call()).fold(
+    (await loginWithGoogleUseCase.call()).fold(
+      (l) => emit(const LoginFailedState(messages: '')),
+      (r) => emit(LoginGoogleAccSuccessState(googleAccount: r)),
+    );
+  }
 
-        (l) => emit(const LoginFailedState(messages: '')),
-        (r) => emit(LoginGoogleAccSuccessState(googleAccount: r)),
+  handleFacebookBtnClickedEvent(
+      FacebookBtnClickedEvent event,
+      Emitter<LoginScreenState> emit,
+      LoginWithFaceBookUseCase loginWithFaceBookUseCase) async {
 
-      );
+    debugPrint("i have been clicked as a Facebook sign in ");
+
+    emit(const LoginLoadingState(messages: ''));
+
+    (await loginWithFaceBookUseCase.call()).fold(
+          (l) => emit( LoginFailedState(messages: l.message)),
+          (r) => emit(const LoginSuccessState(messages: "successfully logged in with facebook!")),
+    );
+
+
+
   }
 }

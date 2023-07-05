@@ -53,10 +53,13 @@ class NavigationRouter{
       case onBoardingRoute :
         return MaterialPageRoute(builder: (_) => const OnBoardingScreen());
       case loginRoute :
+        initLoginWithFacebookModule();
         initLoginWithGoogleModule();
         initLoginModule();
         return MaterialPageRoute(builder: (_) => const LoginScreen());
       case signUpRoute :
+        initLoginWithFacebookModule();
+        initLoginWithGoogleModule();
         initSignUpModule();
         return MaterialPageRoute(builder: (_) => const SignUpScreen());
       case forgotPasswordRoute :
@@ -66,6 +69,7 @@ class NavigationRouter{
       case authRoute :
         initLoginModule();
         initLoginWithGoogleModule();
+        initLoginWithFacebookModule();
         initSignOutModule();
         return MaterialPageRoute(builder: (_) => const AuthenticationScreen());
 

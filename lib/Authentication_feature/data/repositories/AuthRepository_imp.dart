@@ -48,9 +48,9 @@ class AuthRepositoryImpl extends AuthRepository {
   }
 
   @override
-  Future<Either<Failure, Unit>> signInWithFacebook() {
+  Future<Either<Failure, Unit>> signInWithFacebook() async {
     // TODO: implement signInWithFacebook
-    throw UnimplementedError();
+    return await _getMessage(() async => await firebaseAuth.signInWithFacebook());
   }
 
   @override

@@ -21,6 +21,10 @@ class GoogleBtnClickedEvent extends LoginScreenEvent{
   GoogleBtnClickedEvent();
 }
 
+class FacebookBtnClickedEvent extends LoginScreenEvent{
+  FacebookBtnClickedEvent();
+}
+
 
 
 

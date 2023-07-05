@@ -17,7 +17,7 @@ class MultiBlocProvidersList{
         create: (context) => SignupScreenBloc(instance()),
       ),
       BlocProvider(
-        create: (context) => LoginScreenBloc(loginWithEmailUseCase: instance(), loginWithGoogleUseCase: instance()),
+        create: (context) => LoginScreenBloc(loginWithEmailUseCase: instance(), loginWithGoogleUseCase: instance(), loginWithFaceBookUseCase: instance()),
       ),
       BlocProvider(
         create: (context) => FirstScreenBloc(signOutUseCase: instance()),
