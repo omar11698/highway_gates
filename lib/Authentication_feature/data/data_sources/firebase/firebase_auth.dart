@@ -43,17 +43,10 @@ class FirebaseAuthImpl extends FirebaseAuthentication {
     bool? isValidPassword,
     bool? isValidEmail,
   }) async {
-    final UserModel userModel = UserModel(
-      name: name,
-      email: email,
-      id: id,
-      token: token,
-      phone: phone,
-      image: image,
-      creditCardNumber: creditCardNumber,
-      messages: messages,
-      password: password, isValidPassword: isValidPassword, isValidEmail: isValidEmail,
+    final UserModel userModel = UserModel(name: name, email: email, id: id, token: token, phone: phone, image: image, creditCardNumber: creditCardNumber, messages: messages, password: password, isValidPassword: isValidPassword, isValidEmail: isValidEmail,
     );
+
+
     // await FirebaseFirestore.instance.collection('users').doc(id).set(userModel.toJson());
     // await FirebaseFirestore.instance.collection('users').add(userModel.toJson()).then((DocumentReference doc) =>
     //     print('DocumentSnapshot added with ID: ${doc.id}'));

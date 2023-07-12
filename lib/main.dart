@@ -13,6 +13,8 @@ import 'Core/bloc_observer.dart';
 import 'Core/router/navigation_router.dart';
 import 'package:firebase_core/firebase_core.dart';
 
+
+
 Future<void> main() async {
 
   /// fire base binding
@@ -25,10 +27,7 @@ Future<void> main() async {
 }
 
 class MyApp extends StatelessWidget {
-
   const MyApp({super.key});
-
-
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
@@ -36,7 +35,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         onGenerateRoute: NavigationRouter.generateRoute,
-        initialRoute: loginRoute,
+        initialRoute: vehicleIdRoute,
         title: 'Highway Gates',
         theme: ThemeData(
           primarySwatch: Colors.blue,

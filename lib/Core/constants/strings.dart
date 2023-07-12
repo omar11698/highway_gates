@@ -17,6 +17,7 @@ const String strAlreadyHaveAccount="Already have an account?";
 
 /// vehicle id  screen
 const String strVehicleId="أدخل البيانات";
+const String strNationalIdForPlatte="29806110102457";
 const String strVehicleIdPlate= " رقم لوحة المركبة";
 const String strNationalId=" الرقم القومي";
 
