@@ -53,6 +53,7 @@ dependencies:
   datepicker_dropdown: ^0.0.7+5
   camera: ^0.10.5+2
   scan: ^1.6.0
+  shared_preferences: ^2.2.0
 
 dev_dependencies:
   flutter_test:

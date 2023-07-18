@@ -5,7 +5,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:highway_gates/Authentication_feature/data/models/user_model.dart';
-import 'package:highway_gates/Core/DI/dependency_injection.dart';
 
 
 abstract class FirebaseAuthentication {

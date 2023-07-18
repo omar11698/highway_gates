@@ -9,10 +9,14 @@ import 'package:highway_gates/Authentication_feature/domain/use_cases/login_with
 import 'package:highway_gates/Authentication_feature/domain/use_cases/signout_usecase.dart';
 import 'package:highway_gates/Authentication_feature/presentation/manager/login_screen_bloc/login_screen_bloc.dart';
 import 'package:highway_gates/Authentication_feature/presentation/manager/signup_screen_bloc/signup_screen_bloc.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 final instance = GetIt.instance;
 Future<void> intiAppModule()async{
-
+  // shared preferences
+  final SharedPreferences prefs = await SharedPreferences.getInstance();
+  instance.registerLazySingleton<SharedPreferences>(
+          () =>prefs);
 // remote data source
   instance.registerLazySingleton<FirebaseAuthentication>(
           () =>FirebaseAuthImpl());

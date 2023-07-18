@@ -7,6 +7,7 @@ import 'package:highway_gates/Authentication_feature/presentation/pages/onBoardi
 import 'package:highway_gates/Authentication_feature/presentation/pages/animation_screen.dart';
 import 'package:highway_gates/Authentication_feature/presentation/pages/splash_screen.dart';
 import 'package:highway_gates/Authentication_feature/presentation/pages/verification_screen.dart';
+import 'package:highway_gates/Traffic_Contraventions_feature/presentation/pages/my_vechiles_screen.dart';
 import 'package:highway_gates/Traffic_Contraventions_feature/presentation/pages/payment_screen.dart';
 import 'package:highway_gates/main.dart';
 
@@ -32,6 +33,7 @@ const String googleAuthRoute='/googleAuthRoute';
 /// traffic contraventions feature routes
 
 const String vehicleIdRoute='/vehicleIdRoute';
+const String myVehicleListRoute='/myVehicleListRoute';
 const String billingRoute='/billingRoute';
 const String paymentRoute='/paymentRoute';
 const String balanceRoute='/balanceRoute';
@@ -86,11 +88,13 @@ class NavigationRouter{
       case vehicleIdRoute:
         return MaterialPageRoute(builder: (_) => const VehicleIdScreen());
       case billingRoute:
-        return MaterialPageRoute(builder: (_) => const BillingScreen());
+        return MaterialPageRoute(builder: (_) => const BillingScreen(gharama: "400",));
       case paymentRoute:
         return MaterialPageRoute(builder: (_) => const PaymentScreen());
       case balanceRoute:
         return MaterialPageRoute(builder: (_) => const BalanceScreen(balance: "0.0 ",));
+      case myVehicleListRoute:
+        return MaterialPageRoute(builder: (_) => const MyVehicles());
       default:
         return MaterialPageRoute(
             builder: (_) => Scaffold(

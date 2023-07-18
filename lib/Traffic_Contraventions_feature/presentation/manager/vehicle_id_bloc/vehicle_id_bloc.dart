@@ -15,6 +15,10 @@ class VehicleIdBloc extends Bloc<VehicleIdEvent, VehicleIdState> {
         (event, emit) async {
           return handleVehicleIdSearchEvent(event, emit);
         } );
+
+    on<AddCarBtnClickedEvent>((event,emit)=>handleCarSelectedEvent(event,emit));
+
+
   }
 
   handleVehicleIdSearchEvent(
@@ -26,5 +30,13 @@ class VehicleIdBloc extends Bloc<VehicleIdEvent, VehicleIdState> {
       }
 
 
+  }
+
+  handleCarSelectedEvent(AddCarBtnClickedEvent event, Emitter<VehicleIdState> emit) {
+    if(event.vehicleId!.isNotEmpty){
+      emit(VehicleIdSuccess(message: "success",nationalId: event.nationalId,vehicleId: event.vehicleId));
+    }else{
+      emit(VehicleIdFailed(message: "failed"));
+    }
   }
 }

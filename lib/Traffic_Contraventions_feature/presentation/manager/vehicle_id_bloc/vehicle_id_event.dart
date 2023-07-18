@@ -8,3 +8,9 @@ class VehicleIdSearchEvent extends VehicleIdEvent{
 
   VehicleIdSearchEvent({required this.vehicleId,required this.nationalId});
 }
+class AddCarBtnClickedEvent extends VehicleIdEvent{
+  final String vehicleId;
+  final String nationalId;
+
+  AddCarBtnClickedEvent({required this.vehicleId,required this.nationalId});
+}

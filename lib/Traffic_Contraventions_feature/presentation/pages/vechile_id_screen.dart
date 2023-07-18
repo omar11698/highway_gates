@@ -9,6 +9,10 @@ import 'package:highway_gates/Core/constants/strings.dart';
 import 'package:highway_gates/Core/router/navigation_router.dart';
 import 'package:highway_gates/Traffic_Contraventions_feature/presentation/manager/vehicle_id_bloc/vehicle_id_bloc.dart';
 import 'package:highway_gates/Traffic_Contraventions_feature/presentation/pages/billing_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import '../../../Core/DI/dependency_injection.dart';
+
 
 class VehicleIdScreen extends StatefulWidget {
   const VehicleIdScreen({super.key});
@@ -24,6 +28,7 @@ class _VehicleIdScreenState extends State<VehicleIdScreen> {
 
   @override
   Widget build(BuildContext context) {
+
     var mobileSize = MediaQuery.of(context).size;
     var contentHeight = MediaQuery.of(context).size.height;
     return BlocProvider(
@@ -83,7 +88,7 @@ class _VehicleIdScreenState extends State<VehicleIdScreen> {
                       decoration: TextDecoration.none,
                       decorationColor: Colors.transparent,
                     ),
-                    textDirection: TextDirection.rtl,
+                    textDirection: TextDirection.ltr,
                     autofocus: true,
                     textAlign: TextAlign.right,
                   ),
@@ -157,12 +162,14 @@ class _VehicleIdScreenState extends State<VehicleIdScreen> {
                   DefaultButton(
                       mobileSize: mobileSize,
                       label: "استعلام",
-                      onTap: () {
+                      onTap: ()  {
+                        SharedPreferences prefs = instance();
                         FocusScope.of(context).unfocus();
                         if (_formKey.currentState!.validate()) {
                           _formKey.currentState!.save();
                           debugPrint(nationalId);
                           debugPrint(vehicleId);
+                          prefs.setString('CarVehicleId', vehicleId);
                           context.read<VehicleIdBloc>().add(
                               VehicleIdSearchEvent(
                                   vehicleId: vehicleId,
@@ -212,7 +219,6 @@ class VehicleIdTitle extends StatelessWidget {
 
 class RaqamLohetElMarkaba extends StatelessWidget {
   final Widget child;
-
   const RaqamLohetElMarkaba({
     super.key,
     required this.child,

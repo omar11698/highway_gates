@@ -13,7 +13,8 @@ import '../../../Core/constants/strings.dart';
 import '../../../Core/constants/svg_images.dart';
 
 class BillingScreen extends StatefulWidget {
-  const BillingScreen({super.key});
+  final gharama;
+  const BillingScreen({super.key, this.gharama});
 
   @override
   State<BillingScreen> createState() => _BillingScreenState();
@@ -25,8 +26,10 @@ class _BillingScreenState extends State<BillingScreen> {
   var avBalance =0;
   var oldBalance=0;
 
+
   @override
   Widget build(BuildContext context) {
+    ghrama=int.parse(widget.gharama)??400;
     //
     // var listOfNums=[0,50,250,500,0,];
     // var randomNumber=listOfNums[Random().nextInt(listOfNums.length)];
@@ -131,26 +134,6 @@ class _BillingScreenState extends State<BillingScreen> {
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.end,
                                 children: [
-                                  Text(
-                                    state.vehicleId,
-                                    style: const TextStyle(
-                                        color: Color(0xff3172DC),
-                                        fontWeight: FontWeight.w700,
-                                        fontSize: 26),
-                                  ),
-                                  const SizedBox(
-                                    width: 25,
-                                  ),
-                                  Text(
-                                    'مرحبا بك يا',
-                                    style: buildTextStyle(),
-                                  ),
-                                ],
-                              ),
-                              const SpaceBetween(),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                children: [
                                   Expanded(
                                     child: Text(
                                       state.nationalId,
@@ -168,6 +151,27 @@ class _BillingScreenState extends State<BillingScreen> {
                                   ),
                                 ],
                               ),
+                              const SpaceBetween(),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  Text(
+                                    state.vehicleId,
+                                    style: const TextStyle(
+                                        color: Color(0xff3172DC),
+                                        fontWeight: FontWeight.w700,
+                                        fontSize: 26),
+                                  ),
+                                  const SizedBox(
+                                    width: 25,
+                                  ),
+                                  Text(
+                                    'رقم اللوحة',
+                                    style: buildTextStyle(),
+                                  ),
+                                ],
+                              ),
+
                             ],
                           );
                         } else if (state is VehicleIdFailed) {
@@ -413,7 +417,8 @@ class _BillingScreenState extends State<BillingScreen> {
         elevation: 0,
         leading: InkWell(
             onTap: () {
-              Navigator.of(context).pushReplacementNamed(vehicleIdRoute);
+              Navigator.pop(context);
+              // Navigator.of(context).pushReplacementNamed(vehicleIdRoute);
             },
             child: const Icon(
               Icons.arrow_back,
