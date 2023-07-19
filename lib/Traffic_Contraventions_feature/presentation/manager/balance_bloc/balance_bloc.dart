@@ -17,13 +17,31 @@ class BalanceBloc extends Bloc<BalanceEvent, BalanceState> {
       handleAddCurrentBalanceAndPayWithBalanceEvent(event,emit);
     });
 
+    on<PayButtonClicked>((event,emit)=>handlePayButtonClickedEvent(event,emit));
+
+
+  }
+
+
+
+
+  handlePayButtonClickedEvent(PayButtonClicked event, Emitter<BalanceState> emit) {
+
+    if(event.balance!=0){
+      emit(PayWithBalanceSuccess(balance: event.balance.toString(), ghrama: 0.toString()));
+    }
+
+
+
+
+
   }
 }
 
 void handleAddCurrentBalanceAndPayWithBalanceEvent(AddCurrentBalanceAndPayWithBalanceEvent event, Emitter<BalanceState> emit) {
 emit(CalculatingBalance());
 if(int.parse(event.balance)>=0){
-  emit(BalanceCalculationSuccess(balance:event.balance,));
+  emit(BalanceCalculationSuccess(balance:event.balance, ghrama: null,));
 }
 
 else{
@@ -37,7 +55,7 @@ void handlePayWithBalanceEvent(PayWithBalanceEvent event, Emitter<BalanceState> 
   emit(CalculatingBalance());
 
   if(int.parse(event.balance)!=0){
-    emit(BalanceCalculationSuccess(balance:event.balance,));
+    emit(BalanceCalculationSuccess(balance:event.balance,ghrama:null));
   }
   else if (int.parse(event.balance)==0){
     emit(BalanceCalculationFailed());

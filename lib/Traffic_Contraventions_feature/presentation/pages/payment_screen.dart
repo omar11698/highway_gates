@@ -166,7 +166,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                             context
                                                 .read<BalanceBloc>()
                                                 .add(PayWithBalanceEvent(
-                                                  balance: newBalance.toString(),
+                                                  balance: newBalance.toString(), newGharama: '0',
                                                 ));
                                             // Navigator.pushReplacementNamed(
                                             //     context, billingRoute);
@@ -194,7 +194,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                             context
                                                 .read<BalanceBloc>()
                                                 .add(PayWithBalanceEvent(
-                                              balance: newBalance.toString(),
+                                              balance: newBalance.toString(), newGharama:null,
                                             ));
                                             Navigator.pushReplacementNamed(
                                                 context, billingRoute);

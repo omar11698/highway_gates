@@ -37,376 +37,421 @@ class _BillingScreenState extends State<BillingScreen> {
     var mobileSize = MediaQuery.of(context).size;
 
     return Scaffold(
+
       backgroundColor: Colors.white,
       appBar: _buildAppBar(context),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: [
-              const SizedBox(
-                height: 20,
-                width: double.infinity,
-              ),
-              Align(
-                alignment: Alignment.center,
-                child: SizedBox(
-                  height: mobileSize.height / 4,
-                  width: mobileSize.width * 0.4,
-                  child: FittedBox(
-                    fit: BoxFit.fill,
-                    child: SvgPicture.asset(
-                      logoSvgImg,
-                    ),
+      body: buildSingleChildScrollView(mobileSize, context),
+
+    );
+  }
+
+  SingleChildScrollView buildSingleChildScrollView(Size mobileSize, BuildContext context) {
+    return SingleChildScrollView(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 10.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: [
+            const SizedBox(
+              height: 20,
+              width: double.infinity,
+            ),
+
+            buildLogoSvgImg(mobileSize),
+
+            const SpaceBetween(),
+            const SpaceBetween(),
+            const SpaceBetween(),
+
+            buildBillingContent(mobileSize, context)
+
+          ],
+        ),
+      ),
+    );
+  }
+
+  Container buildBillingContent(Size mobileSize, BuildContext context) {
+    return Container(
+            height: mobileSize.height / 1.9,
+            padding: const EdgeInsets.all(10),
+            decoration: BoxDecoration(
+                border:
+                    Border.all(color: const Color(0xff304D82), width: 2),
+                borderRadius: BorderRadius.circular(8)),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                const SizedBox(
+                  height: 30,
+                  width: double.infinity,
+                ),
+                // Row(
+                //   mainAxisAlignment: MainAxisAlignment.end,
+                //   children: [
+                //     // Expanded(
+                //     //   child: SizedBox(
+                //     //       width: 165,
+                //     //       height: 50,
+                //     //       child: DateTimePicker(
+                //     //         initialValue: '',
+                //     //         firstDate: DateTime(2000),
+                //     //         lastDate: DateTime(2100),
+                //     //         dateLabelText: 'Date',
+                //     //         icon: const Icon(
+                //     //           Icons.calendar_month,
+                //     //           size: 30,
+                //     //         ),
+                //     //         onChanged: (val) {
+                //     //           isBeforePickDate=!isBeforePickDate;
+                //     //           setState(() {
+                //     //
+                //     //
+                //     //           });
+                //     //
+                //     //         },
+                //     //
+                //     //
+                //     //
+                //     //         validator: (val) {
+                //     //           print(val);
+                //     //           isBeforePickDate=!isBeforePickDate;
+                //     //           setState(() {
+                //     //
+                //     //           });
+                //     //           return null;
+                //     //         },
+                //     //         onSaved: (val) => print(val)),
+                //     //       ),
+                //     // ),
+                //     const SizedBox(
+                //       width: 100,
+                //     ),
+                //     Text(
+                //       strHistory,
+                //       style: buildTextStyle(),
+                //     ),
+                //   ],
+                // ),
+                BlocBuilder<VehicleIdBloc, VehicleIdState>(
+                  builder: (BuildContext context, state) {
+                    if (state is VehicleIdSuccess) {
+                      return Column(
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              Expanded(
+                                child: Text(
+                                  state.nationalId,
+                                  style: buildTextStyle(),
+                                ),
+                              ),
+                              // const Expanded(
+                              //   child: SizedBox(
+                              //     width: 100,
+                              //   ),
+                              // ),
+                              Text(
+                                'الرقم القومي',
+                                style: buildTextStyle(),
+                              ),
+                            ],
+                          ),
+                          const SpaceBetween(),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              Text(
+                                state.vehicleId,
+                                style: const TextStyle(
+                                    color: Color(0xff3172DC),
+                                    fontWeight: FontWeight.w700,
+                                    fontSize: 26),
+                              ),
+                              const SizedBox(
+                                width: 25,
+                              ),
+                              Text(
+                                'رقم اللوحة',
+                                style: buildTextStyle(),
+                              ),
+                            ],
+                          ),
+
+                        ],
+                      );
+                    } else if (state is VehicleIdFailed) {
+                      return const Text("somethingwentwrong");
+                    } else if (state is VehicleIdInitial) {
+                      return const Text('i am the initial state');
+                    } else {
+                      return const Text("data");
+                    }
+                  },
+                ),
+
+                const SpaceBetween(),
+                Align(
+                  alignment: Alignment.centerRight,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      const SizedBox(
+                        width: 10,
+                      ),
+                      BlocBuilder<BalanceBloc, BalanceState>(
+                      builder: (context, state) {
+                        if(state is PayWithBalanceSuccess){
+                          return Text(
+                            // '$elgharama ',
+                            "${state.ghrama??ghrama}",
+                            style: buildTextStyle(),
+                          );
+                        }
+                        return Text(
+                        // '$elgharama ',
+                        "$ghrama",
+                        style: buildTextStyle(),
+                      );
+  },
+),
+                      const SizedBox(
+                        width: 80,
+                      ),
+                      Text(
+                        strContravention,
+                        style: buildTextStyle(),
+                      ),
+                    ],
                   ),
                 ),
-              ),
-              const SpaceBetween(),
-              const SpaceBetween(),
-              const SpaceBetween(),
-              Container(
-                height: mobileSize.height / 1.9,
-                padding: const EdgeInsets.all(10),
-                decoration: BoxDecoration(
-                    border:
-                        Border.all(color: const Color(0xff304D82), width: 2),
-                    borderRadius: BorderRadius.circular(8)),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.end,
+                const SpaceBetween(),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    const SizedBox(
-                      height: 30,
-                      width: double.infinity,
-                    ),
-                    // Row(
-                    //   mainAxisAlignment: MainAxisAlignment.end,
-                    //   children: [
-                    //     // Expanded(
-                    //     //   child: SizedBox(
-                    //     //       width: 165,
-                    //     //       height: 50,
-                    //     //       child: DateTimePicker(
-                    //     //         initialValue: '',
-                    //     //         firstDate: DateTime(2000),
-                    //     //         lastDate: DateTime(2100),
-                    //     //         dateLabelText: 'Date',
-                    //     //         icon: const Icon(
-                    //     //           Icons.calendar_month,
-                    //     //           size: 30,
-                    //     //         ),
-                    //     //         onChanged: (val) {
-                    //     //           isBeforePickDate=!isBeforePickDate;
-                    //     //           setState(() {
-                    //     //
-                    //     //
-                    //     //           });
-                    //     //
-                    //     //         },
-                    //     //
-                    //     //
-                    //     //
-                    //     //         validator: (val) {
-                    //     //           print(val);
-                    //     //           isBeforePickDate=!isBeforePickDate;
-                    //     //           setState(() {
-                    //     //
-                    //     //           });
-                    //     //           return null;
-                    //     //         },
-                    //     //         onSaved: (val) => print(val)),
-                    //     //       ),
-                    //     // ),
-                    //     const SizedBox(
-                    //       width: 100,
+                    // InkWell(
+                    //   onTap: () {
+                    //     Navigator.of(context).pushNamed(paymentRoute);
+                    //   },
+                    //   child: const Text(
+                    //     strCheckOut,
+                    //     style: TextStyle(
+                    //         // Color(0xff3172DC)
+                    //         color: Color(0xff3172DC),
+                    //
+                    //         fontWeight: FontWeight.w300,
+                    //         fontSize: 18,
                     //     ),
-                    //     Text(
-                    //       strHistory,
-                    //       style: buildTextStyle(),
-                    //     ),
-                    //   ],
+                    //   ),
                     // ),
-                    BlocBuilder<VehicleIdBloc, VehicleIdState>(
-                      builder: (BuildContext context, state) {
-                        if (state is VehicleIdSuccess) {
-                          return Column(
-                            children: [
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                children: [
-                                  Expanded(
-                                    child: Text(
-                                      state.nationalId,
-                                      style: buildTextStyle(),
-                                    ),
-                                  ),
-                                  // const Expanded(
-                                  //   child: SizedBox(
-                                  //     width: 100,
-                                  //   ),
-                                  // ),
-                                  Text(
-                                    'الرقم القومي',
-                                    style: buildTextStyle(),
-                                  ),
-                                ],
-                              ),
-                              const SpaceBetween(),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                children: [
-                                  Text(
-                                    state.vehicleId,
-                                    style: const TextStyle(
-                                        color: Color(0xff3172DC),
-                                        fontWeight: FontWeight.w700,
-                                        fontSize: 26),
-                                  ),
-                                  const SizedBox(
-                                    width: 25,
-                                  ),
-                                  Text(
-                                    'رقم اللوحة',
-                                    style: buildTextStyle(),
-                                  ),
-                                ],
-                              ),
-
-                            ],
+                    const Expanded(
+                        child: SizedBox(
+                      width: 85,
+                    )),
+                    BlocBuilder<BalanceBloc, BalanceState>(
+                      builder: (context, state) {
+                        if (state is BalanceCalculationSuccess) {
+                          avBalance = int.parse(state.balance);
+                          return Text(
+                            "$avBalance",
+                            style: buildTextStyle(),
                           );
-                        } else if (state is VehicleIdFailed) {
-                          return const Text("somethingwentwrong");
-                        } else if (state is VehicleIdInitial) {
-                          return const Text('i am the initial state');
-                        } else {
-                          return const Text("data");
                         }
+                        else if (state is PayWithBalanceSuccess) {
+                          avBalance = int.parse(state.balance);
+                          return Text(
+                            "$avBalance",
+                            style: buildTextStyle(),
+                          );
+                        }
+                        return Text(
+                          "0",
+                          style: buildTextStyle(),
+                        );
                       },
                     ),
-
-                    const SpaceBetween(),
-                    Align(
-                      alignment: Alignment.centerRight,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          const SizedBox(
-                            width: 10,
-                          ),
-                          Text(
-                            // '$elgharama ',
-                            "$ghrama",
-                            style: buildTextStyle(),
-                          ),
-                          const SizedBox(
-                            width: 80,
-                          ),
-                          Text(
-                            strContravention,
-                            style: buildTextStyle(),
-                          ),
-                        ],
-                      ),
-                    ),
-                    const SpaceBetween(),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        // InkWell(
-                        //   onTap: () {
-                        //     Navigator.of(context).pushNamed(paymentRoute);
-                        //   },
-                        //   child: const Text(
-                        //     strCheckOut,
-                        //     style: TextStyle(
-                        //         // Color(0xff3172DC)
-                        //         color: Color(0xff3172DC),
-                        //
-                        //         fontWeight: FontWeight.w300,
-                        //         fontSize: 18,
-                        //     ),
-                        //   ),
-                        // ),
-                        const Expanded(
-                            child: SizedBox(
-                          width: 85,
-                        )),
-                        BlocBuilder<BalanceBloc, BalanceState>(
-                          builder: (context, state) {
-                            if (state is BalanceCalculationSuccess) {
-                              avBalance = int.parse(state.balance);
-                              return Text(
-                                "$avBalance",
-                                style: buildTextStyle(),
-                              );
-                            }
-                            return Text(
-                              "0",
-                              style: buildTextStyle(),
-                            );
-                          },
-                        ),
-                        const SizedBox(
-                          width: 17,
-                        ),
-                        InkWell(
-                          onTap: () {
-                            // Navigator.of(context).pushNamed(balanceRoute);
-                          },
-                          child: Text(
-                            strAvailableBalance,
-                            style: buildTextStyle(),
-                          ),
-                        ),
-                      ],
-                    ),
                     const SizedBox(
-                      height: 5,
+                      width: 17,
                     ),
-                    Align(
-                      alignment: Alignment.centerLeft,
-                      child: InkWell(
-                        onTap: () {
-                          context.read<BalanceBloc>().add(AddCurrentBalanceAndPayWithBalanceEvent(balance:avBalance.toString()));
-                          Navigator.of(context).pushNamed(paymentRoute);
-                        },
-                        child: const Text(
-                          strCheckOut,
-                          style: TextStyle(
-                            decoration: TextDecoration.underline,
-                            // Color(0xff3172DC)
-                            color: Color(0xff3172DC),
-
-                            fontWeight: FontWeight.w600,
-                            fontSize: 20,
-                          ),
-                        ),
-                      ),
-                    ),
-
-                    Expanded(
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 120.0, vertical: 25),
-                        child: DefaultButton(
-                            mobileSize: mobileSize,
-                            label: "دفع الغرامة",
-                            onTap: () {
-                              if (avBalance == 0||avBalance<ghrama) {
-                                showDialog(
-                                  context: context,
-                                  builder: (BuildContext context) {
-                                    return AlertDialog(
-                                      title: const Text('Failed'),
-                                      icon:
-                                          const Icon(Icons.sms_failed_rounded),
-                                      content:
-                                          const Text('الرجاء إعادة الشحن!'),
-                                      actions: [
-                                        DefaultButton(
-                                          mobileSize: mobileSize,
-                                          label: 'Ok',
-                                          onTap: () {
-                                            Navigator.of(context).pop();
-                                            // var calculatedBalance=avBalance-ghrama;
-                                            // if(calculatedBalance>=0) {
-                                            //   context.read<BalanceBloc>().add(
-                                            //       PayWithBalanceEvent(
-                                            //         balance: calculatedBalance
-                                            //             .toString(),));
-                                            // }
-                                            // ghrama=0;
-                                            // setState(() {
-                                            //
-                                            // });
-                                          },
-                                        ),
-                                      ],
-                                    );
-                                  },
-                                );
-                              } else if (avBalance != 0 && ghrama != 0&&avBalance>=ghrama) {
-                                showDialog(
-                                  context: context,
-                                  builder: (BuildContext context) {
-                                    return AlertDialog(
-                                      title: const Text('Success'),
-                                      icon: const Icon(Icons.done_outline),
-                                      content: const Text(
-                                          'Your operation was successful.'),
-                                      actions: [
-                                        DefaultButton(
-                                          mobileSize: mobileSize,
-                                          label: 'Ok',
-                                          onTap: () {
-                                            Navigator.of(context).pop();
-                                            var calculatedBalance =
-                                                avBalance - ghrama;
-                                            if (calculatedBalance >= 0) {
-                                              context
-                                                  .read<BalanceBloc>()
-                                                  .add(PayWithBalanceEvent(
-                                                    balance: calculatedBalance
-                                                        .toString(),
-                                                  ));
-                                            }
-                                            ghrama = 0;
-                                            setState(() {});
-                                          },
-                                        ),
-                                      ],
-                                    );
-                                  },
-                                );
-                              } else if (ghrama == 0) {
-                                showDialog(
-                                  context: context,
-                                  builder: (BuildContext context) {
-                                    return AlertDialog(
-                                      title: const Text('!لا توجد غرامة'),
-                                      icon: const Icon(
-                                          Icons.notification_important_rounded),
-                                      content: const Text('للرجوع اضغط الزر'),
-                                      contentPadding: const EdgeInsets.only(
-                                          left: 100, top: 20, bottom: 20),
-                                      actions: [
-                                        DefaultButton(
-                                          mobileSize: mobileSize,
-                                          label: 'Ok',
-                                          onTap: () {
-                                            Navigator.of(context).pop();
-                                            var calculatedBalance =
-                                                avBalance - ghrama;
-                                            if (calculatedBalance >= 0) {
-                                              context
-                                                  .read<BalanceBloc>()
-                                                  .add(PayWithBalanceEvent(
-                                                    balance: calculatedBalance
-                                                        .toString(),
-                                                  ));
-                                            }
-                                            ghrama = 0;
-                                            setState(() {});
-                                          },
-                                        ),
-                                      ],
-                                    );
-                                  },
-                                );
-                              }
-
-                              // Navigator.of(context).pushReplacementNamed(billingRoute);
-                            }),
+                    InkWell(
+                      onTap: () {
+                        // Navigator.of(context).pushNamed(balanceRoute);
+                      },
+                      child: Text(
+                        strAvailableBalance,
+                        style: buildTextStyle(),
                       ),
                     ),
                   ],
                 ),
-              )
-            ],
-          ),
-        ),
-      ),
-    );
+                const SizedBox(
+                  height: 5,
+                ),
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: InkWell(
+                    onTap: () {
+                      context.read<BalanceBloc>().add(AddCurrentBalanceAndPayWithBalanceEvent(balance:avBalance.toString()));
+                      Navigator.of(context).pushNamed(paymentRoute);
+                    },
+                    child: const Text(
+                      strCheckOut,
+                      style: TextStyle(
+                        decoration: TextDecoration.underline,
+                        // Color(0xff3172DC)
+                        color: Color(0xff3172DC),
+
+                        fontWeight: FontWeight.w600,
+                        fontSize: 20,
+                      ),
+                    ),
+                  ),
+                ),
+
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 120.0, vertical: 25),
+                    child: DefaultButton(
+                        mobileSize: mobileSize,
+                        label: "دفع الغرامة",
+                        onTap: () {
+                          if (avBalance == 0||avBalance<ghrama) {
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return AlertDialog(
+                                  title: const Text('Failed'),
+                                  icon:
+                                      const Icon(Icons.sms_failed_rounded),
+                                  content:
+                                      const Text('الرجاء إعادة الشحن!'),
+                                  actions: [
+                                    DefaultButton(
+                                      mobileSize: mobileSize,
+                                      label: 'Ok',
+                                      onTap: () {
+
+                                        Navigator.of(context).pop();
+                                        // var calculatedBalance=avBalance-ghrama;
+                                        // if(calculatedBalance>=0) {
+                                        //   context.read<BalanceBloc>().add(
+                                        //       PayWithBalanceEvent(
+                                        //         balance: calculatedBalance
+                                        //             .toString(),));
+                                        // }
+                                        // ghrama=0;
+                                        // setState(() {
+                                        //
+                                        // });
+                                      },
+                                    ),
+                                  ],
+                                );
+                              },
+                            );
+                          } else if (avBalance != 0 && ghrama != 0&&avBalance>=ghrama) {
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return AlertDialog(
+                                  title: const Text('Success'),
+                                  icon: const Icon(Icons.done_outline),
+                                  content: const Text(
+                                      'Your operation was successful.'),
+                                  actions: [
+                                    DefaultButton(
+                                      mobileSize: mobileSize,
+                                      label: 'Ok',
+                                      onTap: () {
+                                        Navigator.of(context).pop();
+                                        var calculatedBalance =
+                                            avBalance - ghrama;
+                                        print("xxxxxxxxxxxxxxxx$avBalance this is the ghrama :$ghrama ");
+                                        if (calculatedBalance >= 0) {
+                                          context
+                                              .read<BalanceBloc>()
+                                              .add(PayWithBalanceEvent(
+                                                balance: calculatedBalance
+                                                    .toString(),
+                                            newGharama: "0",
+                                              ));context
+                                              .read<BalanceBloc>()
+                                              .add(PayButtonClicked(
+                                                balance: calculatedBalance,
+                                            ghrama: ghrama,
+                                              ));
+                                        }
+                                        // ghrama = 0;
+                                        // setState(() {});
+                                      },
+                                    ),
+                                  ],
+                                );
+                              },
+                            );
+                          } else if (ghrama == 0) {
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return AlertDialog(
+                                  title: const Text('!لا توجد غرامة'),
+                                  icon: const Icon(
+                                      Icons.notification_important_rounded),
+                                  content: const Text('للرجوع اضغط الزر'),
+                                  contentPadding: const EdgeInsets.only(
+                                      left: 100, top: 20, bottom: 20),
+                                  actions: [
+                                    DefaultButton(
+                                      mobileSize: mobileSize,
+                                      label: 'Ok',
+                                      onTap: () {
+                                        Navigator.of(context).pop();
+                                        var calculatedBalance =
+                                            avBalance - ghrama;
+                                        if (calculatedBalance >= 0) {
+                                          context
+                                              .read<BalanceBloc>()
+                                              .add(PayWithBalanceEvent(
+                                                balance: calculatedBalance
+                                                    .toString(),
+                                            newGharama: "0"
+                                              ));
+                                        }
+                                        ghrama = 0;
+                                        setState(() {});
+                                      },
+                                    ),
+                                  ],
+                                );
+                              },
+                            );
+                          }
+
+                          // Navigator.of(context).pushReplacementNamed(billingRoute);
+                        }),
+                  ),
+                ),
+              ],
+            ),
+          );
+  }
+
+  Align buildLogoSvgImg(Size mobileSize) {
+    return Align(
+            alignment: Alignment.center,
+            child: SizedBox(
+              height: mobileSize.height / 4,
+              width: mobileSize.width * 0.4,
+              child: FittedBox(
+                fit: BoxFit.fill,
+                child: SvgPicture.asset(
+                  logoSvgImg,
+                ),
+              ),
+            ),
+          );
   }
 
   TextStyle buildTextStyle() => const TextStyle(

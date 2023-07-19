@@ -39,6 +39,9 @@ class _MyVehiclesState extends State<MyVehicles> {
   AppBar buildAppBar() => AppBar(
         elevation: 0,
         backgroundColor: Colors.white,
+
+        centerTitle: false,
+    title:Text("Select from your cars",style: TextStyle(color: Color(0xff7474BF) ,fontWeight: FontWeight.bold),textAlign: TextAlign.left,),
       );
 }
 
@@ -72,9 +75,9 @@ class CarsListWidget extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text("${listOfVehicles[index].platteNumber}",style: TextStyle(fontSize: 26,color: Theme.of(context).primaryColor),),
-                  Text("${listOfVehicles[index].ownerNationalID}",style: TextStyle(fontSize: 26),),
-                  SizedBox(height: 20,),
+                  Text(listOfVehicles[index].platteNumber,style: TextStyle(fontSize: 26,color: Color(0xff7474BF)),),
+                  Text(listOfVehicles[index].ownerNationalID,style: const TextStyle(fontSize: 26),),
+                  const SizedBox(height: 20,),
 
                 ],
               ),

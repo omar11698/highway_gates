@@ -7,7 +7,13 @@ class BalanceInitial extends BalanceState {}
 class CalculatingBalance extends BalanceState{}
 class BalanceCalculationSuccess extends BalanceState {
   final String balance;
-  BalanceCalculationSuccess({required this.balance,});
+  final String? ghrama;
+  BalanceCalculationSuccess({required this.balance,required this.ghrama,});
 }
 class BalanceCalculationFailed extends BalanceState {}
 
+class PayWithBalanceSuccess extends BalanceState {
+  final String balance;
+  final String? ghrama;
+  PayWithBalanceSuccess({required this.balance,required this.ghrama,});
+}
