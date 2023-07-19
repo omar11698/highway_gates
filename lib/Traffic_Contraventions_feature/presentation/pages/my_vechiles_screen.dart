@@ -15,7 +15,7 @@ class MyVehicles extends StatefulWidget {
 }
 
 class _MyVehiclesState extends State<MyVehicles> {
-  List<Vehicle> listOfVehicles=[Vehicle(platteNumber: "first car ", ownerNationalID: "29806110102457", gharama: '200'),Vehicle(platteNumber: "second car", ownerNationalID: "29806110102456", gharama: '600'),];
+  List<Vehicle> listOfVehicles=[Vehicle(platteNumber: "ع ك ل ١ ٢ ٤ ", ownerNationalID: "29806110102457", gharama: '200', id: 1),Vehicle(platteNumber: "و د ل ٢ ٢ ٥", ownerNationalID: "29806110102456", gharama: '600', id: 2),];
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +28,7 @@ class _MyVehiclesState extends State<MyVehicles> {
 
   FloatingActionButton buildFloatingActionButton() {
     return FloatingActionButton(onPressed: (){
-      listOfVehicles.add(Vehicle(platteNumber: "platteNumber", ownerNationalID: "ownerNationalID", gharama: "gharama"));
+      listOfVehicles.add(Vehicle(platteNumber: "platteNumber", ownerNationalID: "ownerNationalID", gharama: "gharama", id: 1));
       setState(() {
 
       });
@@ -41,7 +41,7 @@ class _MyVehiclesState extends State<MyVehicles> {
         backgroundColor: Colors.white,
 
         centerTitle: false,
-    title:Text("Select from your cars",style: TextStyle(color: Color(0xff7474BF) ,fontWeight: FontWeight.bold),textAlign: TextAlign.left,),
+    title:Text("Select from your cars",style: TextStyle(color: Colors.blue ,fontWeight: FontWeight.bold),textAlign: TextAlign.left,),
       );
 }
 
@@ -75,7 +75,10 @@ class CarsListWidget extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(listOfVehicles[index].platteNumber,style: TextStyle(fontSize: 26,color: Color(0xff7474BF)),),
+                  Text(
+                    "Car No: ${listOfVehicles[index].id.toString()??0}",style: TextStyle(fontSize: 26,color: Colors.blue,fontWeight: FontWeight.bold),),
+                  SizedBox(height: 10,),
+                  Text(listOfVehicles[index].platteNumber,style: TextStyle(fontSize: 26,),),
                   Text(listOfVehicles[index].ownerNationalID,style: const TextStyle(fontSize: 26),),
                   const SizedBox(height: 20,),
 

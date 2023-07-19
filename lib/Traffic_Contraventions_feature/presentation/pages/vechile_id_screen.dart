@@ -178,6 +178,12 @@ class _VehicleIdScreenState extends State<VehicleIdScreen> {
                         }
 
                       }),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                   InkWell( onTap:(){
+                     Navigator.pushNamed(context, myVehicleListRoute);
+                   },child: Align(alignment:Alignment.centerLeft,child: Text("اختر سيارة مسجلة",style: TextStyle(color: Colors.blue,fontSize: 16),)))
                 ],
               ),
             ),

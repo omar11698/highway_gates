@@ -32,7 +32,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         onGenerateRoute: NavigationRouter.generateRoute,
-        initialRoute: myVehicleListRoute,
+        initialRoute: splashRoute,
         title: 'Highway Gates',
         theme: ThemeData(
           primarySwatch: Colors.blue,
